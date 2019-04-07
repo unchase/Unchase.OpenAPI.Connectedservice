@@ -30,7 +30,7 @@ The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](http
 
 # Getting Started
 
-Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
+Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
 
 ![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
 
