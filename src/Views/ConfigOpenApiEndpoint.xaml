@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="Unchase.OpenAPI.ConnectedService.Views.ConfigOpenApiEndpoint"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
+             xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Commands"
+             xmlns:converters="clr-namespace:Unchase.OpenAPI.ConnectedService.Converters"
+             d:DataContext="{d:DesignInstance Type=viewModels:ConfigOpenApiEndpointViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="768">
+    <UserControl.Resources>
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter"/>
+        <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand"/>
+    </UserControl.Resources>
+    <StackPanel HorizontalAlignment="Stretch" Margin="0, 0, 0, 0" VerticalAlignment="Top">
+        <TextBlock Margin="0, 5, 10, 5" Text="Runtime :" TextWrapping="Wrap" FontWeight="Bold" />
+        <ComboBox SelectedItem="{Binding UserSettings.Runtime, Mode=TwoWay}" 
+                  ItemsSource="{Binding Runtimes}" Margin="0, 5, 10, 5" />
+        <TextBlock Text="Specifies the used command line binary; should match the selected assembly type." 
+                   TextWrapping="Wrap" Margin="20, 5, 10, 5" />
+
+        <TextBlock Margin="0, 5, 10, 5" Text="Default Variables ('foo=bar,baz=bar'), usage: $(foo) :" TextWrapping="Wrap" FontWeight="Bold" />
+        <TextBox Margin="20, 5, 10, 5" Text="{Binding UserSettings.Variables}" />
+
+
+        <TextBlock FontWeight="Bold" Text="Service name :"
+                   HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+        <TextBox x:Name="ServiceName" Text="{Binding Path=ServiceName, Mode=TwoWay}"
+                 HorizontalAlignment="Stretch" Margin="20, 5, 10, 5" />
+
+        <TextBlock FontWeight="Bold" Text="OpenAPI (Swagger) json-specification URI (path) :"
+                   HorizontalAlignment="Stretch" Margin="0, 5, 10, 5">
+        </TextBlock>
+        <CheckBox x:Name="CopySpecification" IsChecked="{Binding Path=UserSettings.CopySpecification, Mode=TwoWay}" FontWeight="Bold"
+                  HorizontalAlignment="Stretch" Content="Copy OpenAPI (Swagger) json-specification to nswag-file." Margin="20, 5, 10, 5" />
+        <ComboBox x:Name="Endpoint" 
+                  Margin="20, 5, 10, 0" IsEditable="True"
+                  HorizontalAlignment="Stretch"
+                  ToolTip="{Binding Path=EndpointDescription, TargetNullValue='Enter your specification endpoint...'}"
+                  ItemsSource="{Binding Path=UserSettings.MruEndpoints}"
+                  Text="{Binding Path=Endpoint, TargetNullValue='Enter your specification endpoint...' }"/>
+        
+        <CheckBox x:Name="GenerateCSharpClient" IsChecked="{Binding UserSettings.GenerateCSharpClient, Mode=TwoWay}" 
+                  ToolTip="Generate CSharp Client"
+                  Content="Generate CSharp Client."
+                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="20, 10, 0, 0"
+                  Checked="GenerateCSharpClient_OnChecked"
+                  Unchecked="GenerateCSharpClient_OnUnchecked"/>
+
+        <CheckBox x:Name="GenerateTypeScriptClient" IsChecked="{Binding UserSettings.GenerateTypeScriptClient, Mode=TwoWay}" 
+                  ToolTip="Generate TypeScript Client"
+                  Content="Generate TypeScript Client."
+                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="20, 10, 0, 0"
+                  Checked="GenerateTypeScriptClient_OnChecked"
+                  Unchecked="GenerateTypeScriptClient_OnUnchecked"/>
+
+        <CheckBox x:Name="GenerateCSharpController" IsChecked="{Binding UserSettings.GenerateCSharpController, Mode=TwoWay}" 
+                  ToolTip="Generate CSharp Controller"
+                  Content="Generate CSharp Controller."
+                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="20, 10, 0, 0"
+                  Checked="GenerateCSharpController_OnChecked"
+                  Unchecked="GenerateCSharpController_OnUnchecked"/>
+
+        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 10, 5">
+            <Bold>Network credentials</Bold> (<Hyperlink Name="NetworkCredentialsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=NetworkCredentialsPanel}">
+                <TextBlock TextWrapping="WrapWithOverflow" Name="NetworkCredentialsHyperlinkText" Text="{Binding ElementName=NetworkCredentialsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
+        </TextBlock>
+        <StackPanel x:Name="NetworkCredentialsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
+            <CheckBox x:Name="UseNetworkCredentials" 
+                      IsChecked="{Binding UseNetworkCredentials, Mode=TwoWay}"
+                      Content="Use network credentials for connecting to the endpoint."
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Bottom" 
+                      Margin="0, 5, 5, 5">
+            </CheckBox>
+            <StackPanel Visibility="{Binding ElementName=UseNetworkCredentials, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Margin="23,0,0,0">
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock x:Name="NetworkCredentialsUserNameLabel" Text="UserName :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                    <TextBox x:Name="NetworkCredentialsUserName" Text="{Binding NetworkCredentialsUserName, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                </DockPanel>
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock x:Name="NetworkCredentialsPasswordLabel" Text="Password :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                    <TextBox x:Name="NetworkCredentialsPassword" Text="{Binding NetworkCredentialsPassword, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                </DockPanel>
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock x:Name="NetworkCredentialsDomainLabel" Text="Domain :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                    <TextBox x:Name="NetworkCredentialsDomain" Text="{Binding NetworkCredentialsDomain, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 10, 5">
+            <Bold>Web Proxy</Bold> (<Hyperlink Name="WebProxyHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=WebProxyPanel}">
+                <TextBlock TextWrapping="WrapWithOverflow" Name="WebProxyHyperlinkText" Text="{Binding ElementName=WebProxyPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
+        </TextBlock>
+        <StackPanel x:Name="WebProxyPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
+            <CheckBox x:Name="UseWebProxy" 
+                      IsChecked="{Binding UseWebProxy, Mode=TwoWay}"
+                      Content="Use web-proxy for connecting to the endpoint."
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Bottom" 
+                      Margin="0, 5, 10, 5">
+            </CheckBox>
+            <StackPanel Visibility="{Binding ElementName=UseWebProxy, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Margin="25,0,0,0" IsEnabled="{Binding ElementName=UseWebProxy, Path=IsChecked}">
+                <TextBlock Text="Web-proxy URI :"
+                       HorizontalAlignment="Stretch" Margin="0, 5, 10, 0"/>
+                <TextBox x:Name="WebProxyUri" Text="{Binding Path=WebProxyUri, Mode=TwoWay}"
+                     HorizontalAlignment="Stretch" Margin="0, 10, 10, 5" />
+
+                <CheckBox x:Name="UseWebProxyCredentials" 
+                          IsChecked="{Binding UseWebProxyCredentials, Mode=TwoWay}"
+                          Content="Use web-proxy credentials for connecting to the endpoint."
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Bottom" 
+                          Margin="0, 10, 5, 5">
+                </CheckBox>
+                <StackPanel Visibility="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Margin="23,0,0,0" IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock x:Name="WebProxyNetworkCredentialsUserNameLabel" Text="UserName :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                        <TextBox x:Name="WebProxyNetworkCredentialsUserName" Text="{Binding WebProxyNetworkCredentialsUserName, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                    </DockPanel>
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock x:Name="WebProxyNetworkCredentialsPasswordLabel" Text="Password :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                        <TextBox x:Name="WebProxyNetworkCredentialsPassword" Text="{Binding WebProxyNetworkCredentialsPassword, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                    </DockPanel>
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock x:Name="WebProxyNetworkCredentialsDomainLabel" Text="Domain :" HorizontalAlignment="Left" Margin="0, 5, 10, 5" Width="80"></TextBlock>
+                        <TextBox x:Name="WebProxyNetworkCredentialsDomain" Text="{Binding WebProxyNetworkCredentialsDomain, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
+                    </DockPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
