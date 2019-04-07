@@ -34,7 +34,8 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 
 ![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
 
-#Settings Meaning
+# Settings Meaning
+
 Meaning of the Unchase OpenAPI (Swagger) Connected Service settings according to [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio):
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
@@ -55,5 +56,5 @@ Please feel free to [request a feature](https://github.com/unchase/Unchase.OpenA
 
 ----------
 
-Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.MD).
+Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.md).
 
