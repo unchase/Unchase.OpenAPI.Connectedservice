@@ -36,6 +36,12 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         [DataMember]
         public bool CopySpecification { get; set; } = false;
 
+        [DataMember]
+        public string Endpoint { get; set; }
+
+        [DataMember]
+        public string ServiceName { get; set; }
+
         private UserSettings()
         {
             this.MruEndpoints = new ObservableCollection<string>();

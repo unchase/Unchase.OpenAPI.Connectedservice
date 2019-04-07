@@ -46,8 +46,8 @@ namespace Unchase.OpenAPI.ConnectedService
             if (this.Context.IsUpdating)
             {
                 var serviceConfig = this.Context.GetExtendedDesignerData<ServiceConfiguration>();
-                ConfigOpenApiEndpointViewModel.Endpoint = serviceConfig.Endpoint;
-                ConfigOpenApiEndpointViewModel.ServiceName = serviceConfig.ServiceName;
+                ConfigOpenApiEndpointViewModel.Endpoint = this._userSettings.Endpoint;
+                ConfigOpenApiEndpointViewModel.ServiceName = this._userSettings.ServiceName;
                 ConfigOpenApiEndpointViewModel.UseWebProxy = serviceConfig.UseWebProxy;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain = serviceConfig.NetworkCredentialsDomain;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsUserName = serviceConfig.NetworkCredentialsUserName;
@@ -105,7 +105,7 @@ namespace Unchase.OpenAPI.ConnectedService
         {
             this._userSettings.Save();
 
-            this.ServiceInstance.Name = ConfigOpenApiEndpointViewModel.ServiceName;
+            this.ServiceInstance.Name = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName;
             this.ServiceInstance.SpecificationTempPath = ConfigOpenApiEndpointViewModel.SpecificationTempPath;
             this.ServiceInstance.ServiceConfig = this.CreateServiceConfiguration();
 
@@ -145,8 +145,8 @@ namespace Unchase.OpenAPI.ConnectedService
         {
             var serviceConfiguration = new ServiceConfiguration
             {
-                ServiceName = ConfigOpenApiEndpointViewModel.ServiceName,
-                Endpoint = ConfigOpenApiEndpointViewModel.Endpoint,
+                ServiceName = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
+                Endpoint = ConfigOpenApiEndpointViewModel.UserSettings.Endpoint,
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,
                 GenerateCSharpClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpClient,
                 GenerateCSharpController = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpController,

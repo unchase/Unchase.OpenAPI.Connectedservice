@@ -48,10 +48,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.Description = "Enter or choose an OpenAPI (Swagger) specification endpoint and check generation options to begin";
             this.Legend = "Specification Endpoint";
             this.InternalWizard = wizard;
-            this.View = new ConfigOpenApiEndpoint(this.InternalWizard);
-            this.ServiceName = Constants.DefaultServiceName;
-            this.View.DataContext = this;
+            this.View = new ConfigOpenApiEndpoint(this.InternalWizard) {DataContext = this};
             this.UserSettings = userSettings;
+            this.ServiceName = userSettings.ServiceName ?? Constants.DefaultServiceName;
+            this.Endpoint = userSettings.Endpoint;
             this.UseNetworkCredentials = false;
             this.UseWebProxy = false;
             this.UseWebProxyCredentials = false;
@@ -93,10 +93,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         internal async Task<string> GetSpecification()
         {
-            if (string.IsNullOrEmpty(this.Endpoint))
+            if (string.IsNullOrEmpty(this.UserSettings.Endpoint))
                 throw new ArgumentNullException("OpenAPI (Swagger) Specification Endpoint", "Please input the OpenAPI (Swagger) specification endpoint.");
 
-            if (!this.Endpoint.EndsWith(".json", StringComparison.Ordinal))
+            if (!this.UserSettings.Endpoint.EndsWith(".json", StringComparison.Ordinal))
                 throw new ArgumentException("Please input the OpenAPI (Swagger) specification endpoint ends with \".json\".", "OpenAPI (Swagger) Specification Endpoint");
 
             var workFile = Path.GetTempFileName();
@@ -104,7 +104,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             try
             {
                 // from url
-                if (this.Endpoint.StartsWith("http://", StringComparison.Ordinal) || this.Endpoint.StartsWith("https://", StringComparison.Ordinal))
+                if (this.UserSettings.Endpoint.StartsWith("http://", StringComparison.Ordinal) || this.UserSettings.Endpoint.StartsWith("https://", StringComparison.Ordinal))
                 {
                     var proxy = this.UseWebProxy ? new WebProxy(this.WebProxyUri, true) : WebProxy.GetDefaultProxy();
                     proxy.Credentials = this.UseWebProxy && this.UseWebProxyCredentials
@@ -129,7 +129,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
                     using (var httpClient = new HttpClient(httpHandler))
                     {
-                        var specificationJson = await httpClient.GetStringAsync(this.Endpoint);
+                        var specificationJson = await httpClient.GetStringAsync(this.UserSettings.Endpoint);
                         if (string.IsNullOrWhiteSpace(specificationJson))
                             throw new InvalidOperationException("The json-file is an empty file.");
 
@@ -141,10 +141,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 }
                 else // from local path
                 {
-                    if (!File.Exists(this.Endpoint))
+                    if (!File.Exists(this.UserSettings.Endpoint))
                         throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
 
-                    var specificationJson = File.ReadAllText(this.Endpoint);
+                    var specificationJson = File.ReadAllText(this.UserSettings.Endpoint);
                     if (!IsJson(specificationJson))
                         throw new InvalidOperationException("Service endpoint is not an json-file.");
 
@@ -155,11 +155,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             }
             catch (WebException e)
             {
-                throw new InvalidOperationException($"Cannot access \"{this.Endpoint}\". {e.Message}", e);
+                throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException($"Cannot access \"{this.Endpoint}\". {e.Message}", e);
+                throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
             }
         }
 

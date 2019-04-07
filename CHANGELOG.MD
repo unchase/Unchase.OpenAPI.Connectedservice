@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.0.5 `(2019-05-07)`
+
+- [x] Storage last OpenAPI (Swagger) specification *Endpoint* and *Service name*
+
 ## v1.0.0 `(2019-04-07)`
 
 - [x] Add required dependencies for the `C#` client 

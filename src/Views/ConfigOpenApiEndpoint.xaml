@@ -27,7 +27,7 @@
 
         <TextBlock FontWeight="Bold" Text="Service name :"
                    HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>
-        <TextBox x:Name="ServiceName" Text="{Binding Path=ServiceName, Mode=TwoWay}"
+        <TextBox x:Name="ServiceName" Text="{Binding Path=UserSettings.ServiceName, Mode=TwoWay}"
                  HorizontalAlignment="Stretch" Margin="20, 5, 10, 5" />
 
         <TextBlock FontWeight="Bold" Text="OpenAPI (Swagger) json-specification URI (path) :"
@@ -40,7 +40,7 @@
                   HorizontalAlignment="Stretch"
                   ToolTip="{Binding Path=EndpointDescription, TargetNullValue='Enter your specification endpoint...'}"
                   ItemsSource="{Binding Path=UserSettings.MruEndpoints}"
-                  Text="{Binding Path=Endpoint, TargetNullValue='Enter your specification endpoint...' }"/>
+                  Text="{Binding Path=UserSettings.Endpoint, Mode=TwoWay, TargetNullValue='Enter your specification endpoint...' }"/>
         
         <CheckBox x:Name="GenerateCSharpClient" IsChecked="{Binding UserSettings.GenerateCSharpClient, Mode=TwoWay}" 
                   ToolTip="Generate CSharp Client"
