@@ -15,15 +15,21 @@
         <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand"/>
     </UserControl.Resources>
     <StackPanel HorizontalAlignment="Stretch" Margin="0, 0, 0, 0" VerticalAlignment="Top">
-        <TextBlock Margin="0, 5, 10, 5" Text="Runtime :" TextWrapping="Wrap" FontWeight="Bold" />
-        <ComboBox SelectedItem="{Binding UserSettings.Runtime, Mode=TwoWay}" 
-                  ItemsSource="{Binding Runtimes}" Margin="0, 5, 10, 5" />
-        <TextBlock Text="Specifies the used command line binary; should match the selected assembly type." 
-                   TextWrapping="Wrap" Margin="20, 5, 10, 5" />
+        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 10, 5">
+            <Bold>Runtime and variables</Bold> (<Hyperlink Name="RuntimeAndVariablesHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=RuntimeAndVariablesPanel}">
+                <TextBlock TextWrapping="WrapWithOverflow" Name="RuntimeAndVariablesHyperlinkText" Text="{Binding ElementName=RuntimeAndVariablesPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
+        </TextBlock>
+        <StackPanel x:Name="RuntimeAndVariablesPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
+            <TextBlock Margin="0, 5, 10, 5" Text="Runtime :" TextWrapping="Wrap" FontWeight="Bold" />
+            <ComboBox SelectedItem="{Binding UserSettings.Runtime, Mode=TwoWay}" 
+                      ItemsSource="{Binding Runtimes}" Margin="0, 5, 10, 5" />
+            <TextBlock Text="Specifies the used command line binary; should match the selected assembly type." 
+                       TextWrapping="Wrap" Margin="20, 5, 10, 5" />
 
-        <TextBlock Margin="0, 5, 10, 5" Text="Default Variables ('foo=bar,baz=bar'), usage: $(foo) :" TextWrapping="Wrap" FontWeight="Bold" />
-        <TextBox Margin="20, 5, 10, 5" Text="{Binding UserSettings.Variables}" />
+            <TextBlock Margin="0, 5, 10, 5" Text="Default Variables ('foo=bar,baz=bar'), usage: $(foo) :" TextWrapping="Wrap" FontWeight="Bold" />
+            <TextBox Margin="20, 5, 10, 5" Text="{Binding UserSettings.Variables}" />
 
+        </StackPanel>
 
         <TextBlock FontWeight="Bold" Text="Service name :"
                    HorizontalAlignment="Stretch" Margin="0, 5, 10, 5"/>

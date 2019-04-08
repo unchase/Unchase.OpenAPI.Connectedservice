@@ -7,7 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
-## v1.0.5 `(2019-05-07)`
+## v1.0.6 `(2019-05-08)`
+
+- [x] Added ability to hide/show "Runtime and variables" settings in the first page of service settings wizard
+
+## v1.0.5 `(2019-05-08)`
 
 - [x] Storage last OpenAPI (Swagger) specification *Endpoint* and *Service name*
 
@@ -18,4 +22,4 @@ These are the changes to each version that has been released on the official [Vi
 - [x] Add `Settings Meaning` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
 - [x] Add `Troubleshooting` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
 - [x] Add `Getting Started` overview to GitHub [`README`](https://github.com/unchase/Unchase.OpenAPI.ConnectedService/)
-- [x] Release version of `Unchase OpenAPI (Swagger API) Connected Service` extension for VS2017/2019 on [Visual Studio Marketplace](https://marketplace.visualstudio.com/) 
+- [x] Release version of `Unchase OpenAPI (Swagger API) Connected Service` extension for VS2017/2019 on [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService) 

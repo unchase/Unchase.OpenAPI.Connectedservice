@@ -30,9 +30,12 @@ The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](http
 
 # Getting Started
 
+[![VS Marketplace](http://vsmarketplacebadge.apphb.com/version-short/unchase.UnchaseOpenAPIConnectedService.svg)](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService) [![VS Marketplace Installs](http://vsmarketplacebadge.apphb.com/installs-short/unchase.UnchaseOpenAPIConnectedService.svg)](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService) [![VS Marketplace Downloads](http://vsmarketplacebadge.apphb.com/downloads-short/unchase.UnchaseOpenAPIConnectedService.svg)](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)
+
 Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
 
 ![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
+
 
 # Settings Meaning
 
@@ -45,7 +48,7 @@ Meaning of the Unchase OpenAPI (Swagger) Connected Service settings according to
 
 # Troubleshooting
 ## Can't open .nswag file in NSwagStudio
-  - If generated code corrupted, try to open `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) (Windows GUI for editing .*nswag files). 
+- If generated code corrupted, try to open `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) (Windows GUI for editing .*nswag files). 
 - If it doesn't open, try to create new `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) for the same API service link and check the differences.
 
 # Roadmap
@@ -56,5 +59,5 @@ Please feel free to [request a feature](https://github.com/unchase/Unchase.OpenA
 
 ----------
 
-Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.md).
+Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.MD).
 
