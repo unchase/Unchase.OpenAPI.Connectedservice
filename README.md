@@ -59,5 +59,5 @@ Please feel free to [request a feature](https://github.com/unchase/Unchase.OpenA
 
 ----------
 
-Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.MD).
+Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.md).
 
