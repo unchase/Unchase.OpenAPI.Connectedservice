@@ -43,13 +43,38 @@ Meaning of the Unchase OpenAPI (Swagger) Connected Service settings according to
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
 
+# Open in NSwagStudio Command
+
+Since *v1.1.** was added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
+
+This extension is for those times where you generate `.nswag` and `.nswag.json` files and you want to be able to quickly open it in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
+
+## Prerequisite
+
+In order to use this extension, you must have [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017/2019, this connected service as well as [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) installed.
+
+## Solution Explorer
+
+You can open `.nswag` and `.nswag.json` files in NSwagStudio by simply right-clicking it in Solution Explorer and select **Open in NSwagStudio**:
+
+![Open in NSwagStudio menu command](img/OpenWithNSwagCommandMenu.png)
+
+## Path to NSwagStudio.exe
+
+If you installed [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) at a non-default location, a prompt will ask for the path to `NSwagStudio.exe`.
+
+You can always change the location in *Tools -> Options -> Web -> Open In NSwagStudio*:
+
+![Open in NSwagStudio Option](img/OpenWithNSwagCommandOptions.png)
+
 # HowTos
 - [ ] Add HowTos in a future
 
 # Troubleshooting
 ## Can't open .nswag file in NSwagStudio
-- If generated code corrupted, try to open `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) (Windows GUI for editing .*nswag files). 
-- If it doesn't open, try to create new `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) for the same API service link and check the differences.
+- You can use **Open in NSwagStudio** menu command
+- If generated code corrupted, try to open `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) (Windows GUI for editing .*nswag files)
+- If it doesn't open, try to create new `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) for the same API service link and check the differences
 
 # Roadmap
 See the [changelog](CHANGELOG.MD) for the further development plans and version history.

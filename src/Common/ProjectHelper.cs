@@ -1,4 +1,7 @@
-﻿using EnvDTE;
+﻿using System;
+using System.Collections.Generic;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -9,14 +12,14 @@ namespace Unchase.OpenAPI.ConnectedService.Common
     /// </summary>
     internal static class ProjectHelper
     {
-        public const int __VSHPROPID_VSHPROPID_ExtObject = -2027;
+        public const int VshpropidVshpropidExtObject = -2027;
 
         public static Project GetProject(this IVsHierarchy projectHierarchy)
         {
-        
-        int result = projectHierarchy.GetProperty(
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            int result = projectHierarchy.GetProperty(
                 VSConstants.VSITEMID_ROOT,
-                __VSHPROPID_VSHPROPID_ExtObject, //(int)__VSHPROPID.VSHPROPID_ExtObject,
+                VshpropidVshpropidExtObject, //(int)__VSHPROPID.VSHPROPID_ExtObject,
                 out object projectObject);
             ErrorHandler.ThrowOnFailure(result);
             return (Project)projectObject;
@@ -24,17 +27,42 @@ namespace Unchase.OpenAPI.ConnectedService.Common
 
         public static string GetNameSpace(this Project project)
         {
-            return project.Properties.Item("DefaultNamespace").Value.ToString();
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            return project?.Properties?.Item("DefaultNamespace")?.Value.ToString();
         }
 
         public static string GetServiceFolderPath(this Project project, string rootFolder, string serviceName)
         {
-            var servicePath = project.ProjectItems
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            var servicePath = project?.ProjectItems?
                 .Item(rootFolder).ProjectItems
                 .Item(serviceName).Properties
-                .Item("FullPath").Value.ToString() ?? project.Properties.Item("FullPath").Value.ToString();
+                .Item("FullPath").Value.ToString() ?? project?.Properties.Item("FullPath").Value.ToString();
 
             return servicePath;
+        }
+
+        public static string GetSelectedPath(DTE2 dte)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            var items = (Array)dte.ToolWindows.SolutionExplorer?.SelectedItems;
+            if (items == null)
+                return null;
+
+            var files = new List<string>();
+
+            foreach (UIHierarchyItem selItem in items)
+            {
+                if (selItem?.Object is ProjectItem item)
+                    files.Add(item.GetFilePath());
+            }
+
+            return files.Count > 0 ? string.Join(" ", files) : null;
+        }
+
+        public static string GetFilePath(this ProjectItem item)
+        {
+            return $"\"{item?.FileNames[1]}\""; // Indexing starts from 1
         }
     }
 }

@@ -13,6 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-3315-4914-B04F-B2CEA3F6A7F6}"
+	ProjectSection(SolutionItems) = preProject
+		..\img\OpenWithNSwagCommandMenu.png = ..\img\OpenWithNSwagCommandMenu.png
+		..\img\OpenWithNSwagCommandOptions.png = ..\img\OpenWithNSwagCommandOptions.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif = ..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +34,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEC756D6-3315-4914-B04F-B2CEA3F6A7F6} = {2E792B87-132B-4E5F-B542-86E96D18FAD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B99E5F0C-212D-446A-AC93-89C7351C326D}

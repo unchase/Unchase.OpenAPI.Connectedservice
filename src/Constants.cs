@@ -7,6 +7,7 @@
         public const string ExtensionName = "Uncahse OpenAPI (Swagger) Connected Service";
         public const string ExtensionDescription = "Generates C# HttpClient code for OpenAPI (Swagger API) web service with NSwag.";
         public const string ProviderId = "Unchase.OpenAPI.ConnectedService";
+        public const string Version = "1.1";
         public const string Website = "https://github.com/unchase/Unchase.OpenAPI.Connectedservice/";
         public const string Copyright = "Copyright © 2019";
 

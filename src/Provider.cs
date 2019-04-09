@@ -24,7 +24,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 BitmapSizeOptions.FromWidthAndHeight(32, 32)
             );
             CreatedBy = Constants.Author;
-            Version = new Version(1, 0, 0, 0);
+            Version = new Version(1, 1, 0, 0);
             Version = typeof(Provider).Assembly.GetName().Version;
             MoreInfoUri = new Uri(Constants.Website);
         }
