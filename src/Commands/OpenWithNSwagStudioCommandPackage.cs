@@ -29,6 +29,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(Options), "Web", Constants.ExtensionName, 101, 102, true, new string[0], ProvidesLocalizedCategoryName = false)]
     [Guid(OpenWithNSwagStudioCommandPackage.PackageGuidString)]
+    [ProvideAutoLoad(OpenWithNSwagStudioCommandPackage.UINswagStudioFilesContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(OpenWithNSwagStudioCommandPackage.UINswagStudioFilesContextGuid,
         name: "Open only .nswag (.nswag.json) files",
         expression: "DotNSwag | DotNSwagDotJson",
