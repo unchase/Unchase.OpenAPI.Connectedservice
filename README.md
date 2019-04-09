@@ -63,7 +63,7 @@ You can open `.nswag` and `.nswag.json` files in NSwagStudio by simply right-cli
 
 If you installed [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) at a non-default location, a prompt will ask for the path to `NSwagStudio.exe`.
 
-You can always change the location in *Tools -> Options -> Web -> Open In NSwagStudio*:
+You can always change the location in *Tools -> Options -> Web -> Unchase OpenAPI (Swagger) Connected Service*:
 
 ![Open in NSwagStudio Option](img/OpenWithNSwagCommandOptions.png)
 
