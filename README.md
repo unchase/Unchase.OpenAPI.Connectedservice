@@ -81,7 +81,7 @@ You can always change the location in *Tools -> Options -> Web -> Unchase OpenAP
 - Relevant bug report: https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html. Connected Services will be restored in the first update to Visual Studio 2019 (version 16.1).
 
 # Roadmap
-See the [changelog](CHANGELOG.md) for the further development plans and version history.
+See the [changelog](CHANGELOG.MD) for the further development plans and version history.
 
 # Feedback
 Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) or [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna). Thank you in advance!
