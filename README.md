@@ -39,7 +39,7 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 
 # Settings Meaning
 
-Meaning of the Unchase OpenAPI (Swagger) Connected Service settings according to [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio):
+Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService) settings according to [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio):
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
 
@@ -69,6 +69,7 @@ You can always change the location in *Tools -> Options -> Web -> Unchase OpenAP
 
 # HowTos
 - [ ] Add HowTos in a future
+- [ ] ... [request for HowTo you need](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=DOC)
 
 # Troubleshooting
 ## Can't open .nswag file in NSwagStudio
@@ -80,7 +81,10 @@ You can always change the location in *Tools -> Options -> Web -> Unchase OpenAP
 See the [changelog](CHANGELOG.MD) for the further development plans and version history.
 
 # Feedback
-Please feel free to [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE) or [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG). Thank you in advance!
+Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) or [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna). Thank you in advance!
+
+# Thank me!
+If you like what I am doing and you would like to thank me, please consider [buying me a coffee](https://www.buymeacoffee.com/nikolaychebotov). Thank you for your support!
 
 ----------
 
