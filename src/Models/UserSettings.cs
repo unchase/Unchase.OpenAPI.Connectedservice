@@ -10,11 +10,15 @@ namespace Unchase.OpenAPI.ConnectedService.Models
     [DataContract]
     internal class UserSettings
     {
+        #region Private
         private const string Name = "Settings";
+
         private const int MaxMruEntries = 10;
 
         private ConnectedServiceLogger _logger;
+        #endregion
 
+        #region Public properties
         [DataMember]
         public ObservableCollection<string> MruEndpoints { get; private set; }
 
@@ -42,11 +46,18 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         [DataMember]
         public string ServiceName { get; set; }
 
+        [DataMember]
+        public bool OpenGeneratedFilesOnComplete { get; set; } = false;
+        #endregion
+
+        #region Constructors
         private UserSettings()
         {
             this.MruEndpoints = new ObservableCollection<string>();
         }
+        #endregion
 
+        #region Public methods
         public void Save()
         {
             UserSettingsPersistenceHelper.Save(this, Constants.ProviderId, UserSettings.Name, null, this._logger);
@@ -87,5 +98,6 @@ namespace Unchase.OpenAPI.ConnectedService.Models
                 mruList.Insert(0, item);
             }
         }
+        #endregion
     }
 }

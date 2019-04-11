@@ -153,7 +153,8 @@ namespace Unchase.OpenAPI.ConnectedService
                 GenerateTypeScriptClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateTypeScriptClient,
                 Variables = ConfigOpenApiEndpointViewModel.UserSettings.Variables,
                 Runtime = ConfigOpenApiEndpointViewModel.UserSettings.Runtime,
-                CopySpecification = ConfigOpenApiEndpointViewModel.UserSettings.CopySpecification
+                CopySpecification = ConfigOpenApiEndpointViewModel.UserSettings.CopySpecification,
+                OpenGeneratedFilesOnComplete = ConfigOpenApiEndpointViewModel.UserSettings.OpenGeneratedFilesOnComplete
             };
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
                 serviceConfiguration.SwaggerToCSharpClientCommand = CSharpClientSettingsViewModel.Command;

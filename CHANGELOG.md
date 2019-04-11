@@ -7,6 +7,12 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.1.6 `(2019-04-11)`
+
+- [x] Added: in the first page of wizard added checkbox for open generated files on complete
+- [x] Fix: add `TextWrapping` for correct display checkboxes text in wizard pages
+- [x] Fix bug: now generated client (controller) code files add into the project
+
 ## v1.1.5 `(2019-04-10)`
 
 - [x] Small fixes

@@ -140,8 +140,9 @@
 
                 <CheckBox IsChecked="{Binding Command.GenerateOptionalParameters, Mode=TwoWay}" 
                           ToolTip="GenerateOptionalParameters"
-                          Content="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)."
-                          HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0, 5, 10, 5"/>
+                          HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0, 5, 10, 5">
+                    <TextBlock TextWrapping="Wrap" Text="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)."/>
+                </CheckBox>
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Excluded Parameter Names (comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0"/>
                 <TextBox ToolTip="ExcludedParameterNames" 
@@ -187,10 +188,11 @@
 
                 <CheckBox IsChecked="{Binding Command.SerializeTypeInformation, Mode=TwoWay}" 
                           ToolTip="SerializeTypeInformation"
-                          Content="Serialize the type information in a $type property (not recommended, also sets TypeNameHandling = Auto)."
                           HorizontalAlignment="Stretch" 
                           VerticalAlignment="Bottom" 
-                          Margin="0, 5, 10, 5"/>
+                          Margin="0, 5, 10, 5">
+                    <TextBlock TextWrapping="Wrap" Text="Serialize the type information in a $type property (not recommended, also sets TypeNameHandling = Auto)."/>
+                </CheckBox>
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Http Client Type :" FontWeight="Bold" Margin="0, 5, 0, 0"/>
                 <TextBox Text="{Binding Command.HttpClientType, Mode=TwoWay}" 

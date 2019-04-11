@@ -69,8 +69,9 @@
                       Margin="0, 5, 10, 5" />
 
             <CheckBox IsChecked="{Binding Command.GenerateOptionalParameters, Mode=TwoWay}"
-                      Content="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)." 
-                      Margin="0, 5, 10, 5" />
+                      Margin="0, 5, 10, 5">
+                <TextBlock TextWrapping="Wrap" Text="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)."/>
+            </CheckBox>
 
             <TextBlock TextWrapping="WrapWithOverflow" Text="Excluded Parameter Names (comma separated) :" FontWeight="Bold" Margin="0, 5, 10, 5" />
             <TextBox ToolTip="ExcludedParameterNames"

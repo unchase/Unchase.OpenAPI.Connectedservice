@@ -6,11 +6,15 @@ namespace Unchase.OpenAPI.ConnectedService.Models
     internal class ServiceConfiguration
     {
         public string ServiceName { get; set; }
+
         public string Endpoint { get; set; }
+
         public string GeneratedFileNamePrefix { get; set; }
 
         public bool GenerateCSharpClient { get; set; } = false;
+
         public bool GenerateTypeScriptClient { get; set; } = false;
+
         public bool GenerateCSharpController { get; set; } = false;
 
         public SwaggerToCSharpClientCommand SwaggerToCSharpClientCommand { get; set; }
@@ -24,6 +28,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public Runtime Runtime { get; set; }
 
         public bool CopySpecification { get; set; }
+
+        public bool OpenGeneratedFilesOnComplete { get; set; }
 
         #region Network Credentials
         public bool UseNetworkCredentials { get; set; }

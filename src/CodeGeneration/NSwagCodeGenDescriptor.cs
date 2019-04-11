@@ -7,6 +7,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,8 +143,53 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var nswagFilePath = Path.Combine(folderPath, $"{serviceFolder}.nswag");
             var document = await NSwagDocument.LoadWithTransformationsAsync(nswagFilePath, instance.ServiceConfig.Variables);
             document.Runtime = instance.ServiceConfig.Runtime;
-            await document.ExecuteAsync();
-            return document.SelectedSwaggerGenerator.OutputFilePath;
+
+            var nswagJsonTempFileName = Path.GetTempFileName();
+            var csharpClientTempFileName = Path.GetTempFileName();
+            var typeScriptClientTempFileName = Path.GetTempFileName();
+            var controllerTempFileName = Path.GetTempFileName();
+            var nswagJsonOutputPath = document.SelectedSwaggerGenerator.OutputFilePath;
+            try
+            {
+                var csharpClientOutputPath = document.CodeGenerators?.SwaggerToCSharpClientCommand?.OutputFilePath;
+                var typeScriptClientOutputPath = document.CodeGenerators?.SwaggerToTypeScriptClientCommand?.OutputFilePath;
+                var controllerOutputPath = document.CodeGenerators?.SwaggerToCSharpControllerCommand?.OutputFilePath;
+
+                document.SelectedSwaggerGenerator.OutputFilePath = nswagJsonTempFileName;
+                if (document.CodeGenerators?.SwaggerToCSharpClientCommand != null)
+                    document.CodeGenerators.SwaggerToCSharpClientCommand.OutputFilePath = csharpClientTempFileName;
+                if (document.CodeGenerators?.SwaggerToTypeScriptClientCommand != null)
+                    document.CodeGenerators.SwaggerToTypeScriptClientCommand.OutputFilePath = typeScriptClientTempFileName;
+                if (document.CodeGenerators?.SwaggerToCSharpControllerCommand != null)
+                    document.CodeGenerators.SwaggerToCSharpControllerCommand.OutputFilePath = controllerTempFileName;
+
+                await document.ExecuteAsync();
+
+                nswagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nswagJsonTempFileName, nswagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                if (document.CodeGenerators?.SwaggerToCSharpClientCommand != null)
+                    await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                if (document.CodeGenerators?.SwaggerToTypeScriptClientCommand != null)
+                    await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                if (document.CodeGenerators?.SwaggerToCSharpControllerCommand != null)
+                    await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+            }
+            catch (Exception ex)
+            {
+                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Error: {ex.Message}.");
+            }
+            finally
+            {
+                if (File.Exists(nswagJsonTempFileName))
+                    File.Delete(nswagJsonTempFileName);
+                if (File.Exists(csharpClientTempFileName))
+                    File.Delete(csharpClientTempFileName);
+                if (File.Exists(typeScriptClientTempFileName))
+                    File.Delete(typeScriptClientTempFileName);
+                if (File.Exists(controllerTempFileName))
+                    File.Delete(controllerTempFileName);
+            }
+
+            return nswagJsonOutputPath;
         }
 
         internal async Task<string> GenerateNswagFileAsync(ConnectedServiceHandlerContext context, Instance instance)
