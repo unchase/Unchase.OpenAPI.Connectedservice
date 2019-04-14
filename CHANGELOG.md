@@ -7,6 +7,12 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.1.7 `(2019-04-14)`
+
+- [x] Fixed: When updating a connected service: the configuration is loaded from the last saved configuration; not the entire first page of the wizard is blocked, but only the `Endpoint`.
+- [x] Updated [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
+- [x] Minor fixes
+
 ## v1.1.6 `(2019-04-11)`
 
 - [x] Added: in the first page of wizard added checkbox for open generated files on complete

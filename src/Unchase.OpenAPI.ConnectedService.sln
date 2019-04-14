@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-331
 	ProjectSection(SolutionItems) = preProject
 		..\img\OpenWithNSwagCommandMenu.png = ..\img\OpenWithNSwagCommandMenu.png
 		..\img\OpenWithNSwagCommandOptions.png = ..\img\OpenWithNSwagCommandOptions.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png
 		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png
 		..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif = ..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif
 	EndProjectSection

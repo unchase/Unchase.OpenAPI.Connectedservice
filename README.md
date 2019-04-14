@@ -6,9 +6,10 @@
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
 ## Builds status
+
 |Status|Value|
 |:----|:---:|
-|Build|[![Build status](https://ci.appveyor.com/api/projects/status/90oewanfh32fjcr6?svg=true)](https://ci.appveyor.com/project/unchase/unchase.openapi.connectedservice)
+|Build|[![Build status](https://ci.appveyor.com/api/projects/status/90oewanfh32fjcr6)](https://ci.appveyor.com/project/unchase/unchase.openapi.connectedservice)
 |GitHub Release|[![GitHub release](https://img.shields.io/github/release/unchase/Unchase.OpenAPI.Connectedservice.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
 |GitHub Release Date|[![GitHub Release Date](https://img.shields.io/github/release-date/unchase/Unchase.OpenAPI.Connectedservice.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
 |GitHub Release Downloads|[![Github Releases](https://img.shields.io/github/downloads/unchase/Unchase.OpenAPI.Connectedservice/total.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
@@ -17,6 +18,7 @@
 |VS Marketplace Installs|[![VS Marketplace Installs](http://vsmarketplacebadge.apphb.com/installs-short/unchase.UnchaseOpenAPIConnectedService.svg)](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)
 
 ## Features
+
 - Generate `C#` or `TypeScript` clients/proxies (client code) from Swagger 2.0 and OpenAPI 3.0 specifications from C# ASP.NET (Core) controllers
 - Generate `C#` Controller from Swagger 2.0 and OpenAPI 3.0 specifications
 - Generate `.nswag` file for using in [`NSwagStudio`](https://github.com/NSwag/NSwag/wiki/NSwagStudio) (no need to install for generating)
@@ -39,12 +41,9 @@
 
 ## Getting Started
 
-  
-
 Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
 
 ![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
-
 
 ## Settings Meaning
 
@@ -77,25 +76,32 @@ You can always change the location in *Tools -> Options -> Web -> Unchase OpenAP
 ![Open in NSwagStudio Option](img/OpenWithNSwagCommandOptions.png)
 
 ## HowTos
+
 - [ ] Add HowTos in a future
 - [ ] ... [request for HowTo you need](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=DOC)
 
 ## Troubleshooting
+
 ### Can't open .nswag file in NSwagStudio
+
 - You can use **Open in NSwagStudio** menu command
 - If generated code corrupted, try to open `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) (Windows GUI for editing .*nswag files)
 - If it doesn't open, try to create new `.nswag` file in [`NSwagStudio`](https://github.com/RSuter/NSwag/wiki/NSwagStudio) for the same API service link and check the differences
 
 ### Installation completes but I can't see the Service in the list of connected services (Visual Studio 2019)
+
 - Relevant [bug report](https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html). Connected Services will be restored in the first update to [Visual Studio](https://visualstudio.microsoft.com/vs/) 2019 (version 16.1).
 
 ## Roadmap
+
 See the [changelog](CHANGELOG.md) for the further development plans and version history.
 
 ## Feedback
+
 Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) or [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna). Thank you in advance!
 
 ## Thank me!
+
 If you like what I am doing and you would like to thank me, please consider [buying me a coffee](https://www.buymeacoffee.com/nikolaychebotov). Thank you for your support!
 
 ----------

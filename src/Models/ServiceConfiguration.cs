@@ -5,6 +5,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 {
     internal class ServiceConfiguration
     {
+        #region Properties
         public string ServiceName { get; set; }
 
         public string Endpoint { get; set; }
@@ -30,6 +31,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public bool CopySpecification { get; set; }
 
         public bool OpenGeneratedFilesOnComplete { get; set; }
+        #endregion
 
         #region Network Credentials
         public bool UseNetworkCredentials { get; set; }

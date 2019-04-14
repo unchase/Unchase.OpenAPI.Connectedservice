@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="BaseCodeGenDescriptor.cs" company="Unchase">
+// <copyright file="Wizard.cs" company="Unchase">
 //     Copyright (c) Nikolay Chebotov (Unchase). All rights reserved.
 // </copyright>
 // <license>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/LICENSE.md</license>
@@ -30,15 +30,14 @@ namespace Unchase.OpenAPI.ConnectedService
 
         public Instance ServiceInstance => this._serviceInstance ?? (this._serviceInstance = new Instance());
 
-        private readonly UserSettings _userSettings;
-        public UserSettings UserSettings => this._userSettings;
+        public UserSettings UserSettings { get; }
 
         public Wizard(ConnectedServiceProviderContext context)
         {
             this.Context = context;
-            this._userSettings = UserSettings.Load(context.Logger);
+            this.UserSettings = UserSettings.Load(context.Logger);
 
-            ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this._userSettings, this);
+            ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this.UserSettings, this);
             CSharpClientSettingsViewModel = new CSharpClientSettingsViewModel();
             TypeScriptClientSettingsViewModel = new TypeScriptClientSettingsViewModel();
             CSharpControllerSettingsViewModel = new CSharpControllerSettingsViewModel();
@@ -46,8 +45,8 @@ namespace Unchase.OpenAPI.ConnectedService
             if (this.Context.IsUpdating)
             {
                 var serviceConfig = this.Context.GetExtendedDesignerData<ServiceConfiguration>();
-                ConfigOpenApiEndpointViewModel.Endpoint = this._userSettings.Endpoint;
-                ConfigOpenApiEndpointViewModel.ServiceName = this._userSettings.ServiceName;
+                ConfigOpenApiEndpointViewModel.Endpoint = serviceConfig.Endpoint;
+                ConfigOpenApiEndpointViewModel.ServiceName = serviceConfig.ServiceName;
                 ConfigOpenApiEndpointViewModel.UseWebProxy = serviceConfig.UseWebProxy;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain = serviceConfig.NetworkCredentialsDomain;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsUserName = serviceConfig.NetworkCredentialsUserName;
@@ -57,8 +56,17 @@ namespace Unchase.OpenAPI.ConnectedService
                 ConfigOpenApiEndpointViewModel.WebProxyNetworkCredentialsPassword = serviceConfig.WebProxyNetworkCredentialsPassword;
                 ConfigOpenApiEndpointViewModel.UseNetworkCredentials = serviceConfig.UseNetworkCredentials;
                 ConfigOpenApiEndpointViewModel.WebProxyUri = serviceConfig.WebProxyUri;
+                ConfigOpenApiEndpointViewModel.Description =
+                    "An OpenAPI (Swagger) specification endpoint and generation options was regenerated";
                 if (ConfigOpenApiEndpointViewModel.View is ConfigOpenApiEndpoint сonfigOpenApiEndpoint)
-                    сonfigOpenApiEndpoint.IsEnabled = false;
+                    сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
+
+                CSharpClientSettingsViewModel.Command = serviceConfig.SwaggerToCSharpClientCommand;
+                CSharpClientSettingsViewModel.Description = "Settings for generating CSharp client (regenerated)";
+                TypeScriptClientSettingsViewModel.Command = serviceConfig.SwaggerToTypeScriptClientCommand;
+                TypeScriptClientSettingsViewModel.Description = "Settings for generating TypeScript client (regenerated)";
+                CSharpControllerSettingsViewModel.Command = serviceConfig.SwaggerToCSharpControllerCommand;
+                CSharpControllerSettingsViewModel.Description = "Settings for generating CSharp controller (regenerated)";
             }
 
             this.Pages.Add(ConfigOpenApiEndpointViewModel);
@@ -103,7 +111,7 @@ namespace Unchase.OpenAPI.ConnectedService
 
         public override Task<ConnectedServiceInstance> GetFinishedServiceInstanceAsync()
         {
-            this._userSettings.Save();
+            this.UserSettings.Save();
 
             this.ServiceInstance.Name = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName;
             this.ServiceInstance.SpecificationTempPath = ConfigOpenApiEndpointViewModel.SpecificationTempPath;

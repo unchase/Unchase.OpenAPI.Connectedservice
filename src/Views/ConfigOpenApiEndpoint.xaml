@@ -40,7 +40,7 @@
                   HorizontalAlignment="Stretch" Content="Copy OpenAPI (Swagger) json-specification to nswag-file." Margin="20, 5, 10, 5" />
 
         <CheckBox x:Name="OpenGeneratedFilesOnComplete" IsChecked="{Binding Path=UserSettings.OpenGeneratedFilesOnComplete, Mode=TwoWay}" FontWeight="Bold"
-                  HorizontalAlignment="Stretch" Content="Open generated client files on complete in IDE." Margin="20, 5, 10, 5" />
+                  HorizontalAlignment="Stretch" Content="Open generated files on complete in IDE." Margin="20, 5, 10, 5" />
 
         <TextBlock FontWeight="Bold" Text="OpenAPI (Swagger) json-specification URI (path) :" TextWrapping="WrapWithOverflow"
                    HorizontalAlignment="Stretch" Margin="0, 5, 10, 5">

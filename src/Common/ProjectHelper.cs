@@ -17,7 +17,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         public static Project GetProject(this IVsHierarchy projectHierarchy)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            int result = projectHierarchy.GetProperty(
+            var result = projectHierarchy.GetProperty(
                 VSConstants.VSITEMID_ROOT,
                 VshpropidVshpropidExtObject, //(int)__VSHPROPID.VSHPROPID_ExtObject,
                 out object projectObject);
