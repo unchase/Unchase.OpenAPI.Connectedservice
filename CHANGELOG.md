@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.1.12 `(2019-04-16)`
+
+- [x] Added fix: Updating the service blocks the input field for the `ServiceName`.
+
 ## v1.1.9 `(2019-04-14)`
 
 - [x] Changed [`LICENSE`](LICENSE.md): [MIT License](https://mit-license.org) to [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
