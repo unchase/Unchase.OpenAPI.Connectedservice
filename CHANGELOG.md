@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.1.13 `(2019-04-16)`
+
+- [x] Added bug fix: Service update no longer blocks input fields for `ServiceName` and `Endpoint` (if you added several endpoints and want to update one of them).
+
 ## v1.1.12 `(2019-04-16)`
 
 - [x] Added fix: Updating the service blocks the input field for the `ServiceName`.
