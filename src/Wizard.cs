@@ -59,7 +59,10 @@ namespace Unchase.OpenAPI.ConnectedService
                 ConfigOpenApiEndpointViewModel.Description =
                     "An OpenAPI (Swagger) specification endpoint and generation options was regenerated";
                 if (ConfigOpenApiEndpointViewModel.View is ConfigOpenApiEndpoint сonfigOpenApiEndpoint)
+                {
                     сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
+                    сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
+                }
 
                 CSharpClientSettingsViewModel.Command = serviceConfig.SwaggerToCSharpClientCommand;
                 CSharpClientSettingsViewModel.Description = "Settings for generating CSharp client (regenerated)";

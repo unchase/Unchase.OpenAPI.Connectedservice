@@ -106,5 +106,5 @@ If you like what I am doing and you would like to thank me, please consider [buy
 
 ----------
 
-Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [MIT License](LICENSE.md).
+Copyright &copy; 2019 [Nikolay Chebotov (**Unchase**)](https://github.com/unchase) - Provided under the [Apache License 2.0](LICENSE.md).
 
