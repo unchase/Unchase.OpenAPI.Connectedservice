@@ -43,6 +43,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 switch (projectTargetFrameworkDescriptions[0])
                 {
                     case ".NETStandard":
+                    case ".NETCoreApp":
                         nugetPackages = Constants.NetStandartUnsupportedVersions.Contains(projectTargetFrameworkDescriptions[1])
                             ? new string[0]
                             : Constants.NetStandartNuGetPackages;
