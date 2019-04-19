@@ -4,7 +4,7 @@
     {
         public const string Author = "Nikolay Chebotov (Unchase)";
         public const string ExtensionCategory = "OpenAPI";
-        public const string ExtensionName = "Uncahse OpenAPI (Swagger) Connected Service";
+        public const string ExtensionName = "Unchase OpenAPI (Swagger) Connected Service";
         public const string ExtensionDescription = "Generates C# HttpClient code for OpenAPI (Swagger API) web service with NSwag.";
         public const string ProviderId = "Unchase.OpenAPI.ConnectedService";
         public const string Version = "1.1";

@@ -6,7 +6,7 @@ using Unchase.OpenAPI.ConnectedService.CodeGeneration;
 
 namespace Unchase.OpenAPI.ConnectedService
 {
-    [ConnectedServiceHandlerExport(Constants.ProviderId, AppliesTo = "CSharp")]
+    [ConnectedServiceHandlerExport(Constants.ProviderId, AppliesTo = "VB | CSharp | Web")]
     internal class Handler : ConnectedServiceHandler
     {
         public override async Task<AddServiceInstanceResult> AddServiceInstanceAsync(ConnectedServiceHandlerContext context, CancellationToken cancellationToken)

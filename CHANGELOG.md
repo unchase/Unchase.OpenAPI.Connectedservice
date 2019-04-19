@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.1.15 `(2019-04-20)`
+
+- [x] Added fix: service now visible in `VisualBasic` projects
+- [x] Added small fix: Fixed service "ExtensionName"
+
 ## v1.1.14 `(2019-04-19)`
 
 - [x] Added fix: Added the ability to automatically install required nuget-packages for .net core
