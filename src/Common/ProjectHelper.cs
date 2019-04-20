@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using Newtonsoft.Json.Linq;
 
 namespace Unchase.OpenAPI.ConnectedService.Common
 {
@@ -63,6 +64,21 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         public static string GetFilePath(this ProjectItem item)
         {
             return $"\"{item?.FileNames[1]}\""; // Indexing starts from 1
+        }
+
+        internal static bool IsJson(string input)
+        {
+            input = input.Trim();
+            try
+            {
+                JToken.Parse(input);
+            }
+            catch
+            {
+                return false;
+            }
+            return input.StartsWith("{") && input.EndsWith("}")
+                   || input.StartsWith("[") && input.EndsWith("]");
         }
     }
 }

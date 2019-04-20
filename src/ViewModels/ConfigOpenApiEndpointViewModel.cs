@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ConnectedServices;
-using Newtonsoft.Json.Linq;
 using NSwag.Commands;
+using Unchase.OpenAPI.ConnectedService.Common;
 using Unchase.OpenAPI.ConnectedService.Models;
 using Unchase.OpenAPI.ConnectedService.Views;
 
@@ -50,7 +50,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.InternalWizard = wizard;
             this.View = new ConfigOpenApiEndpoint(this.InternalWizard) {DataContext = this};
             this.UserSettings = userSettings;
-            this.ServiceName = userSettings.ServiceName ?? Constants.DefaultServiceName;
+            this.ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
             this.Endpoint = userSettings.Endpoint;
             this.UseNetworkCredentials = false;
             this.UseWebProxy = false;
@@ -133,7 +133,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         if (string.IsNullOrWhiteSpace(specificationJson))
                             throw new InvalidOperationException("The json-file is an empty file.");
 
-                        if (!IsJson(specificationJson))
+                        if (!ProjectHelper.IsJson(specificationJson))
                             throw new InvalidOperationException("Service endpoint is not an json-file.");
 
                         File.WriteAllText(workFile, specificationJson);
@@ -145,7 +145,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
 
                     var specificationJson = File.ReadAllText(this.UserSettings.Endpoint);
-                    if (!IsJson(specificationJson))
+                    if (string.IsNullOrWhiteSpace(specificationJson))
+                        throw new InvalidOperationException("The json-file is an empty file.");
+
+                    if (!ProjectHelper.IsJson(specificationJson))
                         throw new InvalidOperationException("Service endpoint is not an json-file.");
 
                     File.WriteAllText(workFile, specificationJson);
@@ -161,21 +164,6 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             {
                 throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
             }
-        }
-
-        internal static bool IsJson(string input)
-        {
-            input = input.Trim();
-            try
-            {
-                JToken.Parse(input);
-            }
-            catch
-            {
-                return false;
-            }
-            return input.StartsWith("{") && input.EndsWith("}")
-                    || input.StartsWith("[") && input.EndsWith("]");
         }
     }
 }

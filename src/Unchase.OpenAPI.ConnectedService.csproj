@@ -78,9 +78,10 @@
   <ItemGroup>
     <Compile Include="CodeGeneration\BaseCodeGenDescriptor.cs" />
     <Compile Include="CodeGeneration\NSwagCodeGenDescriptor.cs" />
+    <Compile Include="Commands\DiffSpecificationsCommand.cs" />
     <Compile Include="Commands\OpenWithNSwagStudioCommand.cs" />
     <Compile Include="Commands\OpenWithNSwagStudioCommandPackage.cs" />
-    <Compile Include="Commands\StackPanelChangeVisibilityCommand.cs" />
+    <Compile Include="Common\Commands\StackPanelChangeVisibilityCommand.cs" />
     <Compile Include="Common\ExtensionsHelper.cs" />
     <Compile Include="Common\LoggerHelper.cs" />
     <Compile Include="Common\ProjectHelper.cs" />

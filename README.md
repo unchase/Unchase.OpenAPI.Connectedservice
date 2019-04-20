@@ -37,6 +37,8 @@
 		3. Portable.DataAnnotations ([NuGet](https://www.nuget.org/packages/Portable.DataAnnotations))
 - Add Required dependences for the `C#` controller (before generating):
 	1. Microsoft.AspNetCore.Mvc ([NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.MVC))
+- **Command** to open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio)
+- **Command** to compare `.nswag.json` specification file with another `.nswag.json` specification file (or specification given by `endpoint`)
 - Storage of the last 10 endpoints (json-specification path)
 
 ## Getting Started
@@ -51,29 +53,59 @@ Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
 
-## Open in NSwagStudio Command
+## Custom Commands
 
-Since *v1.1.** was added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
+### `Open in NSwagStudio` Command
+
+Since *v1.1.** have been added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
 
 This extension is for those times where you generate `.nswag` and `.nswag.json` files and you want to be able to quickly open it in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
 
-### Prerequisite
+#### Prerequisite
 
 > In order to use this extension, you must have [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017/2019, this connected service as well as [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) installed.
 
-### Solution Explorer
+#### Solution Explorer
 
-You can open `.nswag` and `.nswag.json` files in NSwagStudio by simply right-clicking it in Solution Explorer and select **Open in NSwagStudio**:
+You can open `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) by simply right-clicking it in Solution Explorer and select **Open in NSwagStudio**:
 
-![Open in NSwagStudio menu command](img/OpenWithNSwagCommandMenu.png)
+![Open in NSwagStudio menu Command](img/OpenWithNSwagCommandMenu.png)
 
-### Path to NSwagStudio.exe
+#### Path to NSwagStudio.exe
 
 If you installed [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) at a non-default location, a prompt will ask for the path to `NSwagStudio.exe`.
 
 You can always change the location in *Tools -> Options -> Web -> Unchase OpenAPI (Swagger) Connected Service*:
 
-![Open in NSwagStudio Option](img/OpenWithNSwagCommandOptions.png)
+![Open in NSwagStudio Option](img/UnchaseOpenAPIConnectedServiceCommandsOptions1.png)
+
+### `Compare OpenAPI-specifications...` Command
+
+Since *v1.2.** have been added menu command embedded in Visual Studio Solution Explorer context menu lets you compare generated `.nswag.json` specification-file with another `.nswag.json` specification-file (or with specification given by `endpoint`).
+
+This extension is for those times where you generate `.nswag.json` file and you want to quickly compare it with another or specification given by `endpoint`.
+
+#### Prerequisite
+
+> In order to use this extension, you must have [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017/2019 as well as this connected service.
+
+#### Solution Explorer
+
+You can compare `.nswag.json` specification-file with another `.nswag.json` specification-file (or with specification given by `endpoint`) by simply selecting one or two files and right-clicking them in Solution Explorer and select **Compare OpenAPI-specifications...**:
+
+![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsOneFileCommandMenu.png)
+
+![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsTwoFilesCommandMenu.png)
+
+#### Path to the specification `Endpoint`
+
+You can always change the specification Endpoint to compare with in *Tools -> Options -> Web -> Unchase OpenAPI (Swagger) Connected Service*:
+
+![Compare OpenAPI Specifications Option](img/UnchaseOpenAPIConnectedServiceCommandsOptions2.png)
+
+#### Compare View
+
+![Compare OpenAPI Specifications Command result](img/CompareOpenAPISpecificationsCommandResult.png)
 
 ## HowTos
 

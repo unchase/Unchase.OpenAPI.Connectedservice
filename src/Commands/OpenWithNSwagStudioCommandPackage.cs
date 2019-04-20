@@ -35,6 +35,12 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         expression: "DotNSwag | DotNSwagDotJson",
         termNames: new[] { "DotNSwag", "DotNSwagDotJson" },
         termValues: new[] { "HierSingleSelectionName:.nswag$", "HierSingleSelectionName:.nswag.json$" })]
+    [ProvideAutoLoad(OpenWithNSwagStudioCommandPackage.UINSwagJsonFilesContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(OpenWithNSwagStudioCommandPackage.UINSwagJsonFilesContextGuid,
+        name: "Open only (.nswag.json) files",
+        expression: "DotNSwagDotJson",
+        termNames: new[] { "DotNSwagDotJson" },
+        termValues: new[] { "HierSingleSelectionName:.nswag.json$" })]
     //[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class OpenWithNSwagStudioCommandPackage : AsyncPackage
     {
@@ -44,6 +50,8 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         public const string PackageGuidString = "af9e0cad-f39d-4c39-8f02-55bd034b3b6c";
 
         public const string UINswagStudioFilesContextGuid = "BE1DF41C-5528-4C30-A802-025A3095069E";
+
+        public const string UINSwagJsonFilesContextGuid = "CD745E30-C8A7-4DDC-8CAF-62179AF39222";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenWithNSwagStudioCommandPackage"/> class.
@@ -74,6 +82,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             LoggerHelper.Initialize(this, Constants.ExtensionName);
 
             await OpenWithNSwagStudioCommand.InitializeAsync(this, options);
+            await DiffSpecificationsCommand.InitializeAsync(this, options);
         }
         #endregion
     }

@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Unchase.OpenAPI.ConnectedService.Views.TypeScriptClientSettings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
              xmlns:converters="clr-namespace:Unchase.OpenAPI.ConnectedService.Converters"
-             xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Commands"
-             mc:Ignorable="d" 
+             xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Common.Commands"
+             mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="768">
     <UserControl.Resources>
         <viewModels:TypeScriptClientSettingsViewModel x:Key="ViewModel" />
@@ -22,85 +22,85 @@
         </TextBlock>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0">
-            <Bold>Main Settings</Bold> (<Hyperlink Name="MainSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=MainSettingsPanel}" > 
+            <Bold>Main Settings</Bold> (<Hyperlink Name="MainSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=MainSettingsPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="MainSettingsHyperlinkText" Text="{Binding ElementName=MainSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="MainSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
             <TextBlock TextWrapping="WrapWithOverflow" Text="Module name (empty for no module declaration) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-            <TextBox Text="{Binding Command.ModuleName, Mode=TwoWay}" 
-                     ToolTip="ModuleName" 
+            <TextBox Text="{Binding Command.ModuleName, Mode=TwoWay}"
+                     ToolTip="ModuleName"
                      Margin="0, 5, 10, 5" />
 
             <TextBlock TextWrapping="WrapWithOverflow" Text="Namespace (empty for no namespace declaration) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-            <TextBox Text="{Binding Command.Namespace, Mode=TwoWay}" 
-                     ToolTip="Namespace" 
+            <TextBox Text="{Binding Command.Namespace, Mode=TwoWay}"
+                     ToolTip="Namespace"
                      Margin="0, 5, 10, 5" />
 
             <TextBlock TextWrapping="WrapWithOverflow" Text="TypeScript Version :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-            <ComboBox SelectedItem="{Binding Command.TypeScriptVersion, Mode=TwoWay}" 
+            <ComboBox SelectedItem="{Binding Command.TypeScriptVersion, Mode=TwoWay}"
                       ToolTip="TypeScriptVersion"
-                      ItemsSource="{Binding TypeScriptVersions}" 
-                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding TypeScriptVersions}"
+                      HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Margin="0, 5, 10, 5" />
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-            <Bold>Client</Bold> (<Hyperlink Name="ClientSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=ClientSettingsPanel}" > 
+            <Bold>Client</Bold> (<Hyperlink Name="ClientSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=ClientSettingsPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="ClientSettingsHyperlinkText" Text="{Binding ElementName=ClientSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="ClientSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
-            <CheckBox IsChecked="{Binding Command.GenerateClientClasses, Mode=TwoWay}" 
+            <CheckBox IsChecked="{Binding Command.GenerateClientClasses, Mode=TwoWay}"
                       ToolTip="GenerateClientClasses"
                       Content="Generate Client Classes."
                       Margin="0, 5, 0, 5" />
             <StackPanel Visibility="{Binding Command.GenerateClientClasses, Converter={StaticResource VisibilityConverter}}">
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Template :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <ComboBox SelectedItem="{Binding Command.Template, Mode=TwoWay}" 
+                <ComboBox SelectedItem="{Binding Command.Template, Mode=TwoWay}"
                           ToolTip="Template"
-                          ItemsSource="{Binding Templates}" 
+                          ItemsSource="{Binding Templates}"
                           Margin="0, 5, 10, 5" />
                 <StackPanel Visibility="{Binding Command.Template, ConverterParameter='JQueryPromises', Converter={StaticResource EqualityConverter}}">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Promise Type" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                    <ComboBox SelectedItem="{Binding Command.PromiseType, Mode=TwoWay}" 
-                              ToolTip="PromiseTypes" 
-                              ItemsSource="{Binding PromiseTypes}" 
+                    <ComboBox SelectedItem="{Binding Command.PromiseType, Mode=TwoWay}"
+                              ToolTip="PromiseTypes"
+                              ItemsSource="{Binding PromiseTypes}"
                               Margin="0, 5, 0, 0" />
                 </StackPanel>
 
                 <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-                    <Bold>Angular</Bold> (<Hyperlink Name="AngularSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=AngularSettingsPanel}" > 
+                    <Bold>Angular</Bold> (<Hyperlink Name="AngularSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=AngularSettingsPanel}" >
                         <TextBlock TextWrapping="WrapWithOverflow" Name="AngularSettingsHyperlinkText" Text="{Binding ElementName=AngularSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
                 </TextBlock>
                 <StackPanel x:Name="AngularSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="RxJs Version :" FontWeight="Bold" Margin="0, 5, 0, 0" />
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Angular 6+ requires RxJs 6" Margin="0, 5, 0, 0" />
-                    <ComboBox SelectedItem="{Binding Command.RxJsVersion, Mode=TwoWay}" 
+                    <ComboBox SelectedItem="{Binding Command.RxJsVersion, Mode=TwoWay}"
                               ToolTip="RxJsVersion"
                               ItemsSource="{Binding RxJsVersions}"
                               Margin="0, 5, 10, 5" />
 
-                    <CheckBox IsChecked="{Binding Command.UseSingletonProvider, Mode=TwoWay}" 
+                    <CheckBox IsChecked="{Binding Command.UseSingletonProvider, Mode=TwoWay}"
                               ToolTip="UseSingletonProvider"
                               Content="Use Angular 6 Singleton Provider." Margin="0, 5, 0, 0" />
 
                     <TextBlock TextWrapping="WrapWithOverflow" Text="HTTP service class :" FontWeight="Bold" Margin="0, 5, 0, 0" />
                     <TextBlock TextWrapping="WrapWithOverflow" Text="HttpClient recommended for new projects (Angular 4.3+)" Margin="0, 5, 0, 0" />
-                    <ComboBox SelectedItem="{Binding Command.HttpClass, Mode=TwoWay}" 
-                              ToolTip="HttpClass" 
-                              ItemsSource="{Binding HttpClasses}" 
+                    <ComboBox SelectedItem="{Binding Command.HttpClass, Mode=TwoWay}"
+                              ToolTip="HttpClass"
+                              ItemsSource="{Binding HttpClasses}"
                               Margin="0, 5, 10, 5" />
 
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Injection token type :" FontWeight="Bold" Margin="0, 5, 0, 0" />
                     <TextBlock TextWrapping="WrapWithOverflow" Text="InjectionToken recommended for new projects (Angular 4+)" Margin="0, 5, 0, 0" />
-                    <ComboBox SelectedItem="{Binding Command.InjectionTokenType, Mode=TwoWay}" 
-                              ToolTip="InjectionTokenType" 
-                              ItemsSource="{Binding InjectionTokenTypes}" 
+                    <ComboBox SelectedItem="{Binding Command.InjectionTokenType, Mode=TwoWay}"
+                              ToolTip="InjectionTokenType"
+                              ItemsSource="{Binding InjectionTokenTypes}"
                               Margin="0, 5, 10, 5" />
 
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Base URL Token Name :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                    <TextBox Text="{Binding Command.BaseUrlTokenName, Mode=TwoWay}" 
-                             ToolTip="BaseUrlTokenName" 
+                    <TextBox Text="{Binding Command.BaseUrlTokenName, Mode=TwoWay}"
+                             ToolTip="BaseUrlTokenName"
                              Margin="0, 5, 10, 5" />
                 </StackPanel>
 
@@ -109,80 +109,80 @@
                     <LineBreak />
                     The operation name detection and replacement strategy of the {controller} placeholder in the Class Name setting.
                 </TextBlock>
-                <ComboBox SelectedItem="{Binding Command.OperationGenerationMode, Mode=TwoWay}" 
+                <ComboBox SelectedItem="{Binding Command.OperationGenerationMode, Mode=TwoWay}"
                           ToolTip="OperationGenerationMode"
-                          ItemsSource="{Binding OperationGenerationModes}" 
+                          ItemsSource="{Binding OperationGenerationModes}"
                           Margin="0, 5, 10, 5" />
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Class Name :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox Text="{Binding Command.ClassName, Mode=TwoWay}" 
-                         ToolTip="ClassName" 
+                <TextBox Text="{Binding Command.ClassName, Mode=TwoWay}"
+                         ToolTip="ClassName"
                          Margin="0, 5, 10, 5" />
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Base Class Name (optional, must be imported or implemented in the extension code) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox Text="{Binding Command.ClientBaseClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         ToolTip="ClientBaseClass" 
+                <TextBox Text="{Binding Command.ClientBaseClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="ClientBaseClass"
                          Margin="0, 5, 10, 5" />
                 <StackPanel Visibility="{Binding Command.ClientBaseClass, Converter={StaticResource VisibilityConverter}}">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Configuration Class Name (passed to base class ctor, optional) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
                     <TextBox Text="{Binding Command.ConfigurationClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="0, 5, 10, 5" 
+                             Margin="0, 5, 10, 5"
                              ToolTip="ConfigurationClass" />
 
-                    <CheckBox IsChecked="{Binding Command.UseGetBaseUrlMethod, Mode=TwoWay}" 
+                    <CheckBox IsChecked="{Binding Command.UseGetBaseUrlMethod, Mode=TwoWay}"
                               ToolTip="UseGetBaseUrlMethod"
-                              Content="Use the 'getBaseUrl(defaultUrl: string)' method from the base class." 
+                              Content="Use the 'getBaseUrl(defaultUrl: string)' method from the base class."
                               Margin="0, 5, 10, 5" />
                 </StackPanel>
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Null value used for query parameters which are null :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox Text="{Binding Command.QueryNullValue, Mode=TwoWay}" 
-                         ToolTip="QueryNullValue" 
+                <TextBox Text="{Binding Command.QueryNullValue, Mode=TwoWay}"
+                         ToolTip="QueryNullValue"
                          Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.ExportTypes, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.ExportTypes, Mode=TwoWay}"
                           ToolTip="ExportTypes"
                           Content="Export types (classes, interfaces and enums)." Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.GenerateClientInterfaces, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.GenerateClientInterfaces, Mode=TwoWay}"
                           ToolTip="GenerateClientInterfaces"
-                          Content="Generate interfaces for Client classes." 
+                          Content="Generate interfaces for Client classes."
                           Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.GenerateOptionalParameters, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.GenerateOptionalParameters, Mode=TwoWay}"
                           ToolTip="GenerateOptionalParameters"
                           Margin="0, 5, 10, 5">
                     <TextBlock TextWrapping="Wrap" Text="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)."/>
                 </CheckBox>
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Excluded Parameter Names (comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox ToolTip="ExcludedParameterNames" 
-                         Text="{Binding Command.ExcludedParameterNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}" 
+                <TextBox ToolTip="ExcludedParameterNames"
+                         Text="{Binding Command.ExcludedParameterNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                          Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.WrapDtoExceptions, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.WrapDtoExceptions, Mode=TwoWay}"
                           ToolTip="WrapDtoExceptions"
                           Content="Wrap DTO exceptions in a SwaggerException instance."
                           Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.WrapResponses, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.WrapResponses, Mode=TwoWay}"
                           ToolTip="WrapResponses"
-                          Content="Wrap success responses to allow full response access (experimental)." 
+                          Content="Wrap success responses to allow full response access (experimental)."
                           Margin="0, 5, 10, 5" />
                 <StackPanel Visibility="{Binding Command.WrapResponses, Converter={StaticResource VisibilityConverter}}">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Methods where responses are wrapped (empty for all, 'ControllerName.MethodName', comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                    <TextBox ToolTip="WrapResponseMethods" 
-                             Text="{Binding Command.WrapResponseMethods, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}" 
+                    <TextBox ToolTip="WrapResponseMethods"
+                             Text="{Binding Command.WrapResponseMethods, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                              Margin="0, 5, 10, 5" />
 
                     <CheckBox IsChecked="{Binding Command.GenerateResponseClasses, Mode=TwoWay}"
                               ToolTip="GenerateResponseClasses"
-                              Content="Generate response classes (when disabled, response classes must be imported)." 
+                              Content="Generate response classes (when disabled, response classes must be imported)."
                               Margin="0, 5, 10, 5" />
                     <StackPanel Visibility="{Binding Command.GenerateResponseClasses, Converter={StaticResource VisibilityConverter}}">
                         <TextBlock TextWrapping="WrapWithOverflow" Text="Response class name (may contain the '{controller}' placeholder)." FontWeight="Bold" Margin="0, 5, 0, 0" />
-                        <TextBox Text="{Binding Command.ResponseClass, Mode=TwoWay}" 
-                                 ToolTip="ResponseClass" 
+                        <TextBox Text="{Binding Command.ResponseClass, Mode=TwoWay}"
+                                 ToolTip="ResponseClass"
                                  Margin="0, 5, 10, 5" />
                     </StackPanel>
                 </StackPanel>
@@ -196,87 +196,87 @@
                 </CheckBox>
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Methods with a protected access modifier to use in class extensions ('classname.methodname', comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox ToolTip="ProtectedMethods" 
+                <TextBox ToolTip="ProtectedMethods"
                          Text="{Binding Command.ProtectedMethods, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                          Margin="0, 5, 0, 5" />
             </StackPanel>
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-            <Bold>DTO Types</Bold> (<Hyperlink Name="DTOTypesSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=DTOTypesPanel}" > 
+            <Bold>DTO Types</Bold> (<Hyperlink Name="DTOTypesSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=DTOTypesPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="DTOTypesSettingsHyperlinkText" Text="{Binding ElementName=DTOTypesPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="DTOTypesPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
-            <CheckBox IsChecked="{Binding Command.GenerateDtoTypes, Mode=TwoWay}" 
+            <CheckBox IsChecked="{Binding Command.GenerateDtoTypes, Mode=TwoWay}"
                       ToolTip="GenerateDtoTypes"
                       Content="Generate DTO types (e.g. request and response types)." Margin="0, 5, 10, 5" />
             <StackPanel Visibility="{Binding Command.GenerateDtoTypes, Converter={StaticResource VisibilityConverter}}">
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Type Style :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <ComboBox SelectedItem="{Binding Command.TypeStyle, Mode=TwoWay}" 
+                <ComboBox SelectedItem="{Binding Command.TypeStyle, Mode=TwoWay}"
                           ToolTip="TypeStyle"
-                          ItemsSource="{Binding TypeStyles}" 
+                          ItemsSource="{Binding TypeStyles}"
                           Margin="0, 5, 10, 5" />
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Null value used in object initializers :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <ComboBox SelectedItem="{Binding Command.NullValue, Mode=TwoWay}" 
+                <ComboBox SelectedItem="{Binding Command.NullValue, Mode=TwoWay}"
                           ToolTip="NullValue"
-                          ItemsSource="{Binding NullValues}" 
+                          ItemsSource="{Binding NullValues}"
                           Margin="0, 5, 10, 5" />
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Date Time Type :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <ComboBox SelectedItem="{Binding Command.DateTimeType, Mode=TwoWay}" 
+                <ComboBox SelectedItem="{Binding Command.DateTimeType, Mode=TwoWay}"
                           ToolTip="DateTimeType"
-                          ItemsSource="{Binding DateTimeTypes}" 
+                          ItemsSource="{Binding DateTimeTypes}"
                           Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.GenerateDefaultValues, Mode=TwoWay}" 
-                          ToolTip="GenerateDefaultValues" 
+                <CheckBox IsChecked="{Binding Command.GenerateDefaultValues, Mode=TwoWay}"
+                          ToolTip="GenerateDefaultValues"
                           Margin="0, 5, 10, 5">
                     <TextBlock Text="Generate default values for properties (if default value is specified)." TextWrapping="Wrap" />
                 </CheckBox>
 
-                <CheckBox IsChecked="{Binding Command.MarkOptionalProperties, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.MarkOptionalProperties, Mode=TwoWay}"
                           ToolTip="MarkOptionalProperties"
-                          Content="Mark optional properties with ?." 
+                          Content="Mark optional properties with ?."
                           Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.GenerateCloneMethod, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.GenerateCloneMethod, Mode=TwoWay}"
                           Content="Generate clone() method."
                           ToolTip="GenerateCloneMethod"
                           Margin="0, 5, 10, 5" />
 
-                <CheckBox IsChecked="{Binding Command.ImportRequiredTypes, Mode=TwoWay}" 
+                <CheckBox IsChecked="{Binding Command.ImportRequiredTypes, Mode=TwoWay}"
                           Content="Import required types (e.g. Angular types, Moment.js, JQuery, etc.)."
                           ToolTip="ImportRequiredTypes"
                           Margin="0, 5, 10, 5" />
 
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Excluded Type Names (comma separated, must be defined in ExtensionCode or custom import) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                <TextBox ToolTip="ExcludedTypeNames" 
-                         Text="{Binding Command.ExcludedTypeNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}" 
+                <TextBox ToolTip="ExcludedTypeNames"
+                         Text="{Binding Command.ExcludedTypeNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                          Margin="0, 5, 10, 5" />
                 <StackPanel Visibility="{Binding Command.TypeStyle, ConverterParameter='!Class', Converter={StaticResource EqualityConverter}}">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="The type names which always generate plain TypeScript classes (comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-                    <TextBox ToolTip="ClassTypes" 
-                             Text="{Binding Command.ClassTypes, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}" 
+                    <TextBox ToolTip="ClassTypes"
+                             Text="{Binding Command.ClassTypes, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                              Margin="0, 5, 10, 5" />
                 </StackPanel>
 
                 <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-                    <Bold>Serialization Settings</Bold> (<Hyperlink Name="SerializationSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=SerializationSettingsPanel}" > 
+                    <Bold>Serialization Settings</Bold> (<Hyperlink Name="SerializationSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=SerializationSettingsPanel}" >
                         <TextBlock TextWrapping="WrapWithOverflow" Name="SerializationSettingsHyperlinkText" Text="{Binding ElementName=SerializationSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
                 </TextBlock>
                 <StackPanel x:Name="SerializationSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
-                    <CheckBox IsChecked="{Binding Command.HandleReferences, Mode=TwoWay}" 
+                    <CheckBox IsChecked="{Binding Command.HandleReferences, Mode=TwoWay}"
                               Content="Handle JSON references ($ref, $id, $values) (experimental, generates more code)."
                               ToolTip="HandleReferences"
                               Margin="0, 5, 10, 5" />
 
-                    <CheckBox IsChecked="{Binding Command.GenerateConstructorInterface, Mode=TwoWay}" 
+                    <CheckBox IsChecked="{Binding Command.GenerateConstructorInterface, Mode=TwoWay}"
                               Content="Generate constructor interface which is used to initialize the class."
                               ToolTip="GenerateConstructorInterface"
                               Margin="0, 5, 10, 5" />
 
-                    <CheckBox IsChecked="{Binding Command.ConvertConstructorInterfaceData, Mode=TwoWay}" 
+                    <CheckBox IsChecked="{Binding Command.ConvertConstructorInterfaceData, Mode=TwoWay}"
                               Visibility="{Binding Command.GenerateConstructorInterface, Converter={StaticResource VisibilityConverter}}"
                               Content="Convert POJO objects in the constructor data to DTO instances (generates more code)."
                               ToolTip="ConvertConstructorInterfaceData"
@@ -286,24 +286,24 @@
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-            <Bold>Class Extensions</Bold> (<Hyperlink Name="ClassExtensionsSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=ClassExtensionsSettingsPanel}" > 
+            <Bold>Class Extensions</Bold> (<Hyperlink Name="ClassExtensionsSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=ClassExtensionsSettingsPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="ClassExtensionsSettingsHyperlinkText" Text="{Binding ElementName=ClassExtensionsSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="ClassExtensionsSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
             <TextBlock TextWrapping="WrapWithOverflow" Text="Extended classes (comma separated) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-            <TextBox ToolTip="ExtendedClasses" 
-                     Text="{Binding Command.ExtendedClasses, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}" 
+            <TextBox ToolTip="ExtendedClasses"
+                     Text="{Binding Command.ExtendedClasses, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                      Margin="0, 5, 10, 5" />
 
-            <TextBlock TextWrapping="WrapWithOverflow" Text="Path to class extension code file (the module import 'generated' is removed and class export keywords are added) :" 
+            <TextBlock TextWrapping="WrapWithOverflow" Text="Path to class extension code file (the module import 'generated' is removed and class export keywords are added) :"
                        FontWeight="Bold" Margin="0, 5, 0, 0" />
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="ExtensionCodeFileTextBox" HorizontalAlignment="Stretch" ToolTip="ExtensionCode" 
-                         Text="{Binding Command.ExtensionCode, Mode=TwoWay}" 
+                <TextBox Grid.Column="0" x:Name="ExtensionCodeFileTextBox" HorizontalAlignment="Stretch" ToolTip="ExtensionCode"
+                         Text="{Binding Command.ExtensionCode, Mode=TwoWay}"
                          Margin="0, 5, 0, 5" />
                 <Button Grid.Column="1" x:Name="OpenExtensionCodeFileButton" HorizontalAlignment="Right" Height="20" Margin="5,0,10,0" Click="OpenExtensionCodeFileButton_OnClick">
                     <TextBlock Text="..."/>
@@ -312,12 +312,12 @@
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-            <Bold>Swagger Information</Bold> (<Hyperlink Name="SwaggerInformationSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=SwaggerInformationSettingsPanel}" > 
+            <Bold>Swagger Information</Bold> (<Hyperlink Name="SwaggerInformationSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=SwaggerInformationSettingsPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="SwaggerInformationSettingsHyperlinkText" Text="{Binding ElementName=SwaggerInformationSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="SwaggerInformationSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">
             <TextBlock TextWrapping="WrapWithOverflow" Text="Service host (optional, use '.' to remove the hostname) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
-            <TextBox ToolTip="ServiceHost" Text="{Binding Command.ServiceHost, Mode=TwoWay}" 
+            <TextBox ToolTip="ServiceHost" Text="{Binding Command.ServiceHost, Mode=TwoWay}"
                      Margin="0, 5, 10, 5" />
 
             <TextBlock TextWrapping="WrapWithOverflow" Text="Service schemes (optional, 'http', 'https', 'ws', 'wss', multiple on separate lines) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
@@ -325,7 +325,7 @@
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">
-            <Bold>Templating</Bold> (<Hyperlink Name="TemplatingSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=TemplatingSettingsPanel}" > 
+            <Bold>Templating</Bold> (<Hyperlink Name="TemplatingSettingsHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=TemplatingSettingsPanel}" >
                 <TextBlock TextWrapping="WrapWithOverflow" Name="TemplatingSettingsHyperlinkText" Text="{Binding ElementName=TemplatingSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)
         </TextBlock>
         <StackPanel x:Name="TemplatingSettingsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" Margin="20, 5, 0, 0">

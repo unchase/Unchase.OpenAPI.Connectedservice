@@ -12,15 +12,28 @@ public class Options : DialogPage
     [Category("General")]
     [DisplayName("Path to NSwagStudio.exe")]
     [Description("Specify the path to NSwagStudio.exe.")]
-    public string PathToExe { get; set; } = NswagStudioExePath();
+    public string PathToNSwagStudioExe { get; set; } = NswagStudioExePath();
+
+    [Category("General")]
+    [DisplayName("OpenAPI (Swagger) specification enpoint")]
+    [Description("Specify the OpenAPI (Swagger) specification enpoint to diff.")]
+    public string OpenApiSpecificationEndpoint { get; set; }
 
     protected override void OnApply(PageApplyEventArgs e)
     {
-        if (!File.Exists(PathToExe))
+        if (!File.Exists(PathToNSwagStudioExe))
         {
             e.ApplyBehavior = ApplyKind.Cancel;
-            MessageBox.Show($"The file \"{PathToExe}\" doesn't exist.", Constants.ExtensionName, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show($"The file \"{PathToNSwagStudioExe}\" doesn't exist.", Constants.ExtensionName, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
+
+        if (!string.IsNullOrWhiteSpace(OpenApiSpecificationEndpoint) && !OpenApiSpecificationEndpoint.EndsWith(".json"))
+        {
+            e.ApplyBehavior = ApplyKind.Cancel;
+            MessageBox.Show($"The OpenAPI (Swagger) specification endpoint \"{OpenApiSpecificationEndpoint}\" should ends with \".json\".", Constants.ExtensionName, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+
+        //todo: тут проверять доступность endpoint'а, если недоступен, то все плохо
 
         base.OnApply(e);
     }

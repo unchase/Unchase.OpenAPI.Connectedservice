@@ -196,6 +196,8 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         {
             var nameSpace = context.ProjectHierarchy.GetProject().GetNameSpace();
             var serviceUrl = instance.ServiceConfig.Endpoint;
+            if (string.IsNullOrWhiteSpace(instance.Name))
+                instance.Name = Constants.DefaultServiceName;
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var serviceFolder = instance.Name;
             var document = NSwagDocument.Create();

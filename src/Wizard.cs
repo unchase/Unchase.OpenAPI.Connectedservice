@@ -156,7 +156,7 @@ namespace Unchase.OpenAPI.ConnectedService
         {
             var serviceConfiguration = new ServiceConfiguration
             {
-                ServiceName = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
+                ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
                 Endpoint = ConfigOpenApiEndpointViewModel.UserSettings.Endpoint,
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,
                 GenerateCSharpClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpClient,

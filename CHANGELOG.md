@@ -7,6 +7,13 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.2.0 `(2019-04-20)`
+
+- [x] Added `Compare OpenAPI-specifications... Command` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
+- [x] Added menu command embedded in Visual Studio Solution Explorer context menu lets you compare generated `.nswag.json` specification-file with another `.nswag.json` specification-file (or with specification given by `endpoint`)
+- [x] Fixed bug with empty `ServiceName`
+- [x] Small fixes
+
 ## v1.1.15 `(2019-04-20)`
 
 - [x] Added fix: service now visible in `VisualBasic` projects
@@ -50,7 +57,7 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.1.0 `(2019-04-10)`
 
-- [x] Add `Open in NSwagStudio Command` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
+- [x] Added `Open in NSwagStudio Command` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
 - [x] Added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio)
 
 ## v1.0.6 `(2019-04-08)`

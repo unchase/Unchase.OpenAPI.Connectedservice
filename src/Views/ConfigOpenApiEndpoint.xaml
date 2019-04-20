@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
-             xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Commands"
+             xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Common.Commands"
              xmlns:converters="clr-namespace:Unchase.OpenAPI.ConnectedService.Converters"
              d:DataContext="{d:DesignInstance Type=viewModels:ConfigOpenApiEndpointViewModel}"
              mc:Ignorable="d"
