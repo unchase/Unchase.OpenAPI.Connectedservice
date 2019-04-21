@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.2.1 `(2019-04-22)`
+
+- [x] Updated dependencies: added support for [NSwgag.Commands v12.2.0](https://www.nuget.org/packages/NSwag.Commands/)
+
 ## v1.2.0 `(2019-04-20)`
 
 - [x] Added `Compare OpenAPI-specifications... Command` section to [`README`](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/)
