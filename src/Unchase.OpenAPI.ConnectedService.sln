@@ -7,10 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.ConnectedSe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E792B87-132B-4E5F-B542-86E96D18FAD8}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
 		..\appveyor.yml = ..\appveyor.yml
 		..\CHANGELOG.md = ..\CHANGELOG.md
 		..\LICENSE.md = ..\LICENSE.md
 		..\README.md = ..\README.md
+		..\vsix.ps1 = ..\vsix.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-3315-4914-B04F-B2CEA3F6A7F6}"

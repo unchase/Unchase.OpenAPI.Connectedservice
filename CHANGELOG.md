@@ -9,7 +9,7 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.2.1 `(2019-04-22)`
 
-- [x] Updated dependencies: added support for [NSwgag.Commands v12.2.0](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Updated dependencies: added support for [NSwag.Commands v12.2.0](https://www.nuget.org/packages/NSwag.Commands/)
 
 ## v1.2.0 `(2019-04-20)`
 
