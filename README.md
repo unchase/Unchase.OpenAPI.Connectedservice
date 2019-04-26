@@ -83,7 +83,7 @@ You can always change the location in *Tools -> Options -> Web -> Unchase OpenAP
 
 Since *v1.2.** have been added menu command embedded in Visual Studio Solution Explorer context menu lets you compare generated `.nswag.json` specification-file with another `.nswag.json` specification-file (or with specification given by `endpoint`).
 
-This extension is for those times where you generate `.nswag.json` file and you want to quickly compare it with another or specification given by `endpoint`.
+This extension is for those times where you generate `.nswag.json` file and you want to quickly compare it with another specification or specification given by `endpoint`.
 
 #### Prerequisite
 
@@ -134,7 +134,11 @@ Please feel free to add your [review](https://marketplace.visualstudio.com/items
 
 ## Thank me!
 
-If you like what I am doing and you would like to thank me, please consider [buying me a coffee](https://www.buymeacoffee.com/nikolaychebotov). Thank you for your support!
+If you like what I am doing and you would like to thank me, please consider:
+
+[![Buy me a coffe!](img/buymeacoffe.png)](https://www.buymeacoffee.com/nikolaychebotov)
+
+Thank you for your support!
 
 ----------
 
