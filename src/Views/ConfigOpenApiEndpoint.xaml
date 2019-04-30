@@ -13,8 +13,17 @@
         <converters:VisibilityConverter x:Key="VisibilityConverter" />
         <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter"/>
         <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand"/>
+        <Image x:Key="ReportABugButtonImage" Source="../Resources/NewBug.png"/>
     </UserControl.Resources>
     <StackPanel HorizontalAlignment="Stretch" Margin="0, 0, 0, 0" VerticalAlignment="Top">
+        <DockPanel HorizontalAlignment="Right">
+            <TextBlock Text="Report a bug :" Margin="5,8,5,5"/>
+            <Button x:Name="ReportABugButton" HorizontalAlignment="Right" MaxHeight="23" MaxWidth="23" Width="23" Height="23" MinWidth="23" MinHeight="23" Margin="5,5,10,5" Click="ReportABugButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/NewBug.png" Stretch="UniformToFill"/>
+                </Button.Background>
+            </Button>
+        </DockPanel>
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 10, 5">
             <Bold>Runtime and variables</Bold> (<Hyperlink Name="RuntimeAndVariablesHyperlink" Command="{StaticResource StackPanelChangeVisibilityCommand}" CommandParameter="{Binding ElementName=RuntimeAndVariablesPanel}">
                 <TextBlock TextWrapping="WrapWithOverflow" Name="RuntimeAndVariablesHyperlinkText" Text="{Binding ElementName=RuntimeAndVariablesPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"/></Hyperlink>)

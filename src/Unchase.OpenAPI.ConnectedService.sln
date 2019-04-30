@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-331
 		..\img\CompareOpenAPISpecificationsOneFileCommandMenu.png = ..\img\CompareOpenAPISpecificationsOneFileCommandMenu.png
 		..\img\CompareOpenAPISpecificationsTwoFilesCommandMenu.png = ..\img\CompareOpenAPISpecificationsTwoFilesCommandMenu.png
 		..\img\OpenWithNSwagCommandMenu.png = ..\img\OpenWithNSwagCommandMenu.png
+		..\img\Unchase-OpenAPI-Connected-Service-ReportBug.png = ..\img\Unchase-OpenAPI-Connected-Service-ReportBug.png
 		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png
 		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png
 		..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif = ..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif

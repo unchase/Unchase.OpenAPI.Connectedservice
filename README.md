@@ -5,11 +5,18 @@
 
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
+## Getting Started
+
+Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
+
+![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
+
 ## Builds status
 
 |Status|Value|
 |:----|:---:|
 |Build|[![Build status](https://ci.appveyor.com/api/projects/status/90oewanfh32fjcr6)](https://ci.appveyor.com/project/unchase/unchase.openapi.connectedservice)
+|Buid History|![Build history](https://buildstats.info/appveyor/chart/unchase/unchase-openapi-connectedservice)
 |GitHub Release|[![GitHub release](https://img.shields.io/github/release/unchase/Unchase.OpenAPI.Connectedservice.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
 |GitHub Release Date|[![GitHub Release Date](https://img.shields.io/github/release-date/unchase/Unchase.OpenAPI.Connectedservice.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
 |GitHub Release Downloads|[![Github Releases](https://img.shields.io/github/downloads/unchase/Unchase.OpenAPI.Connectedservice/total.svg)](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/latest)
@@ -40,12 +47,6 @@
 - **Command** to open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio)
 - **Command** to compare `.nswag.json` specification file with another `.nswag.json` specification file (or specification given by `endpoint`)
 - Storage of the last 10 endpoints (json-specification path)
-
-## Getting Started
-
-Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
-
-![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
 
 ## Settings Meaning
 
@@ -130,7 +131,9 @@ See the [changelog](CHANGELOG.md) for the further development plans and version 
 
 ## Feedback
 
-Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) or [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna). Thank you in advance!
+Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna) or [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) including in connected service: 
+![Unchase OpenAPI Connected Service Report a Bug](img/Unchase-OpenAPI-Connected-Service-ReportBug.png)
+Thank you in advance!
 
 ## Thank me!
 

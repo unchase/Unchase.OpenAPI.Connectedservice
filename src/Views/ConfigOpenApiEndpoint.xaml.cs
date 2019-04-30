@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Unchase.OpenAPI.ConnectedService.Views
@@ -6,6 +7,8 @@ namespace Unchase.OpenAPI.ConnectedService.Views
     public partial class ConfigOpenApiEndpoint : UserControl
     {
         private readonly Wizard _wizard;
+
+        private const string ReportABugUrlFormat = "https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title={0}&labels=bug&body={1}";
 
         internal ConfigOpenApiEndpoint(Wizard wizard)
         {
@@ -44,5 +47,13 @@ namespace Unchase.OpenAPI.ConnectedService.Views
             this._wizard.RemoveTypeScriptClientSettingsPage();
         }
         #endregion
+
+        private void ReportABugButton_Click(object sender, RoutedEventArgs e)
+        {
+            var title = Uri.EscapeUriString("<BUG title>");
+            var body = Uri.EscapeUriString("<Please describe what bug you found when using the service.>");
+            var url = string.Format(ReportABugUrlFormat, title, body);
+            System.Diagnostics.Process.Start(url);
+        }
     }
 }
