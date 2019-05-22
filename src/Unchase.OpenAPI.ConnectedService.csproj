@@ -454,38 +454,38 @@
     <Reference Include="NJsonSchema.Yaml, Version=9.14.1.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
       <HintPath>packages\NJsonSchema.Yaml.9.14.1\lib\net45\NJsonSchema.Yaml.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.Annotations, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.Annotations.12.3.0\lib\net45\NSwag.Annotations.dll</HintPath>
+    <Reference Include="NSwag.Annotations, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.Annotations.12.3.1\lib\net45\NSwag.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.AssemblyLoader, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.AssemblyLoader.12.3.0\lib\net451\NSwag.AssemblyLoader.dll</HintPath>
+    <Reference Include="NSwag.AssemblyLoader, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.AssemblyLoader.12.3.1\lib\net451\NSwag.AssemblyLoader.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.CodeGeneration.12.3.0\lib\net451\NSwag.CodeGeneration.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.CodeGeneration.12.3.1\lib\net451\NSwag.CodeGeneration.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration.CSharp, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.CodeGeneration.CSharp.12.3.0\lib\net451\NSwag.CodeGeneration.CSharp.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration.CSharp, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.CodeGeneration.CSharp.12.3.1\lib\net451\NSwag.CodeGeneration.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration.TypeScript, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.CodeGeneration.TypeScript.12.3.0\lib\net451\NSwag.CodeGeneration.TypeScript.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration.TypeScript, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.CodeGeneration.TypeScript.12.3.1\lib\net451\NSwag.CodeGeneration.TypeScript.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.Commands, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.Commands.12.3.0\lib\net461\NSwag.Commands.dll</HintPath>
+    <Reference Include="NSwag.Commands, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.Commands.12.3.1\lib\net461\NSwag.Commands.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.Core, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.Core.12.3.0\lib\net45\NSwag.Core.dll</HintPath>
+    <Reference Include="NSwag.Core, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.Core.12.3.1\lib\net45\NSwag.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.Core.Yaml, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.Core.Yaml.12.3.0\lib\net45\NSwag.Core.Yaml.dll</HintPath>
+    <Reference Include="NSwag.Core.Yaml, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.Core.Yaml.12.3.1\lib\net45\NSwag.Core.Yaml.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.SwaggerGeneration.12.3.0\lib\net45\NSwag.SwaggerGeneration.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.SwaggerGeneration.12.3.1\lib\net45\NSwag.SwaggerGeneration.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration.AspNetCore, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.SwaggerGeneration.AspNetCore.12.3.0\lib\net451\NSwag.SwaggerGeneration.AspNetCore.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration.AspNetCore, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.SwaggerGeneration.AspNetCore.12.3.1\lib\net451\NSwag.SwaggerGeneration.AspNetCore.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=12.3.0.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>packages\NSwag.SwaggerGeneration.WebApi.12.3.0\lib\net45\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=12.3.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>packages\NSwag.SwaggerGeneration.WebApi.12.3.1\lib\net45\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.VisualStudio, Version=4.9.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\NuGet.VisualStudio.4.9.4\lib\net46\NuGet.VisualStudio.dll</HintPath>
