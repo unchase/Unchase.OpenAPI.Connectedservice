@@ -1,15 +1,15 @@
 #
 ![Unchase OpenAPI (Swagger) Connected Service Logo](img/Unchase-OpenAPI-Swagger-Connected-Service-Logo.png)
 
-[Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio extension to generate `C#` (`TypeScript`) `HttpClient` (`Controller`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
+[Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio 2017/2019 extension to generate `C#` (`TypeScript`) `HttpClient` (or `C#` `Controllers`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
+
+> `For VisualStudio 2019`: Starting from `Preview v16.2.0` extensions based on `Microsoft Connected Services` now work fine.
 
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
-> Starting from Visual Studio Community 2019 Preview v16.2.0 extensions based on `Microsoft Connected Services` now work fine.
-
 ## Getting Started
 
-Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) (including 2019) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from Visual Studio Marketplace:
+Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017 (for [VisualStudio](https://visualstudio.microsoft.com/vs/) 2019: `Extensions -> Manage Extensions`) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice):
 
 ![Adding Unchase OpenAPI (Swagger) Connected Service in Visual Studio](img/Unchase-OpenAPI-Swagger-Connected-Service.gif)
 
@@ -96,9 +96,7 @@ This extension is for those times where you generate `.nswag.json` file and you 
 
 You can compare `.nswag.json` specification-file with another `.nswag.json` specification-file (or with specification given by `endpoint`) by simply selecting one or two files and right-clicking them in Solution Explorer and select **Compare OpenAPI-specifications...**:
 
-![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsOneFileCommandMenu.png)
-
-![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsTwoFilesCommandMenu.png)
+![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsOneFileCommandMenu.png) ![Compare OpenAPI Specifications Command](img/CompareOpenAPISpecificationsTwoFilesCommandMenu.png)
 
 #### Path to the specification `Endpoint`
 
@@ -125,9 +123,7 @@ You can always change the specification Endpoint to compare with in *Tools -> Op
 
 ### Installation completes but I can't see the Service in the list of connected services (Visual Studio 2019)
 
-- Relevant [bug report](https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html). Connected Services will be restored in the first update to [Visual Studio](https://visualstudio.microsoft.com/vs/) 2019 (version 16.1).
-
-> Starting from Visual Studio Community 2019 Preview v16.2.0 extensions based on `Microsoft Connected Services` now work fine.
+- Relevant [bug report](https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html). Connected Services restored from the [Visual Studio](https://visualstudio.microsoft.com/vs/) 2019 (version 16.2.0 Preview 1.0).
 
 ## Roadmap
 
@@ -136,7 +132,9 @@ See the [changelog](CHANGELOG.md) for the further development plans and version 
 ## Feedback
 
 Please feel free to add your [review](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#review-details), [request a feature](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=FEATURE), [ask a question](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService&ssr=false#qna) or [report a bug](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title=BUG) including in connected service: 
+
 ![Unchase OpenAPI Connected Service Report a Bug](img/Unchase-OpenAPI-Connected-Service-ReportBug.png)
+
 Thank you in advance!
 
 ## Thank me!
