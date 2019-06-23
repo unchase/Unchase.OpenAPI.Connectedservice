@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.2.14 `(2019-06-23)`
+
+- [x] Add support yaml-endpoints and endpoints not ends with ".json" or ".yml"
+
 ## v1.2.10 `(2019-05-22)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v12.3.1](https://www.nuget.org/packages/NSwag.Commands/)
