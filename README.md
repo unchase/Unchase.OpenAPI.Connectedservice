@@ -3,11 +3,13 @@
 
 [Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio 2017/2019 extension to generate `C#` (`TypeScript`) `HttpClient` (or `C#` `Controllers`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
 
-> `For VisualStudio 2019`: Starting from `Preview v16.2.0` extensions based on `Microsoft Connected Services` now work fine.
+> Starting from Visual Studio Community 2019 v16.1.3 extensions based on `Microsoft Connected Services` now work fine.
 
 > The project is developed and maintained by [Nikolay Chebotov (**Unchase**)](https://github.com/unchase).
 
 ## Getting Started
+
+#### **[Read How-To on medium.com](https://medium.com/@unchase/how-to-generate-c-or-typescript-client-code-for-openapi-swagger-specification-d882d59e3b77)**
 
 Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017 (for [VisualStudio](https://visualstudio.microsoft.com/vs/) 2019: `Extensions -> Manage Extensions`) or [download](http://vsixgallery.com/extensions/Unchase.OpenAPI.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a/extension.vsix)  as `VSIX` package from VSGallery or [download](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService)  as `VSIX` package from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice):
 
@@ -48,7 +50,7 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 	1. Microsoft.AspNetCore.Mvc ([NuGet](https://www.nuget.org/packages/Microsoft.AspNetCore.MVC))
 - **Command** to open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio)
 - **Command** to compare `.nswag.json` specification file with another `.nswag.json` specification file (or specification given by `endpoint`)
-- Storage of the last 10 endpoints (json-specification path)
+- Storage of the last 10 endpoints (specification path)
 
 ## Settings Meaning
 
@@ -123,7 +125,7 @@ You can always change the specification Endpoint to compare with in *Tools -> Op
 
 ### Installation completes but I can't see the Service in the list of connected services (Visual Studio 2019)
 
-- Relevant [bug report](https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html). Connected Services restored from the [Visual Studio](https://visualstudio.microsoft.com/vs/) 2019 (version 16.2.0 Preview 1.0).
+- Relevant [bug report](https://developercommunity.visualstudio.com/content/problem/468751/vs2019-preview-cannot-install-connected-service-ex.html). `Connected Services` restored in the v16.1.3 update to [Visual Studio](https://visualstudio.microsoft.com/vs/) 2019.
 
 ## Roadmap
 

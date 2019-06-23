@@ -96,8 +96,8 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             if (string.IsNullOrEmpty(this.UserSettings.Endpoint))
                 throw new ArgumentNullException("OpenAPI (Swagger) Specification Endpoint", "Please input the OpenAPI (Swagger) specification endpoint.");
 
-            if (!this.UserSettings.Endpoint.EndsWith(".json", StringComparison.Ordinal))
-                throw new ArgumentException("Please input the OpenAPI (Swagger) specification endpoint ends with \".json\".", "OpenAPI (Swagger) Specification Endpoint");
+            //if (!this.UserSettings.Endpoint.EndsWith(".json", StringComparison.Ordinal))
+            //    throw new ArgumentException("Please input the OpenAPI (Swagger) specification endpoint ends with \".json\".", "OpenAPI (Swagger) Specification Endpoint");
 
             var workFile = Path.GetTempFileName();
 
@@ -129,14 +129,14 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
                     using (var httpClient = new HttpClient(httpHandler))
                     {
-                        var specificationJson = await httpClient.GetStringAsync(this.UserSettings.Endpoint);
-                        if (string.IsNullOrWhiteSpace(specificationJson))
-                            throw new InvalidOperationException("The json-file is an empty file.");
+                        var specificationEndpoint = await httpClient.GetStringAsync(this.UserSettings.Endpoint);
+                        if (string.IsNullOrWhiteSpace(specificationEndpoint))
+                            throw new InvalidOperationException("The specification endpoint is an empty.");
 
-                        if (!ProjectHelper.IsJson(specificationJson))
-                            throw new InvalidOperationException("Service endpoint is not an json-file.");
+                        if (this.UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                            throw new InvalidOperationException("Service endpoint ends with \".json\" is not an json.");
 
-                        File.WriteAllText(workFile, specificationJson);
+                        File.WriteAllText(workFile, specificationEndpoint);
                     }
                 }
                 else // from local path
@@ -144,14 +144,14 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                     if (!File.Exists(this.UserSettings.Endpoint))
                         throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
 
-                    var specificationJson = File.ReadAllText(this.UserSettings.Endpoint);
-                    if (string.IsNullOrWhiteSpace(specificationJson))
-                        throw new InvalidOperationException("The json-file is an empty file.");
+                    var specificationEndpoint = File.ReadAllText(this.UserSettings.Endpoint);
+                    if (string.IsNullOrWhiteSpace(specificationEndpoint))
+                        throw new InvalidOperationException("The specification endpoint is an empty file.");
 
-                    if (!ProjectHelper.IsJson(specificationJson))
-                        throw new InvalidOperationException("Service endpoint is not an json-file.");
+                    if (this.UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                        throw new InvalidOperationException("Service endpoint ends with \".json\" is not an json-file.");
 
-                    File.WriteAllText(workFile, specificationJson);
+                    File.WriteAllText(workFile, specificationEndpoint);
                 }
 
                 return workFile;
