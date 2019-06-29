@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ConnectedServices;
 using NSwag.Commands;
-using NSwag.Commands.SwaggerGeneration;
+using NSwag.Commands.Generation;
 using Unchase.OpenAPI.ConnectedService.Common;
 
 namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
@@ -151,26 +151,26 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var nswagJsonOutputPath = document.SelectedSwaggerGenerator.OutputFilePath;
             try
             {
-                var csharpClientOutputPath = document.CodeGenerators?.SwaggerToCSharpClientCommand?.OutputFilePath;
-                var typeScriptClientOutputPath = document.CodeGenerators?.SwaggerToTypeScriptClientCommand?.OutputFilePath;
-                var controllerOutputPath = document.CodeGenerators?.SwaggerToCSharpControllerCommand?.OutputFilePath;
+                var csharpClientOutputPath = document.CodeGenerators?.OpenApiToCSharpClientCommand?.OutputFilePath;
+                var typeScriptClientOutputPath = document.CodeGenerators?.OpenApiToTypeScriptClientCommand?.OutputFilePath;
+                var controllerOutputPath = document.CodeGenerators?.OpenApiToCSharpControllerCommand?.OutputFilePath;
 
                 document.SelectedSwaggerGenerator.OutputFilePath = nswagJsonTempFileName;
-                if (document.CodeGenerators?.SwaggerToCSharpClientCommand != null)
-                    document.CodeGenerators.SwaggerToCSharpClientCommand.OutputFilePath = csharpClientTempFileName;
-                if (document.CodeGenerators?.SwaggerToTypeScriptClientCommand != null)
-                    document.CodeGenerators.SwaggerToTypeScriptClientCommand.OutputFilePath = typeScriptClientTempFileName;
-                if (document.CodeGenerators?.SwaggerToCSharpControllerCommand != null)
-                    document.CodeGenerators.SwaggerToCSharpControllerCommand.OutputFilePath = controllerTempFileName;
+                if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
+                    document.CodeGenerators.OpenApiToCSharpClientCommand.OutputFilePath = csharpClientTempFileName;
+                if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
+                    document.CodeGenerators.OpenApiToTypeScriptClientCommand.OutputFilePath = typeScriptClientTempFileName;
+                if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
+                    document.CodeGenerators.OpenApiToCSharpControllerCommand.OutputFilePath = controllerTempFileName;
 
                 await document.ExecuteAsync();
 
                 nswagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nswagJsonTempFileName, nswagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
-                if (document.CodeGenerators?.SwaggerToCSharpClientCommand != null)
+                if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
                     await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
-                if (document.CodeGenerators?.SwaggerToTypeScriptClientCommand != null)
+                if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
                     await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
-                if (document.CodeGenerators?.SwaggerToCSharpControllerCommand != null)
+                if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
                     await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
             }
             catch (Exception ex)
@@ -203,29 +203,29 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var document = NSwagDocument.Create();
             if (instance.ServiceConfig.GenerateCSharpClient)
             {
-                instance.ServiceConfig.SwaggerToCSharpClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.cs";
-                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.SwaggerToCSharpClientCommand.Namespace))
-                    instance.ServiceConfig.SwaggerToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
-                document.CodeGenerators.SwaggerToCSharpClientCommand = instance.ServiceConfig.SwaggerToCSharpClientCommand;
+                instance.ServiceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.cs";
+                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace))
+                    instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                document.CodeGenerators.OpenApiToCSharpClientCommand = instance.ServiceConfig.OpenApiToCSharpClientCommand;
             }
             if (instance.ServiceConfig.GenerateTypeScriptClient)
             {
-                instance.ServiceConfig.SwaggerToTypeScriptClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.ts";
-                document.CodeGenerators.SwaggerToTypeScriptClientCommand = instance.ServiceConfig.SwaggerToTypeScriptClientCommand;
+                instance.ServiceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.ts";
+                document.CodeGenerators.OpenApiToTypeScriptClientCommand = instance.ServiceConfig.OpenApiToTypeScriptClientCommand;
             }
             if (instance.ServiceConfig.GenerateCSharpController)
             {
-                instance.ServiceConfig.SwaggerToCSharpControllerCommand.OutputFilePath = $"{serviceFolder}Controller.Generated.cs";
-                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.SwaggerToCSharpControllerCommand.Namespace))
-                    instance.ServiceConfig.SwaggerToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
-                document.CodeGenerators.SwaggerToCSharpControllerCommand = instance.ServiceConfig.SwaggerToCSharpControllerCommand;
+                instance.ServiceConfig.OpenApiToCSharpControllerCommand.OutputFilePath = $"{serviceFolder}Controller.Generated.cs";
+                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace))
+                    instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                document.CodeGenerators.OpenApiToCSharpControllerCommand = instance.ServiceConfig.OpenApiToCSharpControllerCommand;
             }
 
-            document.SelectedSwaggerGenerator = new FromSwaggerCommand
+            document.SelectedSwaggerGenerator = new FromDocumentCommand
             {
                 OutputFilePath = $"{serviceFolder}.nswag.json",
                 Url = serviceUrl,
-                Swagger = instance.ServiceConfig.CopySpecification ? File.ReadAllText(instance.SpecificationTempPath) : null
+                Json = instance.ServiceConfig.CopySpecification ? File.ReadAllText(instance.SpecificationTempPath) : null
             };
 
             var json = document.ToJson();

@@ -230,21 +230,21 @@
 
                     <StackPanel Visibility="{Binding Command.ClientBaseClass, Converter={StaticResource VisibilityConverter}}" Margin="20,0,0,0">
                         <CheckBox IsChecked="{Binding Command.UseHttpClientCreationMethod, Mode=TwoWay}" Margin="0, 5, 10, 5"
-                                                        Visibility="{Binding Command.InjectHttpClient, Converter={StaticResource NotConverter}}"
-                                                        ToolTip="UseHttpClientCreationMethod">
+                                  ToolTip="UseHttpClientCreationMethod">
                             <TextBlock Text="Call the CreateHttpClientAsync method on the client base class to create a new HttpClient instance" TextWrapping="Wrap" />
                         </CheckBox>
                         <CheckBox IsChecked="{Binding Command.UseHttpRequestMessageCreationMethod, Mode=TwoWay}"
-                                                        ToolTip="UseHttpRequestMessageCreationMethod" Margin="0, 5, 10, 5">
+                                  ToolTip="UseHttpRequestMessageCreationMethod"
+                                  Margin="0, 5, 10, 5">
                             <TextBlock Text="Call the CreateHttpRequestMessageAsync method on the client base class to create a new HttpRequestMessage instance" TextWrapping="Wrap" />
                         </CheckBox>
                         <CheckBox IsChecked="{Binding Command.GenerateUpdateJsonSerializerSettingsMethod, Mode=TwoWay}"
-                                                        Content="Generate the UpdateJsonSerializerSettings method (must be implemented in the base class otherwise)."
-                                                        ToolTip="GenerateUpdateJsonSerializerSettingsMethod"
-                                                        Margin="0, 5, 10, 5" />
+                                  Content="Generate the UpdateJsonSerializerSettings method (must be implemented in the base class otherwise)."
+                                  ToolTip="GenerateUpdateJsonSerializerSettingsMethod"
+                                  Margin="0, 5, 10, 5" />
                         <TextBlock TextWrapping="WrapWithOverflow" Text="Configuration Class Name (passed to base class ctor, optional)" FontWeight="Bold" Margin="0, 5, 10, 5" />
                         <TextBox Text="{Binding Command.ConfigurationClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        ToolTip="ConfigurationClass" Margin="0, 5, 10, 5" />
+                                 ToolTip="ConfigurationClass" Margin="0, 5, 10, 5" />
                     </StackPanel>
                 </StackPanel>
 
@@ -389,6 +389,26 @@
                     <TextBlock Text="Always generate enums as bit flags (with [Flags] attribute)." TextWrapping="Wrap" />
                 </CheckBox>
 
+                <CheckBox IsChecked="{Binding Command.InlineNamedArrays, Mode=TwoWay}"
+                          ToolTip="InlineNamedArrays" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named arrays." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedDictionaries, Mode=TwoWay}"
+                          ToolTip="InlineNamedDictionaries" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named dictionaries." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedTuples, Mode=TwoWay}"
+                          ToolTip="InlineNamedTuples" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named tuples." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedAny, Mode=TwoWay}"
+                          ToolTip="InlineNamedAny" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named any schemas." TextWrapping="Wrap" />
+                </CheckBox>
+
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Class Style" FontWeight="Bold" Margin="0, 5, 10, 5" />
                 <ComboBox SelectedItem="{Binding Command.ClassStyle, Mode=TwoWay}"
                           ToolTip="ClassStyle"
@@ -426,6 +446,9 @@
                     </Hyperlink>)
                 </TextBlock>
                 <StackPanel x:Name="PrimitiveTypesPanel" Margin="20,0,0,0">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Any Type" FontWeight="Bold" Margin="0, 5, 10, 5" />
+                    <TextBox Text="{Binding Command.AnyType, Mode=TwoWay}" ToolTip="AnyType" Margin="0, 5, 10, 5" />
+
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Date Type" FontWeight="Bold" Margin="0, 5, 10, 5" />
                     <TextBox Text="{Binding Command.DateType, Mode=TwoWay}" ToolTip="DateType" Margin="0, 5, 10, 5" />
 

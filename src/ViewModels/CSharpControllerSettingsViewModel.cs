@@ -10,7 +10,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
     internal class CSharpControllerSettingsViewModel : ConnectedServiceWizardPage
     {
-        public SwaggerToCSharpControllerCommand Command { get; set; } = new SwaggerToCSharpControllerCommand { Namespace = string.Empty };
+        public OpenApiToCSharpControllerCommand Command { get; set; } = new OpenApiToCSharpControllerCommand { Namespace = string.Empty };
 
         /// <summary>Gets the list of operation modes.</summary>
         public OperationGenerationMode[] OperationGenerationModes { get; } = Enum.GetNames(typeof(OperationGenerationMode))

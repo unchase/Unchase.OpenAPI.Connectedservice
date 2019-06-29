@@ -25,7 +25,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", Constants.Version, IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", Constants.ExtensionName, IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(Options), "Web", Constants.ExtensionName, 101, 102, true, new string[0], ProvidesLocalizedCategoryName = false)]
     [Guid(OpenWithNSwagStudioCommandPackage.PackageGuidString)]

@@ -18,11 +18,11 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         public bool GenerateCSharpController { get; set; } = false;
 
-        public SwaggerToCSharpClientCommand SwaggerToCSharpClientCommand { get; set; }
+        public OpenApiToCSharpClientCommand OpenApiToCSharpClientCommand { get; set; }
 
-        public SwaggerToTypeScriptClientCommand SwaggerToTypeScriptClientCommand { get; set; }
+        public OpenApiToTypeScriptClientCommand OpenApiToTypeScriptClientCommand { get; set; }
 
-        public SwaggerToCSharpControllerCommand SwaggerToCSharpControllerCommand { get; set; }
+        public OpenApiToCSharpControllerCommand OpenApiToCSharpControllerCommand { get; set; }
 
         public string Variables { get; set; }
 

@@ -11,7 +11,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
     {
         public string GeneratedFileName { get; set; }
 
-        public SwaggerToCSharpClientCommand Command { get; set; } = new SwaggerToCSharpClientCommand
+        public OpenApiToCSharpClientCommand Command { get; set; } = new OpenApiToCSharpClientCommand
         {
             Namespace = string.Empty,
             OperationGenerationMode = OperationGenerationMode.SingleClientFromPathSegments

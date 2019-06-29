@@ -7,6 +7,14 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.0 `(2019-06-29)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.0.3](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Add `Inline named arays`, `Inline named dictonaries`, `Inline named tuples` and `Inline named any schemas` options to `CSharp Client Settings` and `CSharp Controller Settings` wizard pages
+- [x] Add `Add model validation attributes` option to `CSharp Controller Settings` wizard page
+- [x] Add `Any Type` textbox into `Primitive Types` group to `CSharp Client Settings` and `CSharp Controller Settings` wizard pages
+- [x] Add `Inline named dictonaries` and `Inline named any schemas` options to `TypeScript Client Settings` wizard page
+
 ## v1.2.14 `(2019-06-23)`
 
 - [x] Add support yaml-endpoints and endpoints not ends with ".json" or ".yml"

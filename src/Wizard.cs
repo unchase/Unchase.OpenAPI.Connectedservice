@@ -64,11 +64,11 @@ namespace Unchase.OpenAPI.ConnectedService
                     //сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
                 }
 
-                CSharpClientSettingsViewModel.Command = serviceConfig.SwaggerToCSharpClientCommand;
+                CSharpClientSettingsViewModel.Command = serviceConfig.OpenApiToCSharpClientCommand;
                 CSharpClientSettingsViewModel.Description = "Settings for generating CSharp client (regenerated)";
-                TypeScriptClientSettingsViewModel.Command = serviceConfig.SwaggerToTypeScriptClientCommand;
+                TypeScriptClientSettingsViewModel.Command = serviceConfig.OpenApiToTypeScriptClientCommand;
                 TypeScriptClientSettingsViewModel.Description = "Settings for generating TypeScript client (regenerated)";
-                CSharpControllerSettingsViewModel.Command = serviceConfig.SwaggerToCSharpControllerCommand;
+                CSharpControllerSettingsViewModel.Command = serviceConfig.OpenApiToCSharpControllerCommand;
                 CSharpControllerSettingsViewModel.Description = "Settings for generating CSharp controller (regenerated)";
             }
 
@@ -168,13 +168,13 @@ namespace Unchase.OpenAPI.ConnectedService
                 OpenGeneratedFilesOnComplete = ConfigOpenApiEndpointViewModel.UserSettings.OpenGeneratedFilesOnComplete
             };
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
-                serviceConfiguration.SwaggerToCSharpClientCommand = CSharpClientSettingsViewModel.Command;
+                serviceConfiguration.OpenApiToCSharpClientCommand = CSharpClientSettingsViewModel.Command;
 
             if (serviceConfiguration.GenerateTypeScriptClient && TypeScriptClientSettingsViewModel.Command != null)
-                serviceConfiguration.SwaggerToTypeScriptClientCommand = TypeScriptClientSettingsViewModel.Command;
+                serviceConfiguration.OpenApiToTypeScriptClientCommand = TypeScriptClientSettingsViewModel.Command;
 
             if (serviceConfiguration.GenerateCSharpController && CSharpControllerSettingsViewModel.Command != null)
-                serviceConfiguration.SwaggerToCSharpControllerCommand = CSharpControllerSettingsViewModel.Command;
+                serviceConfiguration.OpenApiToCSharpControllerCommand = CSharpControllerSettingsViewModel.Command;
 
             return serviceConfiguration;
         }

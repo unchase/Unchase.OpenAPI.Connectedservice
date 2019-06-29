@@ -10,7 +10,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
     internal class TypeScriptClientSettingsViewModel : ConnectedServiceWizardPage
     {
-        public SwaggerToTypeScriptClientCommand Command { get; set; } = new SwaggerToTypeScriptClientCommand();
+        public OpenApiToTypeScriptClientCommand Command { get; set; } = new OpenApiToTypeScriptClientCommand();
 
         /// <summary>Gets the supported TypeScript versions.</summary>
         public decimal[] TypeScriptVersions => new[] { 1.8m, 2.0m, 2.4m, 2.7m };

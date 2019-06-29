@@ -43,6 +43,16 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Margin="0, 5, 10, 5" />
+
+            <CheckBox IsChecked="{Binding Command.InlineNamedDictionaries, Mode=TwoWay}"
+                      ToolTip="InlineNamedDictionaries" Margin="0, 5, 10, 5">
+                <TextBlock Text="Inline named dictionaries." TextWrapping="Wrap" />
+            </CheckBox>
+
+            <CheckBox IsChecked="{Binding Command.InlineNamedAny, Mode=TwoWay}"
+                      ToolTip="InlineNamedAny" Margin="0, 5, 10, 5">
+                <TextBlock Text="Inline named any schemas." TextWrapping="Wrap" />
+            </CheckBox>
         </StackPanel>
 
         <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="0, 10, 0, 0">

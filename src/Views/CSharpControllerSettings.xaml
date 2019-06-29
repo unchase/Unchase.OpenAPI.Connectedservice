@@ -64,6 +64,11 @@
                       Content="Add cancellation token to controller methods."
                       Margin="0, 5, 10, 5" />
 
+            <CheckBox IsChecked="{Binding Command.GenerateModelValidationAttributes, Mode=TwoWay}"
+                      ToolTip="GenerateModelValidationAttributes"
+                      Content="Add model validation attributes."
+                      Margin="0, 5, 10, 5" />
+
             <CheckBox IsChecked="{Binding Command.WrapResponses, Mode=TwoWay}"
                       Content="Wrap success responses to allow full response access."
                       Margin="0, 5, 10, 5" />
@@ -213,6 +218,26 @@
                     <TextBlock Text="Always generate enums as bit flags (with [Flags] attribute)." TextWrapping="Wrap" />
                 </CheckBox>
 
+                <CheckBox IsChecked="{Binding Command.InlineNamedArrays, Mode=TwoWay}"
+                          ToolTip="InlineNamedArrays" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named arrays." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedDictionaries, Mode=TwoWay}"
+                          ToolTip="InlineNamedDictionaries" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named dictionaries." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedTuples, Mode=TwoWay}"
+                          ToolTip="InlineNamedTuples" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named tuples." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox IsChecked="{Binding Command.InlineNamedAny, Mode=TwoWay}"
+                          ToolTip="InlineNamedAny" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Inline named any schemas." TextWrapping="Wrap" />
+                </CheckBox>
+
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Class Style" FontWeight="Bold" Margin="0, 5, 10, 5" />
                 <ComboBox SelectedItem="{Binding Command.ClassStyle, Mode=TwoWay}"
                           ToolTip="ClassStyle"
@@ -250,6 +275,9 @@
                     </Hyperlink>)
                 </TextBlock>
                 <StackPanel x:Name="PrimitiveTypesPanel" Margin="20,0,0,0">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Any Type" FontWeight="Bold" Margin="0, 5, 10, 5" />
+                    <TextBox Text="{Binding Command.AnyType, Mode=TwoWay}" ToolTip="AnyType" Margin="0, 5, 10, 5" />
+
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Date Type" FontWeight="Bold" Margin="0, 5, 10, 5" />
                     <TextBox Text="{Binding Command.DateType, Mode=TwoWay}" ToolTip="DateType" Margin="0, 5, 10, 5" />
 
