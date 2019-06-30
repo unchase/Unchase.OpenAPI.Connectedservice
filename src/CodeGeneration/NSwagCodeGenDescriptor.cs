@@ -167,11 +167,21 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
                 nswagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nswagJsonTempFileName, nswagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
-                    await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                {
+                    await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath,
+                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                }
                 if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
-                    await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                {
+                    await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath,
+                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                }
+
                 if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
-                    await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                {
+                    await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath,
+                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                }
             }
             catch (Exception ex)
             {
@@ -197,7 +207,9 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var nameSpace = context.ProjectHierarchy.GetProject().GetNameSpace();
             var serviceUrl = instance.ServiceConfig.Endpoint;
             if (string.IsNullOrWhiteSpace(instance.Name))
+            {
                 instance.Name = Constants.DefaultServiceName;
+            }
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var serviceFolder = instance.Name;
             var document = NSwagDocument.Create();
@@ -205,7 +217,9 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             {
                 instance.ServiceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.cs";
                 if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace))
+                {
                     instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                }
                 document.CodeGenerators.OpenApiToCSharpClientCommand = instance.ServiceConfig.OpenApiToCSharpClientCommand;
             }
             if (instance.ServiceConfig.GenerateTypeScriptClient)
