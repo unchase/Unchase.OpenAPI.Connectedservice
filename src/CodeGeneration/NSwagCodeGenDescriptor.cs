@@ -19,18 +19,22 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
     internal class NSwagCodeGenDescriptor : BaseCodeGenDescriptor
     {
+        #region Constructors
         public NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance) : base(context, serviceInstance) { }
+        #endregion
+
+        #region Methods
 
         #region NuGet
         public override async Task AddNugetPackagesAsync()
         {
             if (this.Instance.ServiceConfig.GenerateCSharpClient)
-                await AddCSharpClientNugetPackages();
+                await AddCSharpClientNugetPackagesAsync();
             if (this.Instance.ServiceConfig.GenerateCSharpController)
-                await AddCSharpControllerNugetPackages();
+                await AddCSharpControllerNugetPackagesAsync();
         }
 
-        internal async Task AddCSharpClientNugetPackages()
+        internal async Task AddCSharpClientNugetPackagesAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Client...");
             var packageSource = Constants.NuGetOnlineRepository;
@@ -73,7 +77,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             }
         }
 
-        internal async Task AddCSharpControllerNugetPackages()
+        internal async Task AddCSharpControllerNugetPackagesAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Controller...");
             var packageSource = Constants.NuGetOnlineRepository;
@@ -89,7 +93,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             {
                 if (!PackageInstallerServices.IsPackageInstalled(this.Project, nugetPackage))
                 {
-                    PackageInstaller.InstallPackage(packageSource, this.Project, nugetPackage, (Version) null, false);
+                    PackageInstaller.InstallPackage(packageSource, this.Project, nugetPackage, (Version)null, false);
                     await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" forOpenAPI (Swagger) was added.");
                 }
                 else
@@ -102,6 +106,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         }
         #endregion
 
+        #region Generation
         public override async Task<string> AddGeneratedCodeAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating Client Proxy for OpenAPI (Swagger) Client...");
@@ -169,18 +174,18 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
                 {
                     await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath,
-                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 }
                 if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
                 {
                     await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath,
-                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 }
 
                 if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
                 {
                     await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath,
-                        new AddFileOptions {OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete});
+                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 }
             }
             catch (Exception ex)
@@ -266,5 +271,8 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             await document.ExecuteAsync();
             return document.SelectedSwaggerGenerator.OutputFilePath;
         }
+        #endregion
+
+        #endregion
     }
 }

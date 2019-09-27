@@ -8,8 +8,11 @@ namespace Unchase.OpenAPI.ConnectedService.Common
     public static class LoggerHelper
     {
         private static IVsOutputWindowPane pane;
+
         private static readonly object _syncRoot = new object();
+
         private static IServiceProvider _provider;
+
         private static string _name;
 
         public static void Initialize(Package provider, string name)

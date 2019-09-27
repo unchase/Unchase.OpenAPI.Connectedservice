@@ -7,6 +7,13 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.4 `2019-09-27`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.1.1](https://www.nuget.org/packages/NSwag.Commands/)
+  - [x] Add .NET Core 3.0 support
+  - [x] Improve JSON Schema generator fallback for System.Text.Json (still not recommended)
+- [x] Update other nuget-dependencies
+
 ## v1.3.3 `2019-09-25`
 
 - [x] Add "Browse" button in the first wizard page for choosing specification file

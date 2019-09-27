@@ -18,13 +18,21 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
     internal abstract class BaseCodeGenDescriptor
     {
+        #region Properties
         public IVsPackageInstaller PackageInstaller { get; private set; }
-        public IVsPackageInstallerServices PackageInstallerServices { get; private set; }
-        public ConnectedServiceHandlerContext Context { get; private set; }
-        public Project Project { get; private set; }
-        public string ServiceUri { get; private set; }
-        public Instance Instance { get; private set; }
 
+        public IVsPackageInstallerServices PackageInstallerServices { get; private set; }
+
+        public ConnectedServiceHandlerContext Context { get; private set; }
+
+        public Project Project { get; private set; }
+
+        public string ServiceUri { get; private set; }
+
+        public Instance Instance { get; private set; }
+        #endregion
+
+        #region Constructors
         protected BaseCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
         {
             this.InitNuGetInstaller();
@@ -34,14 +42,15 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             this.Context = context;
             this.Project = context.ProjectHierarchy.GetProject();
         }
-
         private void InitNuGetInstaller()
         {
             var componentModel = (IComponentModel)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SComponentModel));
             this.PackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
             this.PackageInstaller = componentModel.GetService<IVsPackageInstaller>();
         }
+        #endregion
 
+        #region Methods
         public abstract Task AddNugetPackagesAsync();
 
         public abstract Task<string> AddGeneratedCodeAsync();
@@ -53,5 +62,6 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var serviceReferenceFolderName = this.Context.HandlerHelper.GetServiceArtifactsRootFolder();
             return Path.Combine(ProjectHelper.GetServiceFolderPath(this.Project, serviceReferenceFolderName, this.Context.ServiceInstance.Name));
         }
+        #endregion
     }
 }
