@@ -112,6 +112,10 @@
                 </Hyperlink>)
             </TextBlock>
             <StackPanel x:Name="WebAPIControllerSettingsPanel" Visibility="Collapsed" Margin="20,0,0,0">
+                <TextBlock TextWrapping="WrapWithOverflow" Text="BasePath override (RoutePrefix) :" FontWeight="Bold" Margin="0, 5, 0, 0" />
+                <TextBox Text="{Binding Command.BasePath, Mode=TwoWay}"
+                         Margin="0, 5, 10, 5" />
+                
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Controller Class Name :" FontWeight="Bold" Margin="0, 5, 0, 0" />
                 <TextBox Text="{Binding Command.ClassName, Mode=TwoWay}"
                          Margin="0, 5, 10, 5" />

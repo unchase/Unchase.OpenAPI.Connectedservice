@@ -7,13 +7,18 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.6 `2019-10-10`
+
+- [x] Fix [issue #6](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/6)
+- [x] Update dependencies: add support for [NSwag.Commands v13.1.3](https://github.com/RicoSuter/NSwag/pull/2454)
+
 ## v1.3.5 `2019-09-28`
 
-- [x] Update dependencies: add support for [NSwag.Commands v13.1.2](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v13.1.2](https://github.com/RicoSuter/NSwag/pull/2433)
 
 ## v1.3.4 `2019-09-27`
 
-- [x] Update dependencies: add support for [NSwag.Commands v13.1.1](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v13.1.1](https://github.com/RicoSuter/NSwag/pull/2430)
   - [x] Add .NET Core 3.0 support
   - [x] Improve JSON Schema generator fallback for System.Text.Json (still not recommended)
 - [x] Update other nuget-dependencies
@@ -24,11 +29,11 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.3.2 `(2019-09-06)`
 
-- [x] Update dependencies: add support for [NSwag.Commands v13.0.6](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v13.0.6](https://github.com/RicoSuter/NSwag/pull/2369)
 
 ## v1.3.0 `(2019-06-29)`
 
-- [x] Update dependencies: add support for [NSwag.Commands v13.0.3](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v13.0.3](https://github.com/RicoSuter/NSwag/pull/2277)
 - [x] Add `Inline named arays`, `Inline named dictonaries`, `Inline named tuples` and `Inline named any schemas` options to `CSharp Client Settings` and `CSharp Controller Settings` wizard pages
 - [x] Add `Add model validation attributes` option to `CSharp Controller Settings` wizard page
 - [x] Add `Any Type` textbox into `Primitive Types` group to `CSharp Client Settings` and `CSharp Controller Settings` wizard pages
@@ -40,7 +45,7 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.2.10 `(2019-05-22)`
 
-- [x] Update dependencies: add support for [NSwag.Commands v12.3.1](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v12.3.1](https://github.com/RicoSuter/NSwag/pull/2187)
 
 ## v1.2.9 `(2019-05-22)`
 
@@ -48,7 +53,7 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.2.6 `(2019-05-01)`
 
-- [x] Update dependencies: add support for [NSwag.Commands v12.2.4](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v12.2.4](https://github.com/RicoSuter/NSwag/pull/2144)
 
 ## v1.2.4 `(2019-04-30)`
 
@@ -56,7 +61,7 @@ These are the changes to each version that has been released on the official [Vi
 
 ## v1.2.1 `(2019-04-22)`
 
-- [x] Update dependencies: add support for [NSwag.Commands v12.2.0](https://www.nuget.org/packages/NSwag.Commands/)
+- [x] Update dependencies: add support for [NSwag.Commands v12.2.0](https://github.com/RicoSuter/NSwag/pull/2128)
 
 ## v1.2.0 `(2019-04-20)`
 
