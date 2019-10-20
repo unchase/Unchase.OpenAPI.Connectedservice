@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.7 `2019-10-20`
+
+- [x] Update icon resolution
+
 ## v1.3.6 `2019-10-10`
 
 - [x] Fix [issue #6](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/6)

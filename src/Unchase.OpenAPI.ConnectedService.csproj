@@ -614,7 +614,6 @@
     <Content Include="Resources\favicon.ico" />
     <Resource Include="Resources\NewBug.png" />
     <Content Include="Unchase.OpenAPI.ConnectedService.sln" />
-    <Resource Include="Resources\icon_32x32.png" />
     <Content Include="Resources\logo_128x128.png">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
