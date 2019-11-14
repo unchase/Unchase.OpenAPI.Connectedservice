@@ -208,6 +208,13 @@
                          VerticalAlignment="Center"
                          Margin="0, 5, 10, 5"/>
 
+                <TextBlock TextWrapping="WrapWithOverflow" Text="Date format for method parameters :" FontWeight="Bold" Margin="0, 5, 0, 0"/>
+                <TextBox Text="{Binding Command.ParameterDateFormat, Mode=TwoWay}"
+                         ToolTip="ParameterDateFormat"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Center"
+                         Margin="0, 5, 10, 5"/>
+
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Null value used for query parameters which are null :" FontWeight="Bold" Margin="0, 5, 0, 0"/>
                 <TextBox Text="{Binding Command.QueryNullValue, Mode=TwoWay}"
                          ToolTip="QueryNullValue"

@@ -14,6 +14,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
     internal class ConfigOpenApiEndpointViewModel : ConnectedServiceWizardPage
     {
+        #region Properties and Fields
         public string Endpoint { get; set; }
 
         public string EndpointDescription => $"{this.Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
@@ -42,6 +43,20 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         public string WebProxyUri { get; set; }
         #endregion
 
+        /// <summary>Gets the available runtimes.</summary>
+        public Runtime[] Runtimes
+        {
+            get
+            {
+                return Enum.GetNames(typeof(Runtime))
+                    .Select(t => (Runtime)Enum.Parse(typeof(Runtime), t))
+                    .ToArray();
+            }
+        }
+
+        #endregion
+
+        #region Constructors
         public ConfigOpenApiEndpointViewModel(UserSettings userSettings, Wizard wizard) : base()
         {
             this.Title = "Configure specification endpoint";
@@ -56,7 +71,9 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.UseWebProxy = false;
             this.UseWebProxyCredentials = false;
         }
+        #endregion
 
+        #region Methods
         public override async Task<PageNavigationResult> OnPageLeavingAsync(WizardLeavingArgs args)
         {
             UserSettings.AddToTopOfMruList(((Wizard)this.Wizard).UserSettings.MruEndpoints, this.Endpoint);
@@ -77,17 +94,6 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         IsSuccess = false,
                         ShowMessageBoxOnFailure = true
                     });
-            }
-        }
-
-        /// <summary>Gets the available runtimes.</summary>
-        public Runtime[] Runtimes
-        {
-            get
-            {
-                return Enum.GetNames(typeof(Runtime))
-                    .Select(t => (Runtime)Enum.Parse(typeof(Runtime), t))
-                    .ToArray();
             }
         }
 
@@ -141,10 +147,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 }
                 else // from local path
                 {
-                    if (!File.Exists(this.UserSettings.Endpoint))
-                        throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
-
-                    var specificationEndpoint = File.ReadAllText(this.UserSettings.Endpoint);
+                    var specificationEndpoint = File.ReadAllText(this.InternalWizard.GetEndpointPath(this.UserSettings.Endpoint, this.UserSettings.UseRelativePath));
                     if (string.IsNullOrWhiteSpace(specificationEndpoint))
                         throw new InvalidOperationException("The specification endpoint is an empty file.");
 
@@ -165,5 +168,6 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
             }
         }
+        #endregion
     }
 }

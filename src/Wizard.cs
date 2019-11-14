@@ -6,8 +6,11 @@
 // <author>Nickolay Chebotov (Unchase), spiritkola@hotmail.com</author>
 //-----------------------------------------------------------------------
 
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ConnectedServices;
+using Unchase.OpenAPI.ConnectedService.Common;
 using Unchase.OpenAPI.ConnectedService.Models;
 using Unchase.OpenAPI.ConnectedService.ViewModels;
 using Unchase.OpenAPI.ConnectedService.Views;
@@ -16,7 +19,10 @@ namespace Unchase.OpenAPI.ConnectedService
 {
     internal class Wizard : ConnectedServiceWizard
     {
+        #region Properties and Fields
         private Instance _serviceInstance;
+
+        internal readonly string ProjectPath;
 
         public ConfigOpenApiEndpointViewModel ConfigOpenApiEndpointViewModel { get; set; }
 
@@ -31,10 +37,14 @@ namespace Unchase.OpenAPI.ConnectedService
         public Instance ServiceInstance => this._serviceInstance ?? (this._serviceInstance = new Instance());
 
         public UserSettings UserSettings { get; }
+        #endregion
 
+        #region Constructors
         public Wizard(ConnectedServiceProviderContext context)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             this.Context = context;
+            this.ProjectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
             this.UserSettings = UserSettings.Load(context.Logger);
 
             ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this.UserSettings, this);
@@ -75,7 +85,9 @@ namespace Unchase.OpenAPI.ConnectedService
             this.Pages.Add(ConfigOpenApiEndpointViewModel);
             this.IsFinishEnabled = true;
         }
+        #endregion
 
+        #region Methods
         public void AddCSharpClientSettingsPage()
         {
             if (!this.Pages.Contains(CSharpClientSettingsViewModel))
@@ -154,10 +166,11 @@ namespace Unchase.OpenAPI.ConnectedService
         /// </summary>
         private ServiceConfiguration CreateServiceConfiguration()
         {
+
             var serviceConfiguration = new ServiceConfiguration
             {
                 ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
-                Endpoint = ConfigOpenApiEndpointViewModel.UserSettings.Endpoint,
+                Endpoint = GetEndpointPath(ConfigOpenApiEndpointViewModel.UserSettings.Endpoint, ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath),
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,
                 GenerateCSharpClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpClient,
                 GenerateCSharpController = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpController,
@@ -165,7 +178,8 @@ namespace Unchase.OpenAPI.ConnectedService
                 Variables = ConfigOpenApiEndpointViewModel.UserSettings.Variables,
                 Runtime = ConfigOpenApiEndpointViewModel.UserSettings.Runtime,
                 CopySpecification = ConfigOpenApiEndpointViewModel.UserSettings.CopySpecification,
-                OpenGeneratedFilesOnComplete = ConfigOpenApiEndpointViewModel.UserSettings.OpenGeneratedFilesOnComplete
+                OpenGeneratedFilesOnComplete = ConfigOpenApiEndpointViewModel.UserSettings.OpenGeneratedFilesOnComplete,
+                UseRelativePath = ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath
             };
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
                 serviceConfiguration.OpenApiToCSharpClientCommand = CSharpClientSettingsViewModel.Command;
@@ -177,6 +191,28 @@ namespace Unchase.OpenAPI.ConnectedService
                 serviceConfiguration.OpenApiToCSharpControllerCommand = CSharpControllerSettingsViewModel.Command;
 
             return serviceConfiguration;
+        }
+
+        /// <summary>
+        /// Get specification endpoint path.
+        /// </summary>
+        /// <param name="endpoint">Endpoint path (relative or avsolute).</param>
+        internal string GetEndpointPath(string endpoint, bool useRelativePath = false)
+        {
+            if (endpoint.StartsWith("http://", StringComparison.Ordinal) 
+                || endpoint.StartsWith("https://", StringComparison.Ordinal)
+                || File.Exists(endpoint)
+                || !useRelativePath)
+            {
+                return endpoint;
+            }
+            else
+            {
+                if (!File.Exists(Path.Combine(this.ProjectPath, endpoint)))
+                    throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
+                else
+                    return Path.Combine(this.ProjectPath, endpoint);
+            }
         }
 
         /// <summary>
@@ -225,5 +261,6 @@ namespace Unchase.OpenAPI.ConnectedService
                 base.Dispose(disposing);
             }
         }
+        #endregion
     }
 }

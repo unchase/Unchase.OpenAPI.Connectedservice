@@ -48,6 +48,9 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         [DataMember]
         public bool OpenGeneratedFilesOnComplete { get; set; } = false;
+
+        [DataMember]
+        public bool UseRelativePath { get; set; } = false;
         #endregion
 
         #region Constructors

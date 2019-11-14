@@ -31,6 +31,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public bool CopySpecification { get; set; }
 
         public bool OpenGeneratedFilesOnComplete { get; set; }
+
+        public bool UseRelativePath { get; set; }
         #endregion
 
         #region Network Credentials

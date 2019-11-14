@@ -118,6 +118,13 @@
             Text="OpenAPI (Swagger) specification URI (path) :"
             TextWrapping="WrapWithOverflow" />
 
+        <CheckBox
+            x:Name="UseRelativePath"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Content="Use relative specification file path (relatively target project base path)."
+            IsChecked="{Binding Path=UserSettings.UseRelativePath, Mode=TwoWay}" />
+        
         <Grid Margin="20,5,10,5" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

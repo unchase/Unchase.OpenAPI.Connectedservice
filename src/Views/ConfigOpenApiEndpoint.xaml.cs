@@ -6,15 +6,21 @@ namespace Unchase.OpenAPI.ConnectedService.Views
 {
     public partial class ConfigOpenApiEndpoint : UserControl
     {
+        #region Properties and Fields
         private readonly Wizard _wizard;
 
         private const string ReportABugUrlFormat = "https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new?title={0}&labels=bug&body={1}";
+        #endregion
 
+        #region Constructors
         internal ConfigOpenApiEndpoint(Wizard wizard)
         {
             InitializeComponent();
-            _wizard = wizard;
+            this._wizard = wizard;
         }
+        #endregion
+
+        #region Methods
 
         #region Events
         private void GenerateCSharpClient_OnUnchecked(object sender, RoutedEventArgs e)
@@ -67,8 +73,12 @@ namespace Unchase.OpenAPI.ConnectedService.Views
             var result = openFileDialog.ShowDialog();
             if (result == true)
             {
-                Endpoint.Text = openFileDialog.FileName;
+                if (this._wizard.ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath && openFileDialog.FileName.StartsWith(this._wizard.ProjectPath, StringComparison.OrdinalIgnoreCase))
+                    Endpoint.Text = openFileDialog.FileName.Substring(this._wizard.ProjectPath.Length);
+                else
+                    Endpoint.Text = openFileDialog.FileName;
             }
         }
+        #endregion
     }
 }
