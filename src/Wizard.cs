@@ -46,6 +46,7 @@ namespace Unchase.OpenAPI.ConnectedService
             this.Context = context;
             this.ProjectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
             this.UserSettings = UserSettings.Load(context.Logger);
+            this.UserSettings.ProjectPath = this.ProjectPath;
 
             ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this.UserSettings, this);
             CSharpClientSettingsViewModel = new CSharpClientSettingsViewModel();

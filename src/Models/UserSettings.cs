@@ -51,6 +51,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         [DataMember]
         public bool UseRelativePath { get; set; } = false;
+
+        public string ProjectPath { get; set; }
         #endregion
 
         #region Constructors
