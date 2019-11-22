@@ -30,8 +30,8 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 
 ## Features
 
-- Generate `C#` or `TypeScript` clients/proxies (client code) from Swagger 2.0 and OpenAPI 3.0 specifications or C# ASP.NET (Core) controllers
-- Generate `C#` Controller from Swagger 2.0 and OpenAPI 3.0 specifications
+- Generate `C#` or `TypeScript` clients/proxies (client code) from Swagger 2.0 and OpenAPI 3.0 specifications
+- Generate `C#` ASP.NET Controller from Swagger 2.0 and OpenAPI 3.0 specifications
 - Generate `.nswag` file for using in [`NSwagStudio`](https://github.com/NSwag/NSwag/wiki/NSwagStudio) (no need to install for generating)
 - Add required dependencies for the `C#` client (before generating):
 	- Library targeting .NET Standard 1.4+:
