@@ -9,6 +9,7 @@ namespace Unchase.OpenAPI.ConnectedService
     [ConnectedServiceHandlerExport(Constants.ProviderId, AppliesTo = "VB | CSharp | Web")]
     internal class Handler : ConnectedServiceHandler
     {
+        #region Methods
         public override async Task<AddServiceInstanceResult> AddServiceInstanceAsync(ConnectedServiceHandlerContext context, CancellationToken cancellationToken)
         {
             var instance = (Instance)context.ServiceInstance;
@@ -53,5 +54,6 @@ namespace Unchase.OpenAPI.ConnectedService
             var clientFilePath = await codeGenDescriptor.AddGeneratedCodeAsync();
             return codeGenDescriptor;
         }
+        #endregion
     }
 }

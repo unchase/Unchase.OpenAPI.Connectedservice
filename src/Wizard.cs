@@ -48,6 +48,9 @@ namespace Unchase.OpenAPI.ConnectedService
             this.UserSettings = UserSettings.Load(context.Logger);
             this.UserSettings.ProjectPath = this.ProjectPath;
 
+            if (this.Context.IsUpdating)
+                this.UserSettings.SetFromServiceConfiguration(context.GetExtendedDesignerData<ServiceConfiguration>());
+
             ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this.UserSettings, this);
             CSharpClientSettingsViewModel = new CSharpClientSettingsViewModel();
             TypeScriptClientSettingsViewModel = new TypeScriptClientSettingsViewModel();

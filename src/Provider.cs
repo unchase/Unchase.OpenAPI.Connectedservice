@@ -12,6 +12,7 @@ namespace Unchase.OpenAPI.ConnectedService
     [ConnectedServiceProviderExport(Constants.ProviderId, SupportsUpdate = true)]
     internal class Provider : ConnectedServiceProvider
     {
+        #region Constructors
         public Provider()
         {
             Category = Constants.ExtensionCategory;
@@ -24,11 +25,12 @@ namespace Unchase.OpenAPI.ConnectedService
                 BitmapSizeOptions.FromWidthAndHeight(64, 64)
             );
             CreatedBy = Constants.Author;
-            Version = new Version(1, 1, 0, 0);
             Version = typeof(Provider).Assembly.GetName().Version;
             MoreInfoUri = new Uri(Constants.Website);
         }
+        #endregion
 
+        #region Methods
         public override Task<ConnectedServiceConfigurator> CreateConfiguratorAsync(ConnectedServiceProviderContext context)
         {
             return Task.FromResult<ConnectedServiceConfigurator>(new Wizard(context));
@@ -39,5 +41,6 @@ namespace Unchase.OpenAPI.ConnectedService
             yield return Tuple.Create("OpenAPI (Swagger)", new Uri("https://swagger.io/docs/specification/about/"));
             yield return Tuple.Create("NSwag", new Uri("https://github.com/RSuter/NSwag"));
         }
+        #endregion
     }
 }

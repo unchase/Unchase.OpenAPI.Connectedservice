@@ -9,6 +9,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
 {
     internal class UserSettingsPersistenceHelper
     {
+        #region Public methods
         /// <summary>
         /// Saves user settings to isolated storage.  The data is stored with the user's roaming profile.
         /// </summary>
@@ -106,7 +107,9 @@ namespace Unchase.OpenAPI.ConnectedService.Common
 
             return result;
         }
+        #endregion
 
+        #region Private methods
         private static string GetStorageFileName(string providerId, string name)
         {
             return providerId + "_" + name + ".xml";
@@ -130,8 +133,9 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             }
             catch (Exception ex)
             {
-                logger.WriteMessageAsync(LoggerMessageCategory.Warning, failureMessage, failureMessageArg, ex);
+                logger.WriteMessageAsync(LoggerMessageCategory.Warning, failureMessage, failureMessageArg, ex).GetAwaiter().GetResult();
             }
         }
+        #endregion
     }
 }

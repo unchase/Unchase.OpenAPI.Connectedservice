@@ -54,7 +54,7 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 
 ## Settings Meaning
 
-Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService) settings according to [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio):
+Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService) settings according to [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio):
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
 
@@ -62,13 +62,13 @@ Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace
 
 ### `Open in NSwagStudio` Command
 
-Since *v1.1.** have been added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
+Since *v1.1.** have been added menu command embedded in Visual Studio Solution Explorer context menu lets you open generated `.nswag` and `.nswag.json` files in [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
 
-This extension is for those times where you generate `.nswag` and `.nswag.json` files and you want to be able to quickly open it in [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
+This extension is for those times where you generate `.nswag` and `.nswag.json` files and you want to be able to quickly open it in [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio).
 
 #### Prerequisite
 
-> In order to use this extension, you must have [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017/2019, this connected service as well as [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) installed.
+> In order to use this extension, you must have [Visual Studio](https://visualstudio.microsoft.com/vs/) 2017/2019, this connected service as well as [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) installed.
 
 #### Solution Explorer
 
@@ -78,7 +78,7 @@ You can open `.nswag` and `.nswag.json` files in [NSWagStudio](https://github.co
 
 #### Path to NSwagStudio.exe
 
-If you installed [NSWagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) at a non-default location, a prompt will ask for the path to `NSwagStudio.exe`.
+If you installed [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) at a non-default location, a prompt will ask for the path to `NSwagStudio.exe`.
 
 You can always change the location in *Tools -> Options -> Web -> Unchase OpenAPI (Swagger) Connected Service*:
 

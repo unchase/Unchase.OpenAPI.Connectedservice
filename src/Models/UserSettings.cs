@@ -63,6 +63,24 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         #endregion
 
         #region Public methods
+        /// <summary>
+        /// Set properties from <see cref="UserSettings"/>.
+        /// </summary>
+        /// <param name="serviceConfiguration"><see cref="ServiceConfiguration"/>.</param>
+        internal void SetFromServiceConfiguration(ServiceConfiguration serviceConfiguration)
+        {
+            this.CopySpecification = serviceConfiguration.CopySpecification;
+            this.Endpoint = serviceConfiguration.Endpoint;
+            this.GenerateCSharpClient = serviceConfiguration.GenerateCSharpClient;
+            this.GenerateCSharpController = serviceConfiguration.GenerateCSharpController;
+            this.GenerateTypeScriptClient = serviceConfiguration.GenerateTypeScriptClient;
+            this.OpenGeneratedFilesOnComplete = serviceConfiguration.OpenGeneratedFilesOnComplete;
+            this.Runtime = serviceConfiguration.Runtime;
+            this.ServiceName = serviceConfiguration.ServiceName;
+            this.UseRelativePath = serviceConfiguration.UseRelativePath;
+            this.Variables = serviceConfiguration.Variables;
+        }
+
         public void Save()
         {
             UserSettingsPersistenceHelper.Save(this, Constants.ProviderId, UserSettings.Name, null, this._logger);

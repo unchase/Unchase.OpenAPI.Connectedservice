@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.10 `2019-11-22`
+
+- [x] Fix [issue #10](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/10)
+- [x] Add small fixes 
+
 ## v1.3.9 `2019-11-14`
 
 - [x] Add output relative project path in the first wizard page
