@@ -7,6 +7,13 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.13 `2019-11-23`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.1.6](https://github.com/RicoSuter/NSwag/pull/2543)
+  - [x] [Update NJS](https://github.com/RicoSuter/NSwag/commit/ef1cd8781c5a90e58045cf90e367a68e3ca70408)
+  - [x] [Add `OpenApiBodyParameterAttribute`](https://github.com/RicoSuter/NSwag/commit/7eca48175cf6df3564059df3c91aa61a4a8b25af)
+  - [x] [Allow angular http request to send withCredentials](https://github.com/RicoSuter/NSwag/pull/2538)
+
 ## v1.3.10 `2019-11-22`
 
 - [x] Fix [issue #10](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/10)
