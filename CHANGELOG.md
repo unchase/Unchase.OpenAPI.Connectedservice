@@ -7,56 +7,60 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
-## v1.3.15 `2019-12-19`
+## v1.3.16 `(2020-01-13)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.2.1](https://github.com/RicoSuter/NSwag/pull/2620)
+
+## v1.3.15 `(2019-12-19)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.2.0](https://github.com/RicoSuter/NSwag/pull/2588)
 
-## v1.3.14 `2019-12-17`
+## v1.3.14 `(2019-12-17)`
 
 - [x] Fix [issue #12](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/12)
 
-## v1.3.13 `2019-11-23`
+## v1.3.13 `(2019-11-23)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.1.6](https://github.com/RicoSuter/NSwag/pull/2543)
   - [x] [Update NJS](https://github.com/RicoSuter/NSwag/commit/ef1cd8781c5a90e58045cf90e367a68e3ca70408)
   - [x] [Add `OpenApiBodyParameterAttribute`](https://github.com/RicoSuter/NSwag/commit/7eca48175cf6df3564059df3c91aa61a4a8b25af)
   - [x] [Allow angular http request to send withCredentials](https://github.com/RicoSuter/NSwag/pull/2538)
 
-## v1.3.10 `2019-11-22`
+## v1.3.10 `(2019-11-22)`
 
 - [x] Fix [issue #10](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/10)
 - [x] Add small fixes 
 
-## v1.3.9 `2019-11-14`
+## v1.3.9 `(2019-11-14)`
 
 - [x] Add output relative project path in the first wizard page
 
-## v1.3.8 `2019-11-14`
+## v1.3.8 `(2019-11-14)`
 
 - [x] Fix [issue #9](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/9)
 - [x] Update dependencies: add support for [NSwag.Commands v13.1.4](https://github.com/RicoSuter/NSwag/pull/2520) and [NSwag.Commands v13.1.5](https://github.com/RicoSuter/NSwag/pull/2523)
 
-## v1.3.7 `2019-10-20`
+## v1.3.7 `(2019-10-20)`
 
 - [x] Update icon resolution
 
-## v1.3.6 `2019-10-10`
+## v1.3.6 `(2019-10-10)`
 
 - [x] Fix [issue #6](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/6)
 - [x] Update dependencies: add support for [NSwag.Commands v13.1.3](https://github.com/RicoSuter/NSwag/pull/2454)
 
-## v1.3.5 `2019-09-28`
+## v1.3.5 `(2019-09-28)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.1.2](https://github.com/RicoSuter/NSwag/pull/2433)
 
-## v1.3.4 `2019-09-27`
+## v1.3.4 `(2019-09-27)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.1.1](https://github.com/RicoSuter/NSwag/pull/2430)
   - [x] Add .NET Core 3.0 support
   - [x] Improve JSON Schema generator fallback for System.Text.Json (still not recommended)
 - [x] Update other nuget-dependencies
 
-## v1.3.3 `2019-09-25`
+## v1.3.3 `(2019-09-25)`
 
 - [x] Add "Browse" button in the first wizard page for choosing specification file
 
