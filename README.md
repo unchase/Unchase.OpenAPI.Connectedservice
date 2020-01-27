@@ -1,4 +1,8 @@
-![Unchase OpenAPI (Swagger) Connected Service Logo](img/Unchase-OpenAPI-Swagger-Connected-Service-Logo.png)
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice">
+    <img src="img/Unchase-OpenAPI-Swagger-Connected-Service-Logo.png" alt="Unchase OpenAPI (Swagger) Connected Service Logo">
+  </a>
+</p>
 
 [Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio 2017/2019 extension to generate `C#` (`TypeScript`) `HttpClient` (or `C#` `Controllers`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
 
