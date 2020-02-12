@@ -7,6 +7,16 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.3.18 `(2020-02-13)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.2.3](https://github.com/RicoSuter/NSwag/pull/2661)
+  - [x] [Add title, description and version to C# client template model](https://github.com/RicoSuter/NSwag/pull/2665)
+  - [x] [Add support for custom inline styles for Swagger UI](https://github.com/RicoSuter/NSwag/pull/2666)
+  - [x] [Add code generated attribute to file response](https://github.com/RicoSuter/NSwag/pull/2669)
+  - [x] [Add support for custom document title and head content](https://github.com/RicoSuter/NSwag/pull/2678)
+  - [x] [Enable using route name as operationId](https://github.com/RicoSuter/NSwag/pull/2681)
+  - [x] [Fixes an issue where GET method parameter becomes BODY parameter](https://github.com/RicoSuter/NSwag/pull/2683)
+
 ## v1.3.17 `(2020-01-17)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.2.2](https://github.com/RicoSuter/NSwag/pull/2634)
