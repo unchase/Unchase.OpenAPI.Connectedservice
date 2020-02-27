@@ -20,6 +20,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         public OpenApiToCSharpClientCommand OpenApiToCSharpClientCommand { get; set; }
 
+        public bool ExcludeTypeNamesLater { get; set; }
+
         public OpenApiToTypeScriptClientCommand OpenApiToTypeScriptClientCommand { get; set; }
 
         public OpenApiToCSharpControllerCommand OpenApiToCSharpControllerCommand { get; set; }

@@ -10,10 +10,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.ConnectedServices;
 using NSwag.Commands;
 using NSwag.Commands.Generation;
 using Unchase.OpenAPI.ConnectedService.Common;
+using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
@@ -173,6 +176,29 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 nswagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nswagJsonTempFileName, nswagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
                 {
+                    if (instance.ServiceConfig.ExcludeTypeNamesLater)
+                    {
+                        var parsedSyntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(csharpClientTempFileName), CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.Latest));
+                        var root = await parsedSyntaxTree.GetRootAsync();
+                        var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>().Where(c =>
+                            c.AttributeLists.Any(a => a.Attributes.Any(at =>
+                                at.ArgumentList.Arguments.Any(arg =>
+                                    arg.GetText().ToString().Contains("\"NJsonSchema\"")))));
+                        var classNames = classes.Select(c => c.Identifier.Text);
+                        var excludedClasses = new CSharpClientExcludedClasses(classNames);
+                        if (excludedClasses.ShowDialog() == true)
+                        {
+                            var excludedClassNames = excludedClasses.Classes.Where(c => c.Excluded).Select(c => c.Name).ToArray();
+                            if (excludedClassNames.Any())
+                            {
+                                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Regenerating client code with excluded classes...");
+                                document.CodeGenerators.OpenApiToCSharpClientCommand.ExcludedTypeNames = excludedClassNames;
+                                await document.ExecuteAsync();
+                                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating client code with excluded classes is completed.");
+                            }
+                        }
+                    }
+
                     await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath,
                         new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 }

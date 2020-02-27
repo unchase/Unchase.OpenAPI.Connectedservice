@@ -79,6 +79,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 }
 
                 CSharpClientSettingsViewModel.Command = serviceConfig.OpenApiToCSharpClientCommand;
+                CSharpClientSettingsViewModel.ExcludeTypeNamesLater = serviceConfig.ExcludeTypeNamesLater;
                 CSharpClientSettingsViewModel.Description = "Settings for generating CSharp client (regenerated)";
                 TypeScriptClientSettingsViewModel.Command = serviceConfig.OpenApiToTypeScriptClientCommand;
                 TypeScriptClientSettingsViewModel.Description = "Settings for generating TypeScript client (regenerated)";
@@ -186,7 +187,10 @@ namespace Unchase.OpenAPI.ConnectedService
                 UseRelativePath = ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath
             };
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
+            {
                 serviceConfiguration.OpenApiToCSharpClientCommand = CSharpClientSettingsViewModel.Command;
+                serviceConfiguration.ExcludeTypeNamesLater = CSharpClientSettingsViewModel.ExcludeTypeNamesLater;
+            }
 
             if (serviceConfiguration.GenerateTypeScriptClient && TypeScriptClientSettingsViewModel.Command != null)
                 serviceConfiguration.OpenApiToTypeScriptClientCommand = TypeScriptClientSettingsViewModel.Command;

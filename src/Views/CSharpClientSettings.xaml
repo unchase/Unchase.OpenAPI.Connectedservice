@@ -353,6 +353,10 @@
                 <TextBlock Text="Generate DTO Types (e.g. request and response classes)" ToolTip="GenerateDtoTypes" TextWrapping="Wrap" />
             </CheckBox>
             <StackPanel Visibility="{Binding Command.GenerateDtoTypes, Converter={StaticResource VisibilityConverter}}" Margin="20,0,0,0">
+                <CheckBox IsChecked="{Binding ExcludeTypeNamesLater, Mode=TwoWay}"
+                          ToolTip="ExcludeTypeNamesLater" Margin="0, 5, 10, 5">
+                    <TextBlock Text="Exclude type names later (in a separated window)." TextWrapping="Wrap" />
+                </CheckBox>
                 <TextBlock TextWrapping="WrapWithOverflow" Text="Excluded Type Names (comma separated, must be defined in another namespace) :" FontWeight="Bold" Margin="0, 5, 0, 0"/>
                 <TextBox Text="{Binding Command.ExcludedTypeNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
                          ToolTip="ExcludedTypeNames"

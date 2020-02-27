@@ -27,6 +27,8 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         public CSharpClassStyle[] ClassStyles { get; } = Enum.GetNames(typeof(CSharpClassStyle))
             .Select(t => (CSharpClassStyle)Enum.Parse(typeof(CSharpClassStyle), t))
             .ToArray();
+
+        public bool ExcludeTypeNamesLater { get; set; }
         #endregion
 
         #region Constructors

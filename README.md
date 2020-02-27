@@ -61,6 +61,12 @@ Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace
 
 ![Unchase OpenAPI (Swagger) Connected Service settings meaning](img/Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png)
 
+## Exclude type names
+
+Since [v1.4.0](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/tag/v1.4.0) you can exclude type names in separate Window for C# client code generation:
+
+![Unchase OpenAPI (Swagger) Connected Service - exclude type names](img/Csharp-Client-Generation-Exclude-Type-Names.png)
+
 ## Custom Commands
 
 ### `Open in NSwagStudio` Command
