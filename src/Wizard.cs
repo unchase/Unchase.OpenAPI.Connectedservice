@@ -61,6 +61,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 var serviceConfig = this.Context.GetExtendedDesignerData<ServiceConfiguration>();
                 ConfigOpenApiEndpointViewModel.Endpoint = serviceConfig.Endpoint;
                 ConfigOpenApiEndpointViewModel.ServiceName = serviceConfig.ServiceName;
+                ConfigOpenApiEndpointViewModel.GeneratedFileName = serviceConfig.GeneratedFileName;
                 ConfigOpenApiEndpointViewModel.UseWebProxy = serviceConfig.UseWebProxy;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain = serviceConfig.NetworkCredentialsDomain;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsUserName = serviceConfig.NetworkCredentialsUserName;
@@ -74,17 +75,38 @@ namespace Unchase.OpenAPI.ConnectedService
                     "An OpenAPI (Swagger) specification endpoint and generation options was regenerated";
                 if (ConfigOpenApiEndpointViewModel.View is ConfigOpenApiEndpoint сonfigOpenApiEndpoint)
                 {
-                    //сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
-                    //сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
+                    сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
+                    сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
+                    сonfigOpenApiEndpoint.GeneratedFileName.IsEnabled = false;
+                    сonfigOpenApiEndpoint.OpenEndpointFileButton.IsEnabled = false;
+                    сonfigOpenApiEndpoint.GenerateCSharpClient.IsEnabled = false;
+                    сonfigOpenApiEndpoint.GenerateTypeScriptClient.IsEnabled = false;
+                    сonfigOpenApiEndpoint.GenerateCSharpController.IsEnabled = false;
                 }
 
                 CSharpClientSettingsViewModel.Command = serviceConfig.OpenApiToCSharpClientCommand;
                 CSharpClientSettingsViewModel.ExcludeTypeNamesLater = serviceConfig.ExcludeTypeNamesLater;
                 CSharpClientSettingsViewModel.Description = "Settings for generating CSharp client (regenerated)";
+                if (CSharpClientSettingsViewModel.View is CSharpClientSettings cSharpClientSettings)
+                {
+                    cSharpClientSettings.Namespace.IsEnabled = false;
+                    cSharpClientSettings.AdditionalNamespaceUsages.IsEnabled = false;
+                }
+
                 TypeScriptClientSettingsViewModel.Command = serviceConfig.OpenApiToTypeScriptClientCommand;
                 TypeScriptClientSettingsViewModel.Description = "Settings for generating TypeScript client (regenerated)";
+                if (TypeScriptClientSettingsViewModel.View is TypeScriptClientSettings typeScriptClientSettings)
+                {
+                    typeScriptClientSettings.Namespace.IsEnabled = false;
+                }
+
                 CSharpControllerSettingsViewModel.Command = serviceConfig.OpenApiToCSharpControllerCommand;
                 CSharpControllerSettingsViewModel.Description = "Settings for generating CSharp controller (regenerated)";
+                if (CSharpControllerSettingsViewModel.View is CSharpControllerSettings cSharpControllerSettings)
+                {
+                    cSharpControllerSettings.Namespace.IsEnabled = false;
+                    cSharpControllerSettings.AdditionalNamespaceUsages.IsEnabled = false;
+                }
             }
 
             this.Pages.Add(ConfigOpenApiEndpointViewModel);
@@ -175,6 +197,7 @@ namespace Unchase.OpenAPI.ConnectedService
             var serviceConfiguration = new ServiceConfiguration
             {
                 ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
+                GeneratedFileName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName,
                 Endpoint = GetEndpointPath(ConfigOpenApiEndpointViewModel.UserSettings.Endpoint, ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath),
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,
                 GenerateCSharpClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpClient,
@@ -207,7 +230,7 @@ namespace Unchase.OpenAPI.ConnectedService
         /// <param name="endpoint">Endpoint path (relative or avsolute).</param>
         internal string GetEndpointPath(string endpoint, bool useRelativePath = false)
         {
-            if (endpoint.StartsWith("http://", StringComparison.Ordinal) 
+            if (endpoint.StartsWith("http://", StringComparison.Ordinal)
                 || endpoint.StartsWith("https://", StringComparison.Ordinal)
                 || File.Exists(endpoint)
                 || !useRelativePath)

@@ -8,6 +8,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         #region Properties
         public string ServiceName { get; set; }
 
+        public string GeneratedFileName { get; set; }
+
         public string Endpoint { get; set; }
 
         public string GeneratedFileNamePrefix { get; set; }

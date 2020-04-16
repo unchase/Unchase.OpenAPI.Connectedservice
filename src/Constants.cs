@@ -12,6 +12,7 @@
 
         public const string NuGetOnlineRepository = "https://www.nuget.org/api/v2/";
         public const string DefaultServiceName = "OpenAPIService";
+        public const string DefaultGeneratedFileName = "OpenAPI";
 
         public const string NewtonsoftJsonNuGetPackage = "Newtonsoft.Json";
         public const string SystemNetHttpNuGetPackage = "System.Net.Http";

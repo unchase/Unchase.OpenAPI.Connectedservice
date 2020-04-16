@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:ConfigOpenApiEndpointViewModel}"
-    d:DesignHeight="400"
+    d:DesignHeight="420"
     d:DesignWidth="768"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -95,6 +95,18 @@
             HorizontalAlignment="Stretch"
             Text="{Binding Path=UserSettings.ServiceName, Mode=TwoWay}" />
 
+        <TextBlock
+            Margin="0,5,10,5"
+            HorizontalAlignment="Stretch"
+            FontWeight="Bold"
+            Text="Generated file name :"
+            TextWrapping="WrapWithOverflow" />
+        <TextBox
+            x:Name="GeneratedFileName"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Text="{Binding Path=UserSettings.GeneratedFileName, Mode=TwoWay}" />
+
         <CheckBox
             x:Name="CopySpecification"
             Margin="20,5,10,5"
@@ -125,19 +137,25 @@
             VerticalAlignment="Bottom"
             Content="Use relative specification file path (relatively target project base path)."
             IsChecked="{Binding Path=UserSettings.UseRelativePath, Mode=TwoWay}" />
-        <StackPanel Visibility="{Binding UserSettings.UseRelativePath, Converter={StaticResource VisibilityConverter}}" Margin="40,0,0,0">
-            <TextBlock TextWrapping="WrapWithOverflow" Text="Target project base path :"
+        <StackPanel Margin="40,0,0,0" Visibility="{Binding UserSettings.UseRelativePath, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock
+                Margin="0,5,0,0"
                 FontWeight="Bold"
-                Margin="0, 5, 0, 0"/>
-            <TextBox Text="{Binding UserSettings.ProjectPath, Mode=OneWay}"
-                     ToolTip="ProjectPath"
-                     IsReadOnly="True"
-                     HorizontalAlignment="Stretch"
-                     VerticalAlignment="Center"
-                     Margin="0, 5, 10, 5"/>
-            <TextBlock TextWrapping="WrapWithOverflow" Text="will combine with :"
+                Text="Target project base path :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                x:Name="ProjectPath"
+                Margin="0,5,10,5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                IsReadOnly="True"
+                Text="{Binding UserSettings.ProjectPath, Mode=OneWay}"
+                ToolTip="ProjectPath" />
+            <TextBlock
+                Margin="0,0,0,0"
                 FontWeight="Bold"
-                Margin="0, 0, 0, 0"/>
+                Text="will combine with :"
+                TextWrapping="WrapWithOverflow" />
         </StackPanel>
 
         <Grid Margin="20,0,10,5" HorizontalAlignment="Stretch">

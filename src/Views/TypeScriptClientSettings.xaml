@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
-    d:DesignHeight="400"
+    d:DesignHeight="420"
     d:DesignWidth="768"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -63,6 +63,7 @@
                 Text="Namespace (empty for no namespace declaration) :"
                 TextWrapping="WrapWithOverflow" />
             <TextBox
+                x:Name="Namespace"
                 Margin="0,5,10,5"
                 Text="{Binding Command.Namespace, Mode=TwoWay}"
                 ToolTip="Namespace" />

@@ -7,6 +7,16 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.4.4 `(2020-04-16)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.4.0](https://github.com/RicoSuter/NSwag/pull/2799)
+  - [x] [New option: define a base interface for C# client interfaces.](https://github.com/RicoSuter/NSwag/pull/2775)
+  - [x] [Use enums value (underlying type) rather than enum name](https://github.com/RicoSuter/NSwag/pull/2758)
+  - [x] Inline param refs if AllowReferencesWithProperties is set
+  - [x] Removed .NET Core 1.0, 1.1 and 2.0 support.
+- [x] Add feature: Add option to set `Genereated file name` on the first wizard page
+- [x] Disable some fields when updating
+
 ## v1.4.3 `(2020-04-10)`
 
 - [x] Fix [issue #18](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/18)

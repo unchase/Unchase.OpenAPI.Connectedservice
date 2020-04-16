@@ -21,6 +21,8 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public string ServiceName { get; set; }
 
+        public string GeneratedFileName { get; set; }
+
         public string SpecificationTempPath { get; set; }
 
         public UserSettings UserSettings { get; }
@@ -66,6 +68,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.View = new ConfigOpenApiEndpoint(this.InternalWizard) {DataContext = this};
             this.UserSettings = userSettings;
             this.ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
+            this.GeneratedFileName = string.IsNullOrWhiteSpace(userSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : userSettings.GeneratedFileName;
             this.Endpoint = userSettings.Endpoint;
             this.UseNetworkCredentials = false;
             this.UseWebProxy = false;

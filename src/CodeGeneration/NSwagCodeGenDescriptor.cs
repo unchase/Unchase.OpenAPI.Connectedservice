@@ -148,7 +148,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
 
-            var nswagFilePath = Path.Combine(folderPath, $"{serviceFolder}.nswag");
+            var nswagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
             var document = await NSwagDocument.LoadWithTransformationsAsync(nswagFilePath, instance.ServiceConfig.Variables);
             document.Runtime = instance.ServiceConfig.Runtime;
 
@@ -246,7 +246,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var document = NSwagDocument.Create();
             if (instance.ServiceConfig.GenerateCSharpClient)
             {
-                instance.ServiceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.cs";
+                instance.ServiceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.cs";
                 if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace))
                 {
                     instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
@@ -255,12 +255,16 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             }
             if (instance.ServiceConfig.GenerateTypeScriptClient)
             {
-                instance.ServiceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{serviceFolder}Client.Generated.ts";
+                instance.ServiceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.ts";
                 document.CodeGenerators.OpenApiToTypeScriptClientCommand = instance.ServiceConfig.OpenApiToTypeScriptClientCommand;
             }
             if (instance.ServiceConfig.GenerateCSharpController)
             {
-                instance.ServiceConfig.OpenApiToCSharpControllerCommand.OutputFilePath = $"{serviceFolder}Controller.Generated.cs";
+                instance.ServiceConfig.OpenApiToCSharpControllerCommand.OutputFilePath =
+                    instance.ServiceConfig.GenerateCSharpClient
+                        ? $"{instance.ServiceConfig.GeneratedFileName}Controller.cs"
+                        : $"{instance.ServiceConfig.GeneratedFileName}.cs";
+
                 if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace))
                     instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
                 document.CodeGenerators.OpenApiToCSharpControllerCommand = instance.ServiceConfig.OpenApiToCSharpControllerCommand;
@@ -268,7 +272,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
             document.SelectedSwaggerGenerator = new FromDocumentCommand
             {
-                OutputFilePath = $"{serviceFolder}.nswag.json",
+                OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.nswag.json",
                 Url = serviceUrl,
                 Json = instance.ServiceConfig.CopySpecification ? File.ReadAllText(instance.SpecificationTempPath) : null
             };
@@ -276,7 +280,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var json = document.ToJson();
             var tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, json);
-            var targetPath = Path.Combine(rootFolder, serviceFolder, $"{serviceFolder}.nswag");
+            var targetPath = Path.Combine(rootFolder, serviceFolder, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
             var nswagFilePath = await context.HandlerHelper.AddFileAsync(tempFileName, targetPath);
             if (File.Exists(tempFileName))
                 File.Delete(tempFileName);
@@ -291,7 +295,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
 
-            var nswagFilePath = Path.Combine(folderPath, $"{serviceFolder}.nswag");
+            var nswagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
             var document = await NSwagDocument.LoadWithTransformationsAsync(nswagFilePath, instance.ServiceConfig.Variables);
             document.Runtime = instance.ServiceConfig.Runtime;
             await document.ExecuteAsync();

@@ -47,6 +47,9 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public string ServiceName { get; set; }
 
         [DataMember]
+        public string GeneratedFileName { get; set; }
+
+        [DataMember]
         public bool OpenGeneratedFilesOnComplete { get; set; } = false;
 
         [DataMember]
@@ -77,6 +80,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
             this.OpenGeneratedFilesOnComplete = serviceConfiguration.OpenGeneratedFilesOnComplete;
             this.Runtime = serviceConfiguration.Runtime;
             this.ServiceName = serviceConfiguration.ServiceName;
+            this.GeneratedFileName = serviceConfiguration.GeneratedFileName;
             this.UseRelativePath = serviceConfiguration.UseRelativePath;
             this.Variables = serviceConfiguration.Variables;
         }

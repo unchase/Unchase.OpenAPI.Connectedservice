@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Unchase.Openapi.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a" Version="1.4.3" Language="en-US" Publisher="Unchase" />
+        <Identity Id="Unchase.Openapi.ConnectedService.63199638-6211-4285-ba8f-75b1f0326c2a" Version="1.4.4" Language="en-US" Publisher="Unchase" />
         <DisplayName>Unchase OpenAPI (Swagger) Connected Service</DisplayName>
         <Description xml:space="preserve">Connected service for Visual Studio to generate OpenAPI (Swagger) web service reference.</Description>
         <MoreInfo>https://github.com/unchase/Unchase.OpenAPI.Connectedservice</MoreInfo>
