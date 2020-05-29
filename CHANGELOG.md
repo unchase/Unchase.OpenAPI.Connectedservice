@@ -7,6 +7,14 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## c1.4.8 `(2020-05-29)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.6.0](https://github.com/RicoSuter/NSwag/pull/2860)
+  - [x] [Restore status validation, allow error response interception (axios)](https://github.com/RicoSuter/NSwag/pull/2838)
+  - [x] [Add support for axios cancellation token](https://github.com/RicoSuter/NSwag/pull/2846)
+  - [x] Improve form data support (OpenAPI 3)
+  - [x] Improve form data handling
+
 ## v1.4.7 `(2020-05-09)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.5.0](https://github.com/RicoSuter/NSwag/pull/2837)
