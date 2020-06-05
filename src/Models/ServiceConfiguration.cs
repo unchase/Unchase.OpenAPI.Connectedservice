@@ -1,4 +1,6 @@
-﻿using NSwag.Commands;
+﻿using Microsoft.OpenApi;
+using Microsoft.OpenApi.OData;
+using NSwag.Commands;
 using NSwag.Commands.CodeGeneration;
 
 namespace Unchase.OpenAPI.ConnectedService.Models
@@ -37,6 +39,12 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public bool OpenGeneratedFilesOnComplete { get; set; }
 
         public bool UseRelativePath { get; set; }
+
+        public bool ConvertFromOdata { get; set; }
+
+        public OpenApiConvertSettings OpenApiConvertSettings { get; set; }
+
+        public OpenApiSpecVersion OpenApiSpecVersion { get; set; }
         #endregion
 
         #region Network Credentials

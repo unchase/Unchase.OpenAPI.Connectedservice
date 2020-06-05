@@ -273,8 +273,8 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             document.SelectedSwaggerGenerator = new FromDocumentCommand
             {
                 OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.nswag.json",
-                Url = serviceUrl,
-                Json = instance.ServiceConfig.CopySpecification ? File.ReadAllText(instance.SpecificationTempPath) : null
+                Url = instance.ServiceConfig.ConvertFromOdata ? null : serviceUrl,
+                Json = instance.ServiceConfig.CopySpecification || instance.ServiceConfig.ConvertFromOdata ? File.ReadAllText(instance.SpecificationTempPath) : null
             };
 
             var json = document.ToJson();

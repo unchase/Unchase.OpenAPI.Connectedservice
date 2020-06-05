@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Unchase.OpenAPI.ConnectedService.ViewModels;
 
 namespace Unchase.OpenAPI.ConnectedService.Views
 {
@@ -66,7 +69,7 @@ namespace Unchase.OpenAPI.ConnectedService.Views
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                DefaultExt = ".json",
+                DefaultExt = (this.DataContext as ConfigOpenApiEndpointViewModel)?.UserSettings?.ConvertFromOdata == true ? ".xml" : ".json",
                 Filter = "Specification Files (.*)|*.*",
                 Title = "Open specification file"
             };
@@ -79,6 +82,13 @@ namespace Unchase.OpenAPI.ConnectedService.Views
                     Endpoint.Text = openFileDialog.FileName;
             }
         }
+
+        private void NumericTexBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         #endregion
     }
 }

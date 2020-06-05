@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.OData;
 using Microsoft.VisualStudio.ConnectedServices;
 using NSwag.Commands;
 using Unchase.OpenAPI.ConnectedService.Common;
@@ -55,6 +57,15 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         [DataMember]
         public bool UseRelativePath { get; set; } = false;
 
+        [DataMember]
+        public bool ConvertFromOdata { get; set; } = false;
+
+        [DataMember]
+        public OpenApiConvertSettings OpenApiConvertSettings { get; set; } = new OpenApiConvertSettings();
+
+        [DataMember]
+        public OpenApiSpecVersion OpenApiSpecVersion { get; set; }
+
         public string ProjectPath { get; set; }
         #endregion
 
@@ -82,6 +93,9 @@ namespace Unchase.OpenAPI.ConnectedService.Models
             this.ServiceName = serviceConfiguration.ServiceName;
             this.GeneratedFileName = serviceConfiguration.GeneratedFileName;
             this.UseRelativePath = serviceConfiguration.UseRelativePath;
+            this.ConvertFromOdata = serviceConfiguration.ConvertFromOdata;
+            this.OpenApiConvertSettings = serviceConfiguration.OpenApiConvertSettings;
+            this.OpenApiSpecVersion = serviceConfiguration.OpenApiSpecVersion;
             this.Variables = serviceConfiguration.Variables;
         }
 

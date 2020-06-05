@@ -127,12 +127,217 @@
             Margin="0,5,10,5"
             HorizontalAlignment="Stretch"
             FontWeight="Bold"
-            Text="OpenAPI (Swagger) specification URI (path) :"
+            Text="Specification URI (path) :"
             TextWrapping="WrapWithOverflow" />
 
         <CheckBox
-            x:Name="UseRelativePath"
+            x:Name="ConvertFromOdata"
             Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Content="Experimental: Convert to OpenAPI specification from OData specification URI (path)."
+            IsChecked="{Binding Path=UserSettings.ConvertFromOdata, Mode=TwoWay}" />
+        <StackPanel Margin="40,0,0,0" Visibility="{Binding UserSettings.ConvertFromOdata, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock
+                Margin="0,0,10,5"
+                FontWeight="Bold"
+                Text="OpenAPI specification version :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                x:Name="OpenApiSpecVersion"
+                Margin="20,5,10,5"
+                ItemsSource="{Binding OpenApiSpecVersions}"
+                SelectedItem="{Binding UserSettings.OpenApiSpecVersion, Mode=TwoWay}" />
+            <TextBlock
+                Margin="0,5,0,0"
+                HorizontalAlignment="Stretch"
+                TextWrapping="WrapWithOverflow">
+                <Bold>OpenAPI convert settings</Bold>
+                (<Hyperlink
+                    Name="OpenAPIConvertSettingsHyperlink"
+                    Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                    CommandParameter="{Binding ElementName=OpenAPIConvertSettingsPanel}">
+                    <TextBlock
+                        Name="OpenAPIConvertSettingsHyperlinkText"
+                        Text="{Binding ElementName=OpenAPIConvertSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                        TextWrapping="WrapWithOverflow" />
+                </Hyperlink>
+                )</TextBlock>
+            <StackPanel
+                x:Name="OpenAPIConvertSettingsPanel"
+                Margin="20,5,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Visibility="Collapsed">
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The service root (use specification uri if empty) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsServiceRoot"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.ServiceRoot, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableKeyAsSegment"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output key as segment path."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableKeyAsSegment, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableUnqualifiedCall"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output un-qualified operation call."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableUnqualifiedCall, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm operation."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationImportPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm operation import."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationImportPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableNavigationPropertyPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm navigation property."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableNavigationPropertyPath, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The tags name depth :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsTagDepth"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    PreviewTextInput="NumericTexBox_OnPreviewTextInput"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.TagDepth, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsPrefixEntityTypeNameBeforeKey"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Prefix entity type name before single key."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.PrefixEntityTypeNameBeforeKey, Mode=TwoWay}" />
+                <ComboBox
+                    x:Name="OpenApiConvertSettingsOpenApiSpecVersion"
+                    Margin="20,5,10,5"
+                    ItemsSource="{Binding OpenApiSpecVersions}"
+                    SelectedItem="{Binding ElementName=OpenApiSpecVersion, Path=SelectedItem, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationId"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Set the OperationId on Open API operation."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationId, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableUriEscapeFunctionCall"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Enable UriEscapeFunction call."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableUriEscapeFunctionCall, Mode=TwoWay}"
+                    ToolTip="Output the binding function as Uri escape function if applied the UriEscapeFunction term." />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsVerifyEdmModel"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Verify the edm model before converter."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.VerifyEdmModel, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsIEEE754Compatible"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Server is IEEE754 compatible."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.IEEE754Compatible, Mode=TwoWay}"
+                    ToolTip="If it is IEEE754Compatible, the server will write quoted string for INT64 and decimal to prevent data loss; otherwise keep number without quotes." />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="$Top example value :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsTopExample"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    PreviewTextInput="NumericTexBox_OnPreviewTextInput"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.TopExample, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnablePagination"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Allow paging a collection of entities."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnablePagination, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The name of the operation for retrieving the next page in a collection of entities :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsPageableOperationName"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PageableOperationName, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDiscriminatorValue"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Allow discriminator value support."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDiscriminatorValue, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDerivedTypesReferencesForResponses"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the derived types of a base type reference in the responses payload."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDerivedTypesReferencesForResponses, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDerivedTypesReferencesForRequestBody"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the derived types of a base type reference in the requestBody payload."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDerivedTypesReferencesForRequestBody, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="Specifies a prefix to be prepended to all generated paths :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsPathPrefix"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PathPrefix, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+
+        <CheckBox
+            x:Name="UseRelativePath"
+            Margin="20,10,10,5"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
             Content="Use relative specification file path (relatively target project base path)."

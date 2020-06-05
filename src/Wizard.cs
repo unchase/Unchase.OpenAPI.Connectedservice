@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.OpenApi.OData;
 using Microsoft.VisualStudio.ConnectedServices;
 using Unchase.OpenAPI.ConnectedService.Common;
 using Unchase.OpenAPI.ConnectedService.Models;
@@ -78,6 +79,7 @@ namespace Unchase.OpenAPI.ConnectedService
                     сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
                     сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
                     сonfigOpenApiEndpoint.GeneratedFileName.IsEnabled = false;
+                    сonfigOpenApiEndpoint.ConvertFromOdata.IsEnabled = false;
                     сonfigOpenApiEndpoint.OpenEndpointFileButton.IsEnabled = false;
                     сonfigOpenApiEndpoint.GenerateCSharpClient.IsEnabled = false;
                     сonfigOpenApiEndpoint.GenerateTypeScriptClient.IsEnabled = false;
@@ -193,7 +195,6 @@ namespace Unchase.OpenAPI.ConnectedService
         /// </summary>
         private ServiceConfiguration CreateServiceConfiguration()
         {
-
             var serviceConfiguration = new ServiceConfiguration
             {
                 ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
@@ -207,7 +208,11 @@ namespace Unchase.OpenAPI.ConnectedService
                 Runtime = ConfigOpenApiEndpointViewModel.UserSettings.Runtime,
                 CopySpecification = ConfigOpenApiEndpointViewModel.UserSettings.CopySpecification,
                 OpenGeneratedFilesOnComplete = ConfigOpenApiEndpointViewModel.UserSettings.OpenGeneratedFilesOnComplete,
-                UseRelativePath = ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath
+                UseRelativePath = ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath,
+                ConvertFromOdata = ConfigOpenApiEndpointViewModel.UserSettings.ConvertFromOdata,
+                OpenApiConvertSettings = ConfigOpenApiEndpointViewModel.UserSettings.ConvertFromOdata
+                    ? ConfigOpenApiEndpointViewModel.UserSettings.OpenApiConvertSettings : new OpenApiConvertSettings(),
+                OpenApiSpecVersion = ConfigOpenApiEndpointViewModel.UserSettings.OpenApiSpecVersion
             };
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
             {
@@ -240,7 +245,7 @@ namespace Unchase.OpenAPI.ConnectedService
             else
             {
                 if (!File.Exists(Path.Combine(this.ProjectPath, endpoint)))
-                    throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
+                    throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
                 else
                     return Path.Combine(this.ProjectPath, endpoint);
             }

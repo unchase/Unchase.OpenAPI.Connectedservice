@@ -31,6 +31,7 @@ Install from `Tools -> Extensions and Updates` menu inside [Visual Studio](https
 
 - Generate `C#` or `TypeScript` clients/proxies (client code) from Swagger 2.0 and OpenAPI 3.0 specifications
 - Generate `C#` ASP.NET Controller from Swagger 2.0 and OpenAPI 3.0 specifications
+- **Experimental**: Generate `C#` or `TypeScript` clients/proxies (client code) or ASP.NET Controller from OData specification converted to OpenAPI based on [OpenAPI.NET.OData](https://github.com/microsoft/OpenAPI.NET.OData)
 - Generate `.nswag` file for using in [`NSwagStudio`](https://github.com/NSwag/NSwag/wiki/NSwagStudio) (no need to install for generating)
 - Add required dependencies for the `C#` client (before generating):
 	- Library targeting .NET Standard 1.4+:
@@ -62,6 +63,12 @@ Meaning of the Unchase [OpenAPI (Swagger) Connected Service](https://marketplace
 Since [v1.4.0](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/tag/v1.4.0) you can exclude type names in separate Window for C# client code generation:
 
 ![Unchase OpenAPI (Swagger) Connected Service - exclude type names](img/Csharp-Client-Generation-Exclude-Type-Names.png)
+
+## Generate code from OData specification converted to OpenAPI specification
+
+Since [v1.5.0](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/releases/tag/v1.4.0) you can generate code from OData specification converted to OpenAPI specification:
+
+![Unchase OpenAPI (Swagger) Connected Service - generate from OData](img/Csharp-Client-Generation-OData.png)
 
 ## Custom Commands
 
