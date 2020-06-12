@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.ConnectedServices;
 using NJsonSchema.CodeGeneration.CSharp;
+using NSwag.Commands;
 using NSwag.Commands.CodeGeneration;
 using Unchase.OpenAPI.ConnectedService.Views;
 
@@ -26,6 +27,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         /// <summary>Gets the list of class styles. </summary>
         public CSharpClassStyle[] ClassStyles { get; } = Enum.GetNames(typeof(CSharpClassStyle))
             .Select(t => (CSharpClassStyle)Enum.Parse(typeof(CSharpClassStyle), t))
+            .ToArray();
+
+        /// <summary>Gets new line behaviors. </summary>
+        public NewLineBehavior[] NewLineBehaviors { get; } = Enum.GetNames(typeof(NewLineBehavior))
+            .Select(t => (NewLineBehavior)Enum.Parse(typeof(NewLineBehavior), t))
             .ToArray();
 
         public bool ExcludeTypeNamesLater { get; set; }

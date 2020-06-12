@@ -437,7 +437,7 @@
                 <ComboBox
                     Margin="0,5,10,5"
                     ItemsSource="{Binding EnumStyles}"
-                    SelectedItem="{Binding Command.EnumStyles, Mode=TwoWay}"
+                    SelectedItem="{Binding Command.EnumStyle, Mode=TwoWay}"
                     ToolTip="TypeStyle" />
 
                 <TextBlock
@@ -686,6 +686,34 @@
                 Margin="0,5,10,5"
                 Text="{Binding Command.TemplateDirectory, Mode=TwoWay}"
                 ToolTip="TemplateDirectory" />
+        </StackPanel>
+
+        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap">
+            <Bold>Output</Bold>
+            (<Hyperlink
+                Name="OutputHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=OutputPanel}">
+                <TextBlock
+                    Name="OutputHyperlinkText"
+                    Text="{Binding ElementName=OutputPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="OutputPanel"
+            Margin="20,0,0,0"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,10,5"
+                FontWeight="Bold"
+                Text="New Line Behavior :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                Margin="0,5,10,5"
+                ItemsSource="{Binding NewLineBehaviors}"
+                SelectedItem="{Binding Command.NewLineBehavior, Mode=TwoWay}"
+                ToolTip="NewLineBehavior" />
         </StackPanel>
     </StackPanel>
 

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.ConnectedServices;
 using NJsonSchema.CodeGeneration.TypeScript;
 using NSwag.CodeGeneration.TypeScript;
+using NSwag.Commands;
 using NSwag.Commands.CodeGeneration;
 using Unchase.OpenAPI.ConnectedService.Views;
 
@@ -63,6 +64,12 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         public TypeScriptNullValue[] NullValues { get; } = Enum.GetNames(typeof(TypeScriptNullValue))
             .Select(t => (TypeScriptNullValue)Enum.Parse(typeof(TypeScriptNullValue), t))
             .ToArray();
+
+        /// <summary>Gets new line behaviors. </summary>
+        public NewLineBehavior[] NewLineBehaviors { get; } = Enum.GetNames(typeof(NewLineBehavior))
+            .Select(t => (NewLineBehavior)Enum.Parse(typeof(NewLineBehavior), t))
+            .ToArray();
+
         #endregion
 
         #region Constructors

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.ConnectedServices;
 using NJsonSchema.CodeGeneration.CSharp;
 using NSwag.CodeGeneration.CSharp.Models;
+using NSwag.Commands;
 using NSwag.Commands.CodeGeneration;
 using Unchase.OpenAPI.ConnectedService.Views;
 
@@ -37,6 +38,12 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         public CSharpControllerRouteNamingStrategy[] RouteNamingStrategies { get; } = Enum.GetNames(typeof(CSharpControllerRouteNamingStrategy))
             .Select(t => (CSharpControllerRouteNamingStrategy)Enum.Parse(typeof(CSharpControllerRouteNamingStrategy), t))
             .ToArray();
+
+        /// <summary>Gets new line behaviors. </summary>
+        public NewLineBehavior[] NewLineBehaviors { get; } = Enum.GetNames(typeof(NewLineBehavior))
+            .Select(t => (NewLineBehavior)Enum.Parse(typeof(NewLineBehavior), t))
+            .ToArray();
+
         #endregion
 
         #region Constructors

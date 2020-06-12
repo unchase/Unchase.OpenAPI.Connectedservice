@@ -326,6 +326,19 @@
                     ToolTip="GenerateDtoTypes" />
             </CheckBox>
             <StackPanel Margin="20,0,0,0" Visibility="{Binding Command.GenerateDtoTypes, Converter={StaticResource VisibilityConverter}}">
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.GenerateOptionalPropertiesAsNullable, Mode=TwoWay}"
+                    ToolTip="GenerateOptionalPropertiesAsNullable">
+                    <TextBlock Text="Generate optional schema properties (not required) as nullable properties." TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.GenerateNullableReferenceTypes, Mode=TwoWay}"
+                    ToolTip="GenerateNullableReferenceTypes">
+                    <TextBlock Text="Generate Nullable Reference Type (NRT) annotations (C# 8)." TextWrapping="Wrap" />
+                </CheckBox>
+
                 <TextBlock
                     Margin="0,5,0,0"
                     FontWeight="Bold"
@@ -629,6 +642,34 @@
                 Margin="0,5,10,5"
                 Text="{Binding Command.TemplateDirectory, Mode=TwoWay}"
                 ToolTip="TemplateDirectory" />
+        </StackPanel>
+
+        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap">
+            <Bold>Output</Bold>
+            (<Hyperlink
+                Name="OutputHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=OutputPanel}">
+                <TextBlock
+                    Name="OutputHyperlinkText"
+                    Text="{Binding ElementName=OutputPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="OutputPanel"
+            Margin="20,0,0,0"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,10,5"
+                FontWeight="Bold"
+                Text="New Line Behavior :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                Margin="0,5,10,5"
+                ItemsSource="{Binding NewLineBehaviors}"
+                SelectedItem="{Binding Command.NewLineBehavior, Mode=TwoWay}"
+                ToolTip="NewLineBehavior" />
         </StackPanel>
     </StackPanel>
 

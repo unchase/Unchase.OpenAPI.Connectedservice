@@ -7,6 +7,16 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.5.1 `(2020-06-12)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.6.1](https://github.com/RicoSuter/NSwag/pull/2894)
+  - [x] Add NewLineBehaviour
+  - [x] Fix enum style UI
+  - [x] Add default CancellationToken parameter to C# controller template
+  - [x] Update NJS, add GenerateNullableReferenceTypes to CLI/UI
+- [x] Update `ps1`-script for publishing vsix to vsixgallery.com
+- [x] Fix bug: add some missed C# client and controller generation options
+
 ## v1.5.0 `(2020-06-05)`
 
 - [x] Add experimental feature: ability to convert to OpenAPI specification from OData specification based on [OpenAPI.NET.OData](https://github.com/microsoft/OpenAPI.NET.OData) before code generation
