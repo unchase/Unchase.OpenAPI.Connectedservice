@@ -332,6 +332,20 @@
                     Margin="40,5,10,5"
                     HorizontalAlignment="Stretch"
                     Text="{Binding Path=UserSettings.OpenApiConvertSettings.PathPrefix, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowLinks"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the OpenAPI links in the responses."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowLinks, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowSchemaExamples"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show schema examples."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowSchemaExamples, Mode=TwoWay}" />
             </StackPanel>
         </StackPanel>
 
