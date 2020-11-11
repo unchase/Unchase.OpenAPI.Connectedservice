@@ -229,6 +229,12 @@
                         ToolTip="BaseUrlTokenName" />
                 </StackPanel>
 
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Use the AbortSignal (Fetch template only)."
+                    IsChecked="{Binding Command.UseAbortSignal, Mode=TwoWay}"
+                    ToolTip="UseAbortSignal" />
+
                 <TextBlock Margin="0,5,0,0" TextWrapping="Wrap">
                     <Run FontWeight="Bold" Text="Operation Generation Mode :" />
                     <LineBreak />
