@@ -20,6 +20,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
     internal class ConfigOpenApiEndpointViewModel : ConnectedServiceWizardPage
     {
         #region Properties and Fields
+
         public string Endpoint { get; set; }
 
         public string EndpointDescription => $"{this.Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
@@ -35,19 +36,23 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         public Wizard InternalWizard;
 
         #region Network Credentials
+
         public bool UseNetworkCredentials { get; set; }
         public string NetworkCredentialsUserName { get; set; }
         public string NetworkCredentialsPassword { get; set; }
         public string NetworkCredentialsDomain { get; set; }
+
         #endregion
 
         #region WebProxy
+
         public bool UseWebProxy { get; set; }
         public bool UseWebProxyCredentials { get; set; }
         public string WebProxyNetworkCredentialsUserName { get; set; }
         public string WebProxyNetworkCredentialsPassword { get; set; }
         public string WebProxyNetworkCredentialsDomain { get; set; }
         public string WebProxyUri { get; set; }
+
         #endregion
 
         /// <summary>Gets the available runtimes.</summary>
@@ -74,6 +79,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #endregion
 
         #region Constructors
+
         public ConfigOpenApiEndpointViewModel(UserSettings userSettings, Wizard wizard) : base()
         {
             this.Title = "Configure specification endpoint";
@@ -89,9 +95,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.UseWebProxy = false;
             this.UseWebProxyCredentials = false;
         }
+
         #endregion
 
         #region Methods
+
         public override async Task<PageNavigationResult> OnPageLeavingAsync(WizardLeavingArgs args)
         {
             UserSettings.AddToTopOfMruList(((Wizard)this.Wizard).UserSettings.MruEndpoints, this.Endpoint);
@@ -203,6 +211,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
             }
         }
+
         #endregion
     }
 }

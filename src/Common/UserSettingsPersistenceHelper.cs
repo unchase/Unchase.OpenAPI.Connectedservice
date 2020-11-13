@@ -10,6 +10,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
     internal class UserSettingsPersistenceHelper
     {
         #region Public methods
+
         /// <summary>
         /// Saves user settings to isolated storage.  The data is stored with the user's roaming profile.
         /// </summary>
@@ -57,7 +58,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         /// Loads user settings from isolated storage.
         /// </summary>
         /// <remarks>
-        /// Non-critical exceptions are handled by writing an error message in the output window and 
+        /// Non-critical exceptions are handled by writing an error message in the output window and
         /// returning null.
         /// </remarks>
         public static T Load<T>(string providerId, string name, Action<T> onLoaded, ConnectedServiceLogger logger) where T : class
@@ -107,9 +108,11 @@ namespace Unchase.OpenAPI.ConnectedService.Common
 
             return result;
         }
+
         #endregion
 
         #region Private methods
+
         private static string GetStorageFileName(string providerId, string name)
         {
             return providerId + "_" + name + ".xml";
@@ -136,6 +139,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                 logger.WriteMessageAsync(LoggerMessageCategory.Warning, failureMessage, failureMessageArg, ex).GetAwaiter().GetResult();
             }
         }
+
         #endregion
     }
 }

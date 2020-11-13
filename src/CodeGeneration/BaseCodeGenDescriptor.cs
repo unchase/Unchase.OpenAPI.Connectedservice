@@ -6,6 +6,7 @@
 // <author>Nickolay Chebotov (Unchase), spiritkola@hotmail.com</author>
 //-----------------------------------------------------------------------
 
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using EnvDTE;
@@ -19,6 +20,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
     internal abstract class BaseCodeGenDescriptor
     {
         #region Properties
+
         public IVsPackageInstaller PackageInstaller { get; private set; }
 
         public IVsPackageInstallerServices PackageInstallerServices { get; private set; }
@@ -30,15 +32,34 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         public string ServiceUri { get; private set; }
 
         public Instance Instance { get; private set; }
+
         #endregion
 
         #region Constructors
+
         protected BaseCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
         {
             this.InitNuGetInstaller();
 
             this.Instance = serviceInstance;
-            this.ServiceUri = serviceInstance.ServiceConfig.Endpoint;
+
+            if (serviceInstance.ServiceConfig.UseRelativePath)
+            {
+                var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
+                if (!File.Exists(Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint)))
+                {
+                    throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
+                }
+                else
+                {
+                    this.ServiceUri = Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint);
+                }
+            }
+            else
+            {
+                this.ServiceUri = serviceInstance.ServiceConfig.Endpoint;
+            }
+
             this.Context = context;
             this.Project = context.ProjectHierarchy.GetProject();
         }
@@ -48,9 +69,11 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             this.PackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
             this.PackageInstaller = componentModel.GetService<IVsPackageInstaller>();
         }
+
         #endregion
 
         #region Methods
+
         public abstract Task AddNugetPackagesAsync();
 
         public abstract Task<string> AddGeneratedCodeAsync();
@@ -62,6 +85,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var serviceReferenceFolderName = this.Context.HandlerHelper.GetServiceArtifactsRootFolder();
             return Path.Combine(ProjectHelper.GetServiceFolderPath(this.Project, serviceReferenceFolderName, this.Context.ServiceInstance.Name));
         }
+
         #endregion
     }
 }

@@ -12,6 +12,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
     internal class CSharpControllerSettingsViewModel : ConnectedServiceWizardPage
     {
         #region Properties
+
         public OpenApiToCSharpControllerCommand Command { get; set; } = new OpenApiToCSharpControllerCommand { Namespace = string.Empty };
 
         /// <summary>Gets the list of operation modes.</summary>
@@ -47,6 +48,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #endregion
 
         #region Constructors
+
         public CSharpControllerSettingsViewModel() : base()
         {
             this.Title = "CSharp Controller Settings";
@@ -54,6 +56,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.Legend = "CSharp Controller Settings";
             this.View = new CSharpControllerSettings {DataContext = this};
         }
+
         #endregion
     }
 }

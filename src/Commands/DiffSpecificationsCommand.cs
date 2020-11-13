@@ -26,6 +26,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
     internal sealed class DiffSpecificationsCommand
     {
         #region Properties and fields
+
         /// <summary>
         /// Command ID.
         /// </summary>
@@ -50,9 +51,11 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <see cref="DTE2"/>.
         /// </summary>
         private readonly DTE2 _dte;
+
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DiffSpecificationsCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
@@ -72,9 +75,11 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             menuItem.BeforeQueryStatus += BeforeQueryStatusCallback;
             commandService.AddCommand(menuItem);
         }
+
         #endregion
 
         #region Methods
+
         /// <summary>
         /// This function is the callback used for <see cref="OleMenuCommand.BeforeQueryStatus"/>.
         /// </summary>
@@ -292,6 +297,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 return false;
             }
         }
+
         #endregion
     }
 }

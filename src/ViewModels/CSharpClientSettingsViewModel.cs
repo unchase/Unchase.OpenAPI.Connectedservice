@@ -11,6 +11,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
     internal class CSharpClientSettingsViewModel : ConnectedServiceWizardPage
     {
         #region Properties
+
         public string GeneratedFileName { get; set; }
 
         public OpenApiToCSharpClientCommand Command { get; set; } = new OpenApiToCSharpClientCommand
@@ -35,9 +36,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             .ToArray();
 
         public bool ExcludeTypeNamesLater { get; set; }
+
         #endregion
 
         #region Constructors
+
         public CSharpClientSettingsViewModel() : base()
         {
             this.Title = "CSharp Client Settings";
@@ -45,6 +48,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.Legend = "CSharp Client Settings";
             this.View = new CSharpClientSettings {DataContext = this};
         }
+
         #endregion
     }
 }

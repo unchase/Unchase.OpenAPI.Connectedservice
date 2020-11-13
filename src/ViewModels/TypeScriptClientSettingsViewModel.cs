@@ -12,6 +12,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
     internal class TypeScriptClientSettingsViewModel : ConnectedServiceWizardPage
     {
         #region Properties
+
         public OpenApiToTypeScriptClientCommand Command { get; set; } = new OpenApiToTypeScriptClientCommand();
 
         /// <summary>Gets the supported TypeScript versions.</summary>
@@ -73,6 +74,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #endregion
 
         #region Constructors
+
         public TypeScriptClientSettingsViewModel() : base()
         {
             this.Title = "TypeScript Client Settings";
@@ -80,6 +82,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.Legend = "TypeScript Client Settings";
             this.View = new TypeScriptClientSettings {DataContext = this};
         }
+
         #endregion
     }
 }

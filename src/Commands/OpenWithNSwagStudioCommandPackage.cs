@@ -65,6 +65,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         }
 
         #region Package Members
+
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initialization code that rely on services provided by VisualStudio.
@@ -84,6 +85,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             await OpenWithNSwagStudioCommand.InitializeAsync(this, options);
             await DiffSpecificationsCommand.InitializeAsync(this, options);
         }
+
         #endregion
     }
 }

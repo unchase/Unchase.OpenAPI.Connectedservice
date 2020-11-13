@@ -23,12 +23,15 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
     internal class NSwagCodeGenDescriptor : BaseCodeGenDescriptor
     {
         #region Constructors
+
         public NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance) : base(context, serviceInstance) { }
+
         #endregion
 
         #region Methods
 
         #region NuGet
+
         public override async Task AddNugetPackagesAsync()
         {
             if (this.Instance.ServiceConfig.GenerateCSharpClient)
@@ -107,9 +110,11 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) not installed. Error: {ex.Message}.");
             }
         }
+
         #endregion
 
         #region Generation
+
         public override async Task<string> AddGeneratedCodeAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating Client Proxy for OpenAPI (Swagger) Client...");
@@ -236,7 +241,25 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         internal async Task<string> GenerateNswagFileAsync(ConnectedServiceHandlerContext context, Instance instance)
         {
             var nameSpace = context.ProjectHierarchy.GetProject().GetNameSpace();
-            var serviceUrl = instance.ServiceConfig.Endpoint;
+
+            string serviceUrl;
+            if (instance.ServiceConfig.UseRelativePath)
+            {
+                var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
+                if (!File.Exists(Path.Combine(projectPath, instance.ServiceConfig.Endpoint)))
+                {
+                    throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
+                }
+                else
+                {
+                    serviceUrl = Path.Combine(projectPath, instance.ServiceConfig.Endpoint);
+                }
+            }
+            else
+            {
+                serviceUrl = instance.ServiceConfig.Endpoint;
+            }
+
             if (string.IsNullOrWhiteSpace(instance.Name))
             {
                 instance.Name = Constants.DefaultServiceName;
@@ -301,6 +324,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             await document.ExecuteAsync();
             return document.SelectedSwaggerGenerator.OutputFilePath;
         }
+
         #endregion
 
         #endregion

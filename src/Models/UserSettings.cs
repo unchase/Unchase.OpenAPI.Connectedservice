@@ -13,14 +13,17 @@ namespace Unchase.OpenAPI.ConnectedService.Models
     internal class UserSettings
     {
         #region Private
+
         private const string Name = "Settings";
 
         private const int MaxMruEntries = 10;
 
         private ConnectedServiceLogger _logger;
+
         #endregion
 
         #region Public properties
+
         [DataMember]
         public ObservableCollection<string> MruEndpoints { get; private set; }
 
@@ -67,16 +70,20 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public OpenApiSpecVersion OpenApiSpecVersion { get; set; }
 
         public string ProjectPath { get; set; }
+
         #endregion
 
         #region Constructors
+
         private UserSettings()
         {
             this.MruEndpoints = new ObservableCollection<string>();
         }
+
         #endregion
 
         #region Public methods
+
         /// <summary>
         /// Set properties from <see cref="UserSettings"/>.
         /// </summary>
@@ -139,6 +146,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
                 mruList.Insert(0, item);
             }
         }
+
         #endregion
     }
 }

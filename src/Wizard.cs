@@ -21,6 +21,7 @@ namespace Unchase.OpenAPI.ConnectedService
     internal class Wizard : ConnectedServiceWizard
     {
         #region Properties and Fields
+
         private Instance _serviceInstance;
 
         internal readonly string ProjectPath;
@@ -38,9 +39,11 @@ namespace Unchase.OpenAPI.ConnectedService
         public Instance ServiceInstance => this._serviceInstance ?? (this._serviceInstance = new Instance());
 
         public UserSettings UserSettings { get; }
+
         #endregion
 
         #region Constructors
+
         public Wizard(ConnectedServiceProviderContext context)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
@@ -74,16 +77,17 @@ namespace Unchase.OpenAPI.ConnectedService
                 ConfigOpenApiEndpointViewModel.WebProxyUri = serviceConfig.WebProxyUri;
                 ConfigOpenApiEndpointViewModel.Description =
                     "An OpenAPI (Swagger) specification endpoint and generation options was regenerated";
-                if (ConfigOpenApiEndpointViewModel.View is ConfigOpenApiEndpoint сonfigOpenApiEndpoint)
+                if (ConfigOpenApiEndpointViewModel.View is ConfigOpenApiEndpoint configOpenApiEndpoint)
                 {
-                    сonfigOpenApiEndpoint.Endpoint.IsEnabled = false;
-                    сonfigOpenApiEndpoint.ServiceName.IsEnabled = false;
-                    сonfigOpenApiEndpoint.GeneratedFileName.IsEnabled = false;
-                    сonfigOpenApiEndpoint.ConvertFromOdata.IsEnabled = false;
-                    сonfigOpenApiEndpoint.OpenEndpointFileButton.IsEnabled = false;
-                    сonfigOpenApiEndpoint.GenerateCSharpClient.IsEnabled = false;
-                    сonfigOpenApiEndpoint.GenerateTypeScriptClient.IsEnabled = false;
-                    сonfigOpenApiEndpoint.GenerateCSharpController.IsEnabled = false;
+                    configOpenApiEndpoint.Endpoint.IsEnabled = false;
+                    configOpenApiEndpoint.UseRelativePath.IsEnabled = false;
+                    configOpenApiEndpoint.ServiceName.IsEnabled = false;
+                    configOpenApiEndpoint.GeneratedFileName.IsEnabled = false;
+                    configOpenApiEndpoint.ConvertFromOdata.IsEnabled = false;
+                    configOpenApiEndpoint.OpenEndpointFileButton.IsEnabled = false;
+                    configOpenApiEndpoint.GenerateCSharpClient.IsEnabled = false;
+                    configOpenApiEndpoint.GenerateTypeScriptClient.IsEnabled = false;
+                    configOpenApiEndpoint.GenerateCSharpController.IsEnabled = false;
                 }
 
                 CSharpClientSettingsViewModel.Command = serviceConfig.OpenApiToCSharpClientCommand;
@@ -114,9 +118,11 @@ namespace Unchase.OpenAPI.ConnectedService
             this.Pages.Add(ConfigOpenApiEndpointViewModel);
             this.IsFinishEnabled = true;
         }
+
         #endregion
 
         #region Methods
+
         public void AddCSharpClientSettingsPage()
         {
             if (!this.Pages.Contains(CSharpClientSettingsViewModel))
@@ -162,6 +168,7 @@ namespace Unchase.OpenAPI.ConnectedService
             this.ServiceInstance.ServiceConfig = this.CreateServiceConfiguration();
 
             #region Network Credentials
+
             this.ServiceInstance.ServiceConfig.UseNetworkCredentials =
                 ConfigOpenApiEndpointViewModel.UseNetworkCredentials;
             this.ServiceInstance.ServiceConfig.NetworkCredentialsUserName =
@@ -170,9 +177,11 @@ namespace Unchase.OpenAPI.ConnectedService
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsPassword;
             this.ServiceInstance.ServiceConfig.NetworkCredentialsDomain =
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain;
+
             #endregion
 
             #region Web-proxy
+
             this.ServiceInstance.ServiceConfig.UseWebProxy =
                 ConfigOpenApiEndpointViewModel.UseWebProxy;
             this.ServiceInstance.ServiceConfig.UseWebProxyCredentials =
@@ -185,6 +194,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 ConfigOpenApiEndpointViewModel.WebProxyNetworkCredentialsDomain;
             this.ServiceInstance.ServiceConfig.WebProxyUri =
                 ConfigOpenApiEndpointViewModel.WebProxyUri;
+
             #endregion
 
             return Task.FromResult<ConnectedServiceInstance>(this.ServiceInstance);
@@ -199,7 +209,7 @@ namespace Unchase.OpenAPI.ConnectedService
             {
                 ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
                 GeneratedFileName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName,
-                Endpoint = GetEndpointPath(ConfigOpenApiEndpointViewModel.UserSettings.Endpoint, ConfigOpenApiEndpointViewModel.UserSettings.UseRelativePath),
+                Endpoint = ConfigOpenApiEndpointViewModel.UserSettings.Endpoint,
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,
                 GenerateCSharpClient = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpClient,
                 GenerateCSharpController = ConfigOpenApiEndpointViewModel.UserSettings.GenerateCSharpController,
@@ -232,7 +242,8 @@ namespace Unchase.OpenAPI.ConnectedService
         /// <summary>
         /// Get specification endpoint path.
         /// </summary>
-        /// <param name="endpoint">Endpoint path (relative or avsolute).</param>
+        /// <param name="endpoint">Endpoint path (relative or absolute).</param>
+        /// <param name="useRelativePath">Use relative path instead of absolute.</param>
         internal string GetEndpointPath(string endpoint, bool useRelativePath = false)
         {
             if (endpoint.StartsWith("http://", StringComparison.Ordinal)
@@ -297,6 +308,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 base.Dispose(disposing);
             }
         }
+
         #endregion
     }
 }

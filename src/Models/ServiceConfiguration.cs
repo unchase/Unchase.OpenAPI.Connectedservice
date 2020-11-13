@@ -8,6 +8,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
     internal class ServiceConfiguration
     {
         #region Properties
+
         public string ServiceName { get; set; }
 
         public string GeneratedFileName { get; set; }
@@ -45,22 +46,27 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         public OpenApiConvertSettings OpenApiConvertSettings { get; set; }
 
         public OpenApiSpecVersion OpenApiSpecVersion { get; set; }
+
         #endregion
 
         #region Network Credentials
+
         public bool UseNetworkCredentials { get; set; }
         public string NetworkCredentialsUserName { get; set; }
         public string NetworkCredentialsPassword { get; set; }
         public string NetworkCredentialsDomain { get; set; }
+
         #endregion
 
         #region WebProxy
+
         public string WebProxyUri { get; set; }
         public bool UseWebProxy { get; set; }
         public bool UseWebProxyCredentials { get; set; }
         public string WebProxyNetworkCredentialsUserName { get; set; }
         public string WebProxyNetworkCredentialsPassword { get; set; }
         public string WebProxyNetworkCredentialsDomain { get; set; }
+
         #endregion
     }
 }
