@@ -248,6 +248,15 @@
                     Margin="0,5,10,5"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom"
+                    IsChecked="{Binding Command.GeneratePrepareRequestAndProcessResponseAsAsyncMethods, Mode=TwoWay}"
+                    ToolTip="GeneratePrepareRequestAndProcessResponseAsAsyncMethods">
+                    <TextBlock Text="Generate PrepareRequest and ProcessResponse as asynchronous methods (if selected, methods must be defined in the base class or in the partial class)." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
                     Content="Expose the JsonSerializerSettings property."
                     IsChecked="{Binding Command.ExposeJsonSerializerSettings, Mode=TwoWay}"
                     ToolTip="ExposeJsonSerializerSettings" />

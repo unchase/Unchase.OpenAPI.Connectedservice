@@ -7,6 +7,12 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.5.11 `(2021-01-16)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.10.0](https://github.com/RicoSuter/NSwag/pull/3251)
+  - [x] [CSharp client generator - Implementing Async Pattern on PrepareRequest and ProcessResponse](https://github.com/RicoSuter/NSwag/pull/3248)
+- [x] Update dependencies: add support for [NSwag.Commands v13.10.1](https://github.com/RicoSuter/NSwag/pull/3255)
+
 ## v1.5.10 `(2020-11-18)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.9.3](https://github.com/RicoSuter/NSwag/pull/3176)
