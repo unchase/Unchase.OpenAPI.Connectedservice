@@ -115,8 +115,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 {
                     var csdl = File.ReadAllText(this.SpecificationTempPath);
                     var model = CsdlReader.Parse(XElement.Parse(csdl).CreateReader());
-                    if (this.UserSettings.OpenApiConvertSettings.ServiceRoot == null && this.UserSettings.Endpoint.StartsWith("http", StringComparison.Ordinal))
+                    if ((this.UserSettings.OpenApiConvertSettings.ServiceRoot == null || this.UserSettings.OpenApiConvertSettings.ServiceRoot.Host.Contains("localhost"))
+                        && this.UserSettings.Endpoint.StartsWith("http", StringComparison.Ordinal))
+                    {
                         this.UserSettings.OpenApiConvertSettings.ServiceRoot = new Uri(this.UserSettings.Endpoint.TrimEnd("$metadata".ToCharArray()));
+                    }
                     var document = model.ConvertToOpenApi(this.UserSettings.OpenApiConvertSettings);
                     var outputJson = document.SerializeAsJson(this.UserSettings.OpenApiSpecVersion);
                     File.WriteAllText(this.SpecificationTempPath, outputJson);

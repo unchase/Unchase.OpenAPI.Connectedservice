@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.5.13 `(2021-02-12)`
+
+- [x] Update dependencies: add support for [Microsoft.OpenApi.OData v1.0.6](https://www.nuget.org/packages/Microsoft.OpenApi.OData/1.0.6)
+  - [x] [Fixed paths when Operation is bound to a type derived from the type of a nav prop.](https://github.com/microsoft/OpenAPI.NET.OData/pull/88)
+
 ## v1.5.12 `(2021-02-06)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.10.2](https://github.com/RicoSuter/NSwag/pull/3290)

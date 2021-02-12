@@ -346,6 +346,21 @@
                     VerticalAlignment="Bottom"
                     Content="Show schema examples."
                     IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowSchemaExamples, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsRequireDerivedTypesConstraintForBoundOperations"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.RequireDerivedTypesConstraintForBoundOperations, Mode=TwoWay}">
+                    <TextBlock Text="Require the Validation.DerivedTypeConstraint to be applied to NavigationSources to bind operations of derived types to them." TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowRootPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the root path of the described API."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowRootPath, Mode=TwoWay}" />
             </StackPanel>
         </StackPanel>
 
