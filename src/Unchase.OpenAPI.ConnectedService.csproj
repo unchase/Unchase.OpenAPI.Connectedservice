@@ -88,6 +88,7 @@
     <Compile Include="Common\ProjectHelper.cs" />
     <Compile Include="Converters\EqualityConverter.cs" />
     <Compile Include="Converters\NotConverter.cs" />
+    <Compile Include="Converters\NotNullOrWhiteSpaceConverter.cs" />
     <Compile Include="Converters\VisibilityToHyperlinkTextConverter.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Instance.cs" />

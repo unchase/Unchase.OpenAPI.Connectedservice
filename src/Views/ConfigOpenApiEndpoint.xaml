@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <converters:VisibilityConverter x:Key="VisibilityConverter" />
         <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter" />
+        <converters:NotNullOrWhiteSpaceConverter x:Key="NotNullOrWhiteSpaceConverter" />
         <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand" />
         <Image x:Key="ReportABugButtonImage" Source="../Resources/NewBug.png" />
     </UserControl.Resources>
@@ -331,7 +332,7 @@
                     x:Name="OpenApiConvertSettingsPathPrefix"
                     Margin="40,5,10,5"
                     HorizontalAlignment="Stretch"
-                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PathPrefix, Mode=TwoWay}" />
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PathPrefix, Mode=TwoWay, Converter={StaticResource NotNullOrWhiteSpaceConverter}, ConverterParameter='OData'}" />
                 <CheckBox
                     x:Name="OpenApiConvertSettingsShowLinks"
                     Margin="20,5,10,5"
