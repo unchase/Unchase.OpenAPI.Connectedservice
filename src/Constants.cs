@@ -20,6 +20,8 @@
         public const string PortableDataAnnotationsNuGetPackage = "Portable.DataAnnotations";
         public const string MicrosoftAspNetCoreMvcNuGetPackage = "Microsoft.AspNetCore.Mvc";
 
+        public const string OpenApiConvertSettingsPathPrefix = "OData";
+
         public static string[] NetStandartNuGetPackages = {
             NewtonsoftJsonNuGetPackage,
             SystemNetHttpNuGetPackage,

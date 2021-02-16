@@ -236,6 +236,11 @@ namespace Unchase.OpenAPI.ConnectedService
             if (serviceConfiguration.GenerateCSharpController && CSharpControllerSettingsViewModel.Command != null)
                 serviceConfiguration.OpenApiToCSharpControllerCommand = CSharpControllerSettingsViewModel.Command;
 
+            if (string.IsNullOrWhiteSpace(serviceConfiguration.OpenApiConvertSettings?.PathPrefix))
+            {
+                serviceConfiguration.OpenApiConvertSettings.PathPrefix = Constants.OpenApiConvertSettingsPathPrefix;
+            }
+
             return serviceConfiguration;
         }
 

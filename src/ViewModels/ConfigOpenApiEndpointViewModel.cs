@@ -94,10 +94,6 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.UseNetworkCredentials = false;
             this.UseWebProxy = false;
             this.UseWebProxyCredentials = false;
-            if (string.IsNullOrWhiteSpace(this.UserSettings.OpenApiConvertSettings?.PathPrefix))
-            {
-                this.UserSettings.OpenApiConvertSettings.PathPrefix = "OData";
-            }
         }
 
         #endregion
@@ -123,10 +119,6 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         && this.UserSettings.Endpoint.StartsWith("http", StringComparison.Ordinal))
                     {
                         this.UserSettings.OpenApiConvertSettings.ServiceRoot = new Uri(this.UserSettings.Endpoint.TrimEnd("$metadata".ToCharArray()));
-                    }
-                    if (string.IsNullOrWhiteSpace(this.UserSettings.OpenApiConvertSettings.PathPrefix))
-                    {
-                        this.UserSettings.OpenApiConvertSettings.PathPrefix = "OData";
                     }
                     var document = model.ConvertToOpenApi(this.UserSettings.OpenApiConvertSettings);
                     var outputJson = document.SerializeAsJson(this.UserSettings.OpenApiSpecVersion);

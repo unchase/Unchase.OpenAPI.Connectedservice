@@ -7,7 +7,7 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
-## v1.5.14 `(2021-02-16)`
+## v1.5.15 `(2021-02-16)`
 
 - [x] Fix [issue #38](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/38)
 
