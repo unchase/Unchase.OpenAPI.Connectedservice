@@ -711,6 +711,17 @@
                     </Hyperlink>
                     )</TextBlock>
                 <StackPanel x:Name="SerializationPanel" Margin="20,0,0,0">
+                    <TextBlock
+                        Margin="0,5,10,5"
+                        FontWeight="Bold"
+                        Text="JSON Library ('System.Text.Json' is experimental/incomplete!)"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        Margin="0,5,10,5"
+                        ItemsSource="{Binding JsonLibraries}"
+                        SelectedItem="{Binding Command.JsonLibrary, Mode=TwoWay}"
+                        ToolTip="JsonLibrary" />
+
                     <CheckBox
                         Margin="0,5,10,5"
                         IsChecked="{Binding Command.RequiredPropertiesMustBeDefined, Mode=TwoWay}"

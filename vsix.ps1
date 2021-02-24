@@ -67,20 +67,16 @@ function Vsix-PublishToGallery{
             $repo = [System.Web.HttpUtility]::UrlEncode($repoUrl)
             $issueTracker = [System.Web.HttpUtility]::UrlEncode(($repoUrl + "issues/"))
         }
-	
-        if ([Net.ServicePointManager]::SecurityProtocol -notcontains 'Tls12') {
-            [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
-        }
 
         'Publish to VSIX Gallery...' | Write-Host -ForegroundColor Cyan -NoNewline
 
-        $fileNames = (Get-ChildItem $filePath -Recurse)
+        $fileNames = (Get-ChildItem $fil,ePath -Recurse)
 
         foreach($vsixFile in $fileNames)
         {
             [string]$url = ($vsixUploadEndpoint + "?repo=" + $repo + "&issuetracker=" + $issueTracker)
             [byte[]]$bytes = [System.IO.File]::ReadAllBytes($vsixFile)
-             
+
             try {
                 $webclient = New-Object System.Net.WebClient
                 $webclient.UploadFile($url, $vsixFile) | Out-Null
