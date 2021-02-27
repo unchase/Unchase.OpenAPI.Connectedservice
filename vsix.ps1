@@ -70,7 +70,7 @@ function Vsix-PublishToGallery{
 
         'Publish to VSIX Gallery...' | Write-Host -ForegroundColor Cyan -NoNewline
 
-        $fileNames = (Get-ChildItem $fil,ePath -Recurse)
+        $fileNames = (Get-ChildItem $filePath -Recurse)
 
         foreach($vsixFile in $fileNames)
         {
