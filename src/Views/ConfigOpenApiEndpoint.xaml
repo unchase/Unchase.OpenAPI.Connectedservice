@@ -362,6 +362,13 @@
                     VerticalAlignment="Bottom"
                     Content="Show the root path of the described API."
                     IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowRootPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowMsDosGroupPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the group path extension."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowMsDosGroupPath, Mode=TwoWay}" />
             </StackPanel>
         </StackPanel>
 
