@@ -11,6 +11,8 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         public string ServiceName { get; set; }
 
+        public bool AcceptAllUntrustedCertificates { get; set; }
+
         public string GeneratedFileName { get; set; }
 
         public string Endpoint { get; set; }

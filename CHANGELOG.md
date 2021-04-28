@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.5.21 `(2021-04-28)`
+
+- [x] Update dependencies: update System.Text.Encodings.Web to v4.7.2
+- [x] Add option for accepting all untrusted certificates on the first wizard page
+
 ## v1.5.20 `(2021-04-13)`
 
 - [x] Update dependencies: add support for [Microsoft.OpenApi.OData v1.0.7](https://www.nuget.org/packages/Microsoft.OpenApi.OData/1.0.7)

@@ -69,6 +69,9 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         [DataMember]
         public OpenApiSpecVersion OpenApiSpecVersion { get; set; }
 
+        [DataMember]
+        public bool AcceptAllUntrustedCertificates { get; set; } = true;
+
         public string ProjectPath { get; set; }
 
         #endregion
@@ -98,6 +101,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
             this.OpenGeneratedFilesOnComplete = serviceConfiguration.OpenGeneratedFilesOnComplete;
             this.Runtime = serviceConfiguration.Runtime;
             this.ServiceName = serviceConfiguration.ServiceName;
+            this.AcceptAllUntrustedCertificates = serviceConfiguration.AcceptAllUntrustedCertificates;
             this.GeneratedFileName = serviceConfiguration.GeneratedFileName;
             this.UseRelativePath = serviceConfiguration.UseRelativePath;
             this.ConvertFromOdata = serviceConfiguration.ConvertFromOdata;

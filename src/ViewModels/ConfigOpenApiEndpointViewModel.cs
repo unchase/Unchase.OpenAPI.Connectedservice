@@ -27,6 +27,18 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public string ServiceName { get; set; }
 
+        private bool _acceptAllUntrustedCertificates;
+        public bool AcceptAllUntrustedCertificates
+        {
+            get => _acceptAllUntrustedCertificates;
+            set
+            {
+                _acceptAllUntrustedCertificates = value;
+                UserSettings.AcceptAllUntrustedCertificates = value;
+                OnPropertyChanged(nameof(AcceptAllUntrustedCertificates));
+            }
+        }
+
         public string GeneratedFileName { get; set; }
 
         public string SpecificationTempPath { get; set; }
@@ -89,6 +101,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             this.View = new ConfigOpenApiEndpoint(this.InternalWizard) {DataContext = this};
             this.UserSettings = userSettings;
             this.ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
+            this.AcceptAllUntrustedCertificates = userSettings.AcceptAllUntrustedCertificates;
             this.GeneratedFileName = string.IsNullOrWhiteSpace(userSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : userSettings.GeneratedFileName;
             this.Endpoint = userSettings.Endpoint;
             this.UseNetworkCredentials = false;
@@ -178,6 +191,9 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         httpHandler.Credentials = new NetworkCredential(this.NetworkCredentialsUserName,
                             this.NetworkCredentialsPassword, this.NetworkCredentialsDomain);
                     }
+
+                    if (this.UserSettings.AcceptAllUntrustedCertificates)
+                        ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
                     using (var httpClient = new HttpClient(httpHandler))
                     {

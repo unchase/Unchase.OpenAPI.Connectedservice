@@ -65,6 +65,7 @@ namespace Unchase.OpenAPI.ConnectedService
                 var serviceConfig = this.Context.GetExtendedDesignerData<ServiceConfiguration>();
                 ConfigOpenApiEndpointViewModel.Endpoint = serviceConfig.Endpoint;
                 ConfigOpenApiEndpointViewModel.ServiceName = serviceConfig.ServiceName;
+                ConfigOpenApiEndpointViewModel.AcceptAllUntrustedCertificates = serviceConfig.AcceptAllUntrustedCertificates;
                 ConfigOpenApiEndpointViewModel.GeneratedFileName = serviceConfig.GeneratedFileName;
                 ConfigOpenApiEndpointViewModel.UseWebProxy = serviceConfig.UseWebProxy;
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain = serviceConfig.NetworkCredentialsDomain;
@@ -208,6 +209,7 @@ namespace Unchase.OpenAPI.ConnectedService
             var serviceConfiguration = new ServiceConfiguration
             {
                 ServiceName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.ServiceName) ? Constants.DefaultServiceName : ConfigOpenApiEndpointViewModel.UserSettings.ServiceName,
+                AcceptAllUntrustedCertificates = ConfigOpenApiEndpointViewModel.UserSettings.AcceptAllUntrustedCertificates,
                 GeneratedFileName = string.IsNullOrWhiteSpace(ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : ConfigOpenApiEndpointViewModel.UserSettings.GeneratedFileName,
                 Endpoint = ConfigOpenApiEndpointViewModel.UserSettings.Endpoint,
                 GeneratedFileNamePrefix = CSharpClientSettingsViewModel.GeneratedFileName,

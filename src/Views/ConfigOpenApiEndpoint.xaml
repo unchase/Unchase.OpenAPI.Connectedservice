@@ -124,6 +124,14 @@
             FontWeight="Bold"
             IsChecked="{Binding Path=UserSettings.OpenGeneratedFilesOnComplete, Mode=TwoWay}" />
 
+        <CheckBox
+            x:Name="AcceptAllUntrustedCertificates"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Content="Accept all untrusted certificates."
+            FontWeight="Bold"
+            IsChecked="{Binding Path=UserSettings.AcceptAllUntrustedCertificates, Mode=TwoWay}" />
+
         <TextBlock
             Margin="0,5,10,5"
             HorizontalAlignment="Stretch"
