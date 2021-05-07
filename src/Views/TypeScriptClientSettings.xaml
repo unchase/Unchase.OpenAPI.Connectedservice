@@ -231,9 +231,10 @@
 
                 <CheckBox
                     Margin="0,5,10,5"
-                    Content="Use the AbortSignal (Fetch template only)."
+                    Content="Use the AbortSignal (Fetch/Aurelia template only)."
                     IsChecked="{Binding Command.UseAbortSignal, Mode=TwoWay}"
-                    ToolTip="UseAbortSignal" />
+                    ToolTip="UseAbortSignal"
+                    Visibility="{Binding Command.Template, ConverterParameter='Fetch,Aurelia', Converter={StaticResource EqualityConverter}}" />
 
                 <TextBlock Margin="0,5,0,0" TextWrapping="Wrap">
                     <Run FontWeight="Bold" Text="Operation Generation Mode :" />
