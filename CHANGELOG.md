@@ -7,6 +7,10 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.5.25 `(2021-06-02)`
+
+- [x] Update dependencies: add support for [NSwag.Commands v13.11.2](https://github.com/RicoSuter/NSwag/pull/3495)
+
 ## v1.5.24 `(2021-05-08)`
 
 - [x] Update dependencies: add support for [NSwag.Commands v13.11.1](https://github.com/RicoSuter/NSwag/pull/3459)
