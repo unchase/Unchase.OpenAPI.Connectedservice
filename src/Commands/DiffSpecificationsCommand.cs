@@ -6,13 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Unchase.OpenAPI.ConnectedService.Common;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
@@ -66,12 +65,12 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <param name="dte"><see cref="DTE2"/>.</param>
         private DiffSpecificationsCommand(AsyncPackage package, OleMenuCommandService commandService, Options options, DTE2 dte)
         {
-            this._options = options;
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
+            _options = options;
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             _dte = dte;
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             var menuCommandId = new CommandID(DiffSpecificationsCommandSet, DiffSpecificationsCommandId);
-            var menuItem = new OleMenuCommand(this.DiffSpecificationWithSource, menuCommandId);
+            var menuItem = new OleMenuCommand(DiffSpecificationWithSource, menuCommandId);
             menuItem.BeforeQueryStatus += BeforeQueryStatusCallback;
             commandService.AddCommand(menuItem);
         }
@@ -101,7 +100,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <summary>
         /// Gets the service provider from the owner package.
         /// </summary>
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => this._package;
+        private IAsyncServiceProvider ServiceProvider => _package;
 
         /// <summary>
         /// Initializes the singleton instance of the command.
@@ -146,7 +145,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
 
         private bool CanSpecificationFileAndSourceBeCompared(out string file1, out string file2)
         {
-            var items = GetSelectedFiles();
+            var items = GetSelectedFiles().ToList();
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1) ?? GetSpecificationFromSource();
 
@@ -214,7 +213,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                         if (!ProjectHelper.IsJson(specificationJson))
                             throw new InvalidOperationException("Service endpoint is not an json-file.");
 
-                        specificationJson = JToken.Parse(specificationJson).ToString(Formatting.Indented);
+                        specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(workFile, specificationJson, Encoding.UTF8);
                     }
                 }
@@ -231,7 +230,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                     if (!ProjectHelper.IsJson(specificationJson))
                         throw new InvalidOperationException("Service endpoint is not an json-file.");
 
-                    specificationJson = JToken.Parse(specificationJson).ToString(Formatting.Indented);
+                    specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions {WriteIndented = true});
                     File.WriteAllText(workFile, specificationJson, Encoding.UTF8);
                 }
                 return workFile;

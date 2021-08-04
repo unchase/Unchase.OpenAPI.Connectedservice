@@ -22,7 +22,7 @@
 
         public const string OpenApiConvertSettingsPathPrefix = "OData";
 
-        public static string[] NetStandartNuGetPackages = {
+        public static string[] NetStandardNuGetPackages = {
             NewtonsoftJsonNuGetPackage,
             SystemNetHttpNuGetPackage,
             SystemComponentModelAnnotationsNuGetPackage
@@ -43,7 +43,7 @@
             MicrosoftAspNetCoreMvcNuGetPackage
         };
 
-        public static string[] NetStandartUnsupportedVersions =
+        public static string[] NetStandardUnsupportedVersions =
         {
             "Version=v1.0",
             "Version=v1.1",

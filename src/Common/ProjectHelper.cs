@@ -4,7 +4,6 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using Newtonsoft.Json.Linq;
 
 namespace Unchase.OpenAPI.ConnectedService.Common
 {
@@ -71,7 +70,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             input = input.Trim();
             try
             {
-                JToken.Parse(input);
+                System.Text.Json.JsonSerializer.Deserialize<object>(input);
             }
             catch
             {
