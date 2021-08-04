@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.OData.Edm.Csdl;
@@ -22,6 +23,8 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #region Properties and Fields
 
         public string Endpoint { get; set; }
+
+        public string CurrentVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string EndpointDescription => $"{this.Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
 

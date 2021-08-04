@@ -22,23 +22,32 @@
         Margin="0,0,0,0"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Top">
-        <DockPanel HorizontalAlignment="Right">
-            <TextBlock Margin="5,8,5,5" Text="Report a bug :" />
-            <Button
-                x:Name="ReportABugButton"
-                Width="23"
-                Height="23"
-                MinWidth="23"
-                MinHeight="23"
-                MaxWidth="23"
-                MaxHeight="23"
-                Margin="5,5,10,5"
-                HorizontalAlignment="Right"
-                Click="ReportABugButton_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="../Resources/NewBug.png" Stretch="UniformToFill" />
-                </Button.Background>
-            </Button>
+        <DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <TextBlock
+                    Margin="0,8,5,5"
+                    HorizontalAlignment="Left"
+                    Text="Connected Service version: v" />
+                <TextBlock Margin="0,8,15,5" Text="{Binding CurrentVersion}" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right">
+                <TextBlock Margin="5,8,5,5" Text="Report a bug :" />
+                <Button
+                    x:Name="ReportABugButton"
+                    Width="23"
+                    Height="23"
+                    MinWidth="23"
+                    MinHeight="23"
+                    MaxWidth="23"
+                    MaxHeight="23"
+                    Margin="5,5,10,5"
+                    HorizontalAlignment="Right"
+                    Click="ReportABugButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/NewBug.png" Stretch="UniformToFill" />
+                    </Button.Background>
+                </Button>
+            </DockPanel>
         </DockPanel>
         <TextBlock
             Margin="0,10,10,5"
