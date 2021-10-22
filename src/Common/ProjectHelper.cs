@@ -4,6 +4,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using Newtonsoft.Json.Linq;
 
 namespace Unchase.OpenAPI.ConnectedService.Common
 {
@@ -68,15 +69,8 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         internal static bool IsJson(string input)
         {
             input = input.Trim();
-            try
-            {
-                System.Text.Json.JsonSerializer.Deserialize<object>(input);
-            }
-            catch
-            {
-                return false;
-            }
-            return input.StartsWith("{") && input.EndsWith("}")
+            JToken.Parse(input);
+            return input.StartsWith("{") && input.EndsWith("}") 
                    || input.StartsWith("[") && input.EndsWith("]");
         }
     }
