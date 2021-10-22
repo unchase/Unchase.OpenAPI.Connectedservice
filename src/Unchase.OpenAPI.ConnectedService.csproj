@@ -660,6 +660,10 @@
     </VSCTCompile>
     <Content Include="Commands\Resources\OpenWithNSwagStudioCommandPackage.ico" />
     <Content Include="Commands\Resources\OpenWithNSwagStudioCommand.png" />
+    <Content Include="Newtonsoft.Json.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\EULA.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
