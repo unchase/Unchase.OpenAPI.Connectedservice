@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+  <Include href="KnownImageIds.vsct" />
+
+  <Commands package="guidOpenWithNSwagStudioCommandPackage">
+    <Groups>
+      <Group guid="guidDiffSpecificationFilesCmdSet" id="DiffSpecificationsMenuGroup" priority="0x0300">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidOpenWithNSwagStudioCommandPackageCmdSet" id="OpenWithNSwagStudioCommandId" priority="0x0500" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_FOLDER_EXPLORE" />
+        <Icon guid="guidOpenInNSwagStudioImages" id="nSwagIconImg" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Open in NSwagStudio</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffSpecificationFilesCmdSet" id="DiffSpecificationsCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidDiffSpecificationFilesCmdSet" id="DiffSpecificationsMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="CompareFiles" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Compare OpenAPI-specifications...</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidOpenInNSwagStudioImages" href="Resources\OpenWithNSwagStudioCommand.png" usedList="nSwagIconImg" />
+    </Bitmaps>
+
+  </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidOpenWithNSwagStudioCommandPackageCmdSet" id="OpenWithNSwagStudioCommandId" priority="0x0500">
+      <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_OPEN" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDiffSpecificationFilesCmdSet" id="DiffSpecificationsMenuGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM"/>
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <VisibilityConstraints>
+    <VisibilityItem guid="guidOpenWithNSwagStudioCommandPackageCmdSet" id="OpenWithNSwagStudioCommandId" context="guidViewOnlyNSwagStudioFiles" />
+    <VisibilityItem guid="guidDiffSpecificationFilesCmdSet" id="DiffSpecificationsCommandId" context="guidViewOnlyNSwagJsonFiles" />
+  </VisibilityConstraints>
+
+  <Symbols>
+    <GuidSymbol name="guidOpenWithNSwagStudioCommandPackage" value="{af9e0cad-f39d-4c39-8f02-55bd034b3b6c}" />
+
+    <GuidSymbol name="guidOpenWithNSwagStudioCommandPackageCmdSet" value="{6914aba2-4e20-4f5b-8f5e-3485d4091437}">
+      <IDSymbol name="OpenWithNSwagStudioCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidViewOnlyNSwagStudioFiles" value="{BE1DF41C-5528-4C30-A802-025A3095069E}" />
+
+    <GuidSymbol name="guidViewOnlyNSwagJsonFiles" value="{CD745E30-C8A7-4DDC-8CAF-62179AF39222}" />
+
+    <GuidSymbol name="guidOpenInNSwagStudioImages" value="{582d147d-17c9-4a69-9931-86054615a57e}">
+      <IDSymbol name="nSwagIconImg" value="1" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{b637f8e5-4b21-41e4-9039-62fc114e1646}" name="guidDiffSpecificationFilesCmdSet">
+      <IDSymbol value="0x1020" name="DiffSpecificationsMenuGroup" />
+      <IDSymbol value="0x0100" name="DiffSpecificationsCommandId" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

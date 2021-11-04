@@ -31,11 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-331
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedProject", "..\SharedProject\SharedProject.shproj", "{4DCBAF47-B1B9-47D5-97CC-D694DB4F8D3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.ConnectedService.22", "..\Vs22\Unchase.OpenAPI.ConnectedService.22.csproj", "{34F3DFE6-6833-4BA8-B4DB-632106A7237D}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\SharedProject\SharedProject.projitems*{34f3dfe6-6833-4ba8-b4db-632106a7237d}*SharedItemsImports = 4
 		..\SharedProject\SharedProject.projitems*{4dcbaf47-b1b9-47d5-97cc-d694db4f8d3e}*SharedItemsImports = 13
 		..\SharedProject\SharedProject.projitems*{cfb451de-8645-4125-8254-3c3beb6c6cc7}*SharedItemsImports = 4
 	EndGlobalSection
@@ -48,10 +45,6 @@ Global
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34F3DFE6-6833-4BA8-B4DB-632106A7237D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34F3DFE6-6833-4BA8-B4DB-632106A7237D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34F3DFE6-6833-4BA8-B4DB-632106A7237D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34F3DFE6-6833-4BA8-B4DB-632106A7237D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,654 @@
+﻿<UserControl
+    x:Class="Unchase.OpenAPI.ConnectedService.Views.ConfigOpenApiEndpoint"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Common.Commands"
+    xmlns:converters="clr-namespace:Unchase.OpenAPI.ConnectedService.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:ConfigOpenApiEndpointViewModel}"
+    d:DesignHeight="420"
+    d:DesignWidth="768"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter" />
+        <converters:NotNullOrWhiteSpaceConverter x:Key="NotNullOrWhiteSpaceConverter" />
+        <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand" />
+        <Image x:Key="ReportABugButtonImage" Source="../Resources/NewBug.png" />
+    </UserControl.Resources>
+    <StackPanel
+        Margin="0,0,0,0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Top">
+        <DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <TextBlock
+                    Margin="0,8,5,5"
+                    HorizontalAlignment="Left"
+                    Text="Connected Service version: v" />
+                <TextBlock Margin="0,8,15,5" Text="{Binding CurrentVersion}" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right">
+                <TextBlock Margin="5,8,5,5" Text="Report a bug :" />
+                <Button
+                    x:Name="ReportABugButton"
+                    Width="23"
+                    Height="23"
+                    MinWidth="23"
+                    MinHeight="23"
+                    MaxWidth="23"
+                    MaxHeight="23"
+                    Margin="5,5,10,5"
+                    HorizontalAlignment="Right"
+                    Click="ReportABugButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/NewBug.png" Stretch="UniformToFill" />
+                    </Button.Background>
+                </Button>
+            </DockPanel>
+        </DockPanel>
+        <TextBlock
+            Margin="0,10,10,5"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Runtime and variables</Bold>
+            (<Hyperlink
+                Name="RuntimeAndVariablesHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=RuntimeAndVariablesPanel}">
+                <TextBlock
+                    Name="RuntimeAndVariablesHyperlinkText"
+                    Text="{Binding ElementName=RuntimeAndVariablesPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="RuntimeAndVariablesPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,10,5"
+                FontWeight="Bold"
+                Text="Runtime :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                Margin="0,5,10,5"
+                ItemsSource="{Binding Runtimes}"
+                SelectedItem="{Binding UserSettings.Runtime, Mode=TwoWay}" />
+            <TextBlock
+                Margin="20,5,10,5"
+                Text="Specifies the used command line binary; should match the selected assembly type."
+                TextWrapping="WrapWithOverflow" />
+
+            <TextBlock
+                Margin="0,5,10,5"
+                FontWeight="Bold"
+                Text="Default Variables ('foo=bar,baz=bar'), usage: $(foo) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox Margin="20,5,10,5" Text="{Binding UserSettings.Variables}" />
+
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,5,10,5"
+            HorizontalAlignment="Stretch"
+            FontWeight="Bold"
+            Text="Service name :"
+            TextWrapping="WrapWithOverflow" />
+        <TextBox
+            x:Name="ServiceName"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Text="{Binding Path=UserSettings.ServiceName, Mode=TwoWay}" />
+
+        <TextBlock
+            Margin="0,5,10,5"
+            HorizontalAlignment="Stretch"
+            FontWeight="Bold"
+            Text="Generated file name :"
+            TextWrapping="WrapWithOverflow" />
+        <TextBox
+            x:Name="GeneratedFileName"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Text="{Binding Path=UserSettings.GeneratedFileName, Mode=TwoWay}" />
+
+        <CheckBox
+            x:Name="CopySpecification"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Content="Copy OpenAPI (Swagger) specification to nswag-file."
+            FontWeight="Bold"
+            IsChecked="{Binding Path=UserSettings.CopySpecification, Mode=TwoWay}" />
+
+        <CheckBox
+            x:Name="OpenGeneratedFilesOnComplete"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Content="Open generated files on complete in IDE."
+            FontWeight="Bold"
+            IsChecked="{Binding Path=UserSettings.OpenGeneratedFilesOnComplete, Mode=TwoWay}" />
+
+        <CheckBox
+            x:Name="AcceptAllUntrustedCertificates"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            Content="Accept all untrusted certificates."
+            FontWeight="Bold"
+            IsChecked="{Binding Path=UserSettings.AcceptAllUntrustedCertificates, Mode=TwoWay}" />
+
+        <TextBlock
+            Margin="0,5,10,5"
+            HorizontalAlignment="Stretch"
+            FontWeight="Bold"
+            Text="Specification URI (path) :"
+            TextWrapping="WrapWithOverflow" />
+
+        <CheckBox
+            x:Name="ConvertFromOdata"
+            Margin="20,5,10,5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Content="Experimental: Convert to OpenAPI specification from OData specification URI (path)."
+            IsChecked="{Binding Path=UserSettings.ConvertFromOdata, Mode=TwoWay}" />
+        <StackPanel Margin="40,0,0,0" Visibility="{Binding UserSettings.ConvertFromOdata, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock
+                Margin="0,0,10,5"
+                FontWeight="Bold"
+                Text="OpenAPI specification version :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                x:Name="OpenApiSpecVersion"
+                Margin="20,5,10,5"
+                ItemsSource="{Binding OpenApiSpecVersions}"
+                SelectedItem="{Binding UserSettings.OpenApiSpecVersion, Mode=TwoWay}" />
+            <TextBlock
+                Margin="0,5,0,0"
+                HorizontalAlignment="Stretch"
+                TextWrapping="WrapWithOverflow">
+                <Bold>OpenAPI convert settings</Bold>
+                (<Hyperlink
+                    Name="OpenAPIConvertSettingsHyperlink"
+                    Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                    CommandParameter="{Binding ElementName=OpenAPIConvertSettingsPanel}">
+                    <TextBlock
+                        Name="OpenAPIConvertSettingsHyperlinkText"
+                        Text="{Binding ElementName=OpenAPIConvertSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                        TextWrapping="WrapWithOverflow" />
+                </Hyperlink>
+                )</TextBlock>
+            <StackPanel
+                x:Name="OpenAPIConvertSettingsPanel"
+                Margin="20,5,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Visibility="Collapsed">
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The service root (use specification uri if empty) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsServiceRoot"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.ServiceRoot, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableKeyAsSegment"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output key as segment path."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableKeyAsSegment, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableUnqualifiedCall"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output un-qualified operation call."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableUnqualifiedCall, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm operation."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationImportPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm operation import."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationImportPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableNavigationPropertyPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Output the path for Edm navigation property."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableNavigationPropertyPath, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The tags name depth :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsTagDepth"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    PreviewTextInput="NumericTexBox_OnPreviewTextInput"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.TagDepth, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsPrefixEntityTypeNameBeforeKey"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Prefix entity type name before single key."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.PrefixEntityTypeNameBeforeKey, Mode=TwoWay}" />
+                <ComboBox
+                    x:Name="OpenApiConvertSettingsOpenApiSpecVersion"
+                    Margin="20,5,10,5"
+                    ItemsSource="{Binding OpenApiSpecVersions}"
+                    SelectedItem="{Binding ElementName=OpenApiSpecVersion, Path=SelectedItem, Mode=OneWay}"
+                    Visibility="Collapsed" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableOperationId"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Set the OperationId on Open API operation."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableOperationId, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableUriEscapeFunctionCall"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Enable UriEscapeFunction call."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableUriEscapeFunctionCall, Mode=TwoWay}"
+                    ToolTip="Output the binding function as Uri escape function if applied the UriEscapeFunction term." />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsVerifyEdmModel"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Verify the edm model before converter."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.VerifyEdmModel, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsIEEE754Compatible"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Server is IEEE754 compatible."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.IEEE754Compatible, Mode=TwoWay}"
+                    ToolTip="If it is IEEE754Compatible, the server will write quoted string for INT64 and decimal to prevent data loss; otherwise keep number without quotes." />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="$Top example value :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsTopExample"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    PreviewTextInput="NumericTexBox_OnPreviewTextInput"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.TopExample, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnablePagination"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Allow paging a collection of entities."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnablePagination, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="The name of the operation for retrieving the next page in a collection of entities :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsPageableOperationName"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PageableOperationName, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDiscriminatorValue"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Allow discriminator value support."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDiscriminatorValue, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDerivedTypesReferencesForResponses"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the derived types of a base type reference in the responses payload."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDerivedTypesReferencesForResponses, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsEnableDerivedTypesReferencesForRequestBody"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the derived types of a base type reference in the requestBody payload."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.EnableDerivedTypesReferencesForRequestBody, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                    Text="Specifies a prefix to be prepended to all generated paths :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="OpenApiConvertSettingsPathPrefix"
+                    Margin="40,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=UserSettings.OpenApiConvertSettings.PathPrefix, Mode=TwoWay, Converter={StaticResource NotNullOrWhiteSpaceConverter}, ConverterParameter='OData'}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowLinks"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the OpenAPI links in the responses."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowLinks, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowSchemaExamples"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show schema examples."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowSchemaExamples, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsRequireDerivedTypesConstraintForBoundOperations"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.RequireDerivedTypesConstraintForBoundOperations, Mode=TwoWay}">
+                    <TextBlock Text="Require the Validation.DerivedTypeConstraint to be applied to NavigationSources to bind operations of derived types to them." TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowRootPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the root path of the described API."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowRootPath, Mode=TwoWay}" />
+                <CheckBox
+                    x:Name="OpenApiConvertSettingsShowMsDosGroupPath"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Show the group path extension."
+                    IsChecked="{Binding Path=UserSettings.OpenApiConvertSettings.ShowMsDosGroupPath, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+
+        <CheckBox
+            x:Name="UseRelativePath"
+            Margin="20,10,10,5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Content="Use relative specification file path (relatively target project base path)."
+            IsChecked="{Binding Path=UserSettings.UseRelativePath, Mode=TwoWay}" />
+        <StackPanel Margin="40,0,0,0" Visibility="{Binding UserSettings.UseRelativePath, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Target project base path :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                x:Name="ProjectPath"
+                Margin="0,5,10,5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                IsReadOnly="True"
+                Text="{Binding UserSettings.ProjectPath, Mode=OneWay}"
+                ToolTip="ProjectPath" />
+            <TextBlock
+                Margin="0,0,0,0"
+                FontWeight="Bold"
+                Text="will combine with :"
+                TextWrapping="WrapWithOverflow" />
+        </StackPanel>
+
+        <Grid Margin="20,0,10,5" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                x:Name="Endpoint"
+                Margin="20,5,10,0"
+                HorizontalAlignment="Stretch"
+                IsEditable="True"
+                ItemsSource="{Binding Path=UserSettings.MruEndpoints}"
+                Text="{Binding Path=UserSettings.Endpoint, Mode=TwoWay, TargetNullValue='Enter your specification endpoint...'}"
+                ToolTip="{Binding Path=EndpointDescription, TargetNullValue='Enter your specification endpoint...'}" />
+            <Button
+                x:Name="OpenEndpointFileButton"
+                Grid.Column="1"
+                Width="70"
+                Height="20"
+                MinHeight="20"
+                MaxHeight="20"
+                Margin="5,5,0,0"
+                HorizontalAlignment="Right"
+                Click="OpenEndpointFileButton_OnClick">
+                <TextBlock Text="Browse" />
+            </Button>
+        </Grid>
+
+        <CheckBox
+            x:Name="GenerateCSharpClient"
+            Margin="20,10,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Checked="GenerateCSharpClient_OnChecked"
+            Content="Generate CSharp Client."
+            IsChecked="{Binding UserSettings.GenerateCSharpClient, Mode=TwoWay}"
+            ToolTip="Generate CSharp Client"
+            Unchecked="GenerateCSharpClient_OnUnchecked" />
+
+        <CheckBox
+            x:Name="GenerateTypeScriptClient"
+            Margin="20,10,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Checked="GenerateTypeScriptClient_OnChecked"
+            Content="Generate TypeScript Client."
+            IsChecked="{Binding UserSettings.GenerateTypeScriptClient, Mode=TwoWay}"
+            ToolTip="Generate TypeScript Client"
+            Unchecked="GenerateTypeScriptClient_OnUnchecked" />
+
+        <CheckBox
+            x:Name="GenerateCSharpController"
+            Margin="20,10,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Checked="GenerateCSharpController_OnChecked"
+            Content="Generate CSharp Controller."
+            IsChecked="{Binding UserSettings.GenerateCSharpController, Mode=TwoWay}"
+            ToolTip="Generate CSharp Controller"
+            Unchecked="GenerateCSharpController_OnUnchecked" />
+
+        <TextBlock
+            Margin="0,10,10,5"
+            HorizontalAlignment="Stretch"
+            TextWrapping="WrapWithOverflow">
+            <Bold>Network credentials</Bold>
+            (<Hyperlink
+                Name="NetworkCredentialsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=NetworkCredentialsPanel}">
+                <TextBlock
+                    Name="NetworkCredentialsHyperlinkText"
+                    Text="{Binding ElementName=NetworkCredentialsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="NetworkCredentialsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <CheckBox
+                x:Name="UseNetworkCredentials"
+                Margin="0,5,5,5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Content="Use network credentials for connecting to the endpoint."
+                IsChecked="{Binding UseNetworkCredentials, Mode=TwoWay}" />
+            <StackPanel Margin="23,0,0,0" Visibility="{Binding ElementName=UseNetworkCredentials, Path=IsChecked, Converter={StaticResource VisibilityConverter}}">
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock
+                        x:Name="NetworkCredentialsUserNameLabel"
+                        Width="80"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Left"
+                        Text="UserName :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        x:Name="NetworkCredentialsUserName"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding NetworkCredentialsUserName, Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock
+                        x:Name="NetworkCredentialsPasswordLabel"
+                        Width="80"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Left"
+                        Text="Password :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        x:Name="NetworkCredentialsPassword"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding NetworkCredentialsPassword, Mode=TwoWay}" />
+                </DockPanel>
+                <DockPanel IsEnabled="{Binding ElementName=UseNetworkCredentials, Path=IsChecked}">
+                    <TextBlock
+                        x:Name="NetworkCredentialsDomainLabel"
+                        Width="80"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Left"
+                        Text="Domain :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        x:Name="NetworkCredentialsDomain"
+                        Margin="0,5,10,5"
+                        HorizontalAlignment="Stretch"
+                        Text="{Binding NetworkCredentialsDomain, Mode=TwoWay}" />
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,10,5"
+            HorizontalAlignment="Stretch"
+            TextWrapping="WrapWithOverflow">
+            <Bold>Web Proxy</Bold>
+            (<Hyperlink
+                Name="WebProxyHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=WebProxyPanel}">
+                <TextBlock
+                    Name="WebProxyHyperlinkText"
+                    Text="{Binding ElementName=WebProxyPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="WebProxyPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <CheckBox
+                x:Name="UseWebProxy"
+                Margin="0,5,10,5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Content="Use web-proxy for connecting to the endpoint."
+                IsChecked="{Binding UseWebProxy, Mode=TwoWay}" />
+            <StackPanel
+                Margin="25,0,0,0"
+                IsEnabled="{Binding ElementName=UseWebProxy, Path=IsChecked}"
+                Visibility="{Binding ElementName=UseWebProxy, Path=IsChecked, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock
+                    Margin="0,5,10,0"
+                    HorizontalAlignment="Stretch"
+                    Text="Web-proxy URI :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    x:Name="WebProxyUri"
+                    Margin="0,10,10,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Path=WebProxyUri, Mode=TwoWay}" />
+
+                <CheckBox
+                    x:Name="UseWebProxyCredentials"
+                    Margin="0,10,5,5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Content="Use web-proxy credentials for connecting to the endpoint."
+                    IsChecked="{Binding UseWebProxyCredentials, Mode=TwoWay}" />
+                <StackPanel
+                    Margin="23,0,0,0"
+                    IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}"
+                    Visibility="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked, Converter={StaticResource VisibilityConverter}}">
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsUserNameLabel"
+                            Width="80"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Left"
+                            Text="UserName :"
+                            TextWrapping="WrapWithOverflow" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsUserName"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding WebProxyNetworkCredentialsUserName, Mode=TwoWay}" />
+                    </DockPanel>
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsPasswordLabel"
+                            Width="80"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Left"
+                            Text="Password :"
+                            TextWrapping="WrapWithOverflow" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsPassword"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding WebProxyNetworkCredentialsPassword, Mode=TwoWay}" />
+                    </DockPanel>
+                    <DockPanel IsEnabled="{Binding ElementName=UseWebProxyCredentials, Path=IsChecked}">
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsDomainLabel"
+                            Width="80"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Left"
+                            Text="Domain :"
+                            TextWrapping="WrapWithOverflow" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsDomain"
+                            Margin="0,5,10,5"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding WebProxyNetworkCredentialsDomain, Mode=TwoWay}" />
+                    </DockPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

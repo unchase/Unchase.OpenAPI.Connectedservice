@@ -1,0 +1,727 @@
+﻿<UserControl
+    x:Class="Unchase.OpenAPI.ConnectedService.Views.TypeScriptClientSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commands="clr-namespace:Unchase.OpenAPI.ConnectedService.Common.Commands"
+    xmlns:converters="clr-namespace:Unchase.OpenAPI.ConnectedService.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Unchase.OpenAPI.ConnectedService.ViewModels"
+    d:DesignHeight="420"
+    d:DesignWidth="768"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <viewModels:TypeScriptClientSettingsViewModel x:Key="ViewModel" />
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <converters:EqualityConverter x:Key="EqualityConverter" />
+        <converters:StringArrayConverter x:Key="StringArrayConverter" />
+        <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter" />
+        <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand" />
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock
+            Margin="0,20,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            You can use default settings to generate client code file or click on hyperlinks to choose custom settings :
+        </TextBlock>
+
+        <TextBlock
+            Margin="0,20,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Main Settings</Bold>
+            (<Hyperlink
+                Name="MainSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=MainSettingsPanel}">
+                <TextBlock
+                    Name="MainSettingsHyperlinkText"
+                    Text="{Binding ElementName=MainSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="MainSettingsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Module name (empty for no module declaration) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                Margin="0,5,10,5"
+                Text="{Binding Command.ModuleName, Mode=TwoWay}"
+                ToolTip="ModuleName" />
+
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Namespace (empty for no namespace declaration) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                x:Name="Namespace"
+                Margin="0,5,10,5"
+                Text="{Binding Command.Namespace, Mode=TwoWay}"
+                ToolTip="Namespace" />
+
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="TypeScript Version :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                Margin="0,5,10,5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                ItemsSource="{Binding TypeScriptVersions}"
+                SelectedItem="{Binding Command.TypeScriptVersion, Mode=TwoWay}"
+                ToolTip="TypeScriptVersion" />
+
+            <CheckBox
+                Margin="0,5,10,5"
+                IsChecked="{Binding Command.InlineNamedDictionaries, Mode=TwoWay}"
+                ToolTip="InlineNamedDictionaries">
+                <TextBlock Text="Inline named dictionaries." TextWrapping="Wrap" />
+            </CheckBox>
+
+            <CheckBox
+                Margin="0,5,10,5"
+                IsChecked="{Binding Command.InlineNamedAny, Mode=TwoWay}"
+                ToolTip="InlineNamedAny">
+                <TextBlock Text="Inline named any schemas." TextWrapping="Wrap" />
+            </CheckBox>
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Client</Bold>
+            (<Hyperlink
+                Name="ClientSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=ClientSettingsPanel}">
+                <TextBlock
+                    Name="ClientSettingsHyperlinkText"
+                    Text="{Binding ElementName=ClientSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="ClientSettingsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <CheckBox
+                Margin="0,5,0,5"
+                Content="Generate Client Classes."
+                IsChecked="{Binding Command.GenerateClientClasses, Mode=TwoWay}"
+                ToolTip="GenerateClientClasses" />
+            <StackPanel Visibility="{Binding Command.GenerateClientClasses, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Template :"
+                    TextWrapping="WrapWithOverflow" />
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding Templates}"
+                    SelectedItem="{Binding Command.Template, Mode=TwoWay}"
+                    ToolTip="Template" />
+                <StackPanel Visibility="{Binding Command.Template, ConverterParameter='JQueryPromises', Converter={StaticResource EqualityConverter}}">
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="Promise Type"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        Margin="0,5,0,0"
+                        ItemsSource="{Binding PromiseTypes}"
+                        SelectedItem="{Binding Command.PromiseType, Mode=TwoWay}"
+                        ToolTip="PromiseTypes" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Stretch"
+                    TextWrapping="Wrap">
+                    <Bold>Angular</Bold>
+                    (<Hyperlink
+                        Name="AngularSettingsHyperlink"
+                        Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                        CommandParameter="{Binding ElementName=AngularSettingsPanel}">
+                        <TextBlock
+                            Name="AngularSettingsHyperlinkText"
+                            Text="{Binding ElementName=AngularSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                            TextWrapping="WrapWithOverflow" />
+                    </Hyperlink>
+                    )</TextBlock>
+                <StackPanel
+                    x:Name="AngularSettingsPanel"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Visibility="Collapsed">
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="RxJs Version :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        Text="Angular 6+ requires RxJs 6"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        Margin="0,5,10,5"
+                        ItemsSource="{Binding RxJsVersions}"
+                        SelectedItem="{Binding Command.RxJsVersion, Mode=TwoWay}"
+                        ToolTip="RxJsVersion" />
+
+                    <CheckBox
+                        Margin="0,5,0,0"
+                        Content="Use Angular 6 Singleton Provider."
+                        IsChecked="{Binding Command.UseSingletonProvider, Mode=TwoWay}"
+                        ToolTip="UseSingletonProvider" />
+
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="HTTP service class :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        Text="HttpClient recommended for new projects (Angular 4.3+)"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        Margin="0,5,10,5"
+                        ItemsSource="{Binding HttpClasses}"
+                        SelectedItem="{Binding Command.HttpClass, Mode=TwoWay}"
+                        ToolTip="HttpClass" />
+
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="Injection token type :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        Text="InjectionToken recommended for new projects (Angular 4+)"
+                        TextWrapping="WrapWithOverflow" />
+                    <ComboBox
+                        Margin="0,5,10,5"
+                        ItemsSource="{Binding InjectionTokenTypes}"
+                        SelectedItem="{Binding Command.InjectionTokenType, Mode=TwoWay}"
+                        ToolTip="InjectionTokenType" />
+
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="Base URL Token Name :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        Margin="0,5,10,5"
+                        Text="{Binding Command.BaseUrlTokenName, Mode=TwoWay}"
+                        ToolTip="BaseUrlTokenName" />
+                </StackPanel>
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Use the AbortSignal (Fetch/Aurelia template only)."
+                    IsChecked="{Binding Command.UseAbortSignal, Mode=TwoWay}"
+                    ToolTip="UseAbortSignal"
+                    Visibility="{Binding Command.Template, ConverterParameter='Fetch,Aurelia', Converter={StaticResource EqualityConverter}}" />
+
+                <TextBlock Margin="0,5,0,0" TextWrapping="Wrap">
+                    <Run FontWeight="Bold" Text="Operation Generation Mode :" />
+                    <LineBreak />
+                    The operation name detection and replacement strategy of the {controller} placeholder in the Class Name setting.</TextBlock>
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding OperationGenerationModes}"
+                    SelectedItem="{Binding Command.OperationGenerationMode, Mode=TwoWay}"
+                    ToolTip="OperationGenerationMode" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Class Name :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.ClassName, Mode=TwoWay}"
+                    ToolTip="ClassName" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Base Class Name (optional, must be imported or implemented in the extension code) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.ClientBaseClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="ClientBaseClass" />
+                <StackPanel Visibility="{Binding Command.ClientBaseClass, Converter={StaticResource VisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="Configuration Class Name (passed to base class ctor, optional) :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        Margin="0,5,10,5"
+                        Text="{Binding Command.ConfigurationClass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="ConfigurationClass" />
+
+                    <CheckBox
+                        Margin="0,5,10,5"
+                        Content="Use the 'getBaseUrl(defaultUrl: string)' method from the base class."
+                        IsChecked="{Binding Command.UseGetBaseUrlMethod, Mode=TwoWay}"
+                        ToolTip="UseGetBaseUrlMethod" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Null value used for query parameters which are null :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.QueryNullValue, Mode=TwoWay}"
+                    ToolTip="QueryNullValue" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Export types (classes, interfaces and enums)."
+                    IsChecked="{Binding Command.ExportTypes, Mode=TwoWay}"
+                    ToolTip="ExportTypes" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Generate interfaces for Client classes."
+                    IsChecked="{Binding Command.GenerateClientInterfaces, Mode=TwoWay}"
+                    ToolTip="GenerateClientInterfaces" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.GenerateOptionalParameters, Mode=TwoWay}"
+                    ToolTip="GenerateOptionalParameters">
+                    <TextBlock Text="Generate optional parameters (reorder parameters (required first, optional at the end) and generate optional parameters)." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Excluded Parameter Names (comma separated) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.ExcludedParameterNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                    ToolTip="ExcludedParameterNames" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Exception class name :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.ExceptionClass, Mode=TwoWay}"
+                    ToolTip="ExceptionClass" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Wrap DTO exceptions in a SwaggerException instance."
+                    IsChecked="{Binding Command.WrapDtoExceptions, Mode=TwoWay}"
+                    ToolTip="WrapDtoExceptions" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Wrap success responses to allow full response access (experimental)."
+                    IsChecked="{Binding Command.WrapResponses, Mode=TwoWay}"
+                    ToolTip="WrapResponses" />
+                <StackPanel Visibility="{Binding Command.WrapResponses, Converter={StaticResource VisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="Methods where responses are wrapped (empty for all, 'ControllerName.MethodName', comma separated) :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        Margin="0,5,10,5"
+                        Text="{Binding Command.WrapResponseMethods, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                        ToolTip="WrapResponseMethods" />
+
+                    <CheckBox
+                        Margin="0,5,10,5"
+                        Content="Generate response classes (when disabled, response classes must be imported)."
+                        IsChecked="{Binding Command.GenerateResponseClasses, Mode=TwoWay}"
+                        ToolTip="GenerateResponseClasses" />
+                    <StackPanel Visibility="{Binding Command.GenerateResponseClasses, Converter={StaticResource VisibilityConverter}}">
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="Bold"
+                            Text="Response class name (may contain the '{controller}' placeholder)."
+                            TextWrapping="WrapWithOverflow" />
+                        <TextBox
+                            Margin="0,5,10,5"
+                            Text="{Binding Command.ResponseClass, Mode=TwoWay}"
+                            ToolTip="ResponseClass" />
+                    </StackPanel>
+                </StackPanel>
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.UseTransformOptionsMethod, Mode=TwoWay}"
+                    ToolTip="UseTransformOptionsMethod">
+                    <TextBlock Text="Call 'transformOptions' on the base class or extension class." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.UseTransformResultMethod, Mode=TwoWay}"
+                    ToolTip="UseTransformResultMethod">
+                    <TextBlock Text="Call 'transformResult' on the base class or extension class." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Methods with a protected access modifier to use in class extensions ('classname.methodname', comma separated) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,0,5"
+                    Text="{Binding Command.ProtectedMethods, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                    ToolTip="ProtectedMethods" />
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>DTO Types</Bold>
+            (<Hyperlink
+                Name="DTOTypesSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=DTOTypesPanel}">
+                <TextBlock
+                    Name="DTOTypesSettingsHyperlinkText"
+                    Text="{Binding ElementName=DTOTypesPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="DTOTypesPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <CheckBox
+                Margin="0,5,10,5"
+                Content="Generate DTO types (e.g. request and response types)."
+                IsChecked="{Binding Command.GenerateDtoTypes, Mode=TwoWay}"
+                ToolTip="GenerateDtoTypes" />
+            <StackPanel Visibility="{Binding Command.GenerateDtoTypes, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Type Style :"
+                    TextWrapping="WrapWithOverflow" />
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding TypeStyles}"
+                    SelectedItem="{Binding Command.TypeStyle, Mode=TwoWay}"
+                    ToolTip="TypeStyle" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Enum Style"
+                    TextWrapping="WrapWithOverflow" />
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding EnumStyles}"
+                    SelectedItem="{Binding Command.EnumStyle, Mode=TwoWay}"
+                    ToolTip="TypeStyle" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Null value used in object initializers :"
+                    TextWrapping="WrapWithOverflow" />
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding NullValues}"
+                    SelectedItem="{Binding Command.NullValue, Mode=TwoWay}"
+                    ToolTip="NullValue" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Date Time Type :"
+                    TextWrapping="WrapWithOverflow" />
+                <ComboBox
+                    Margin="0,5,10,5"
+                    ItemsSource="{Binding DateTimeTypes}"
+                    SelectedItem="{Binding Command.DateTimeType, Mode=TwoWay}"
+                    ToolTip="DateTimeType" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    IsChecked="{Binding Command.GenerateDefaultValues, Mode=TwoWay}"
+                    ToolTip="GenerateDefaultValues">
+                    <TextBlock Text="Generate default values for properties (if default value is specified)." TextWrapping="Wrap" />
+                </CheckBox>
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Mark optional properties with ?."
+                    IsChecked="{Binding Command.MarkOptionalProperties, Mode=TwoWay}"
+                    ToolTip="MarkOptionalProperties" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Generate clone() method."
+                    IsChecked="{Binding Command.GenerateCloneMethod, Mode=TwoWay}"
+                    ToolTip="GenerateCloneMethod" />
+
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Import required types (e.g. Angular types, Moment.js, DayJS, JQuery, etc.)."
+                    IsChecked="{Binding Command.ImportRequiredTypes, Mode=TwoWay}"
+                    ToolTip="ImportRequiredTypes" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontWeight="Bold"
+                    Text="Excluded Type Names (comma separated, must be defined in ExtensionCode or custom import) :"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBox
+                    Margin="0,5,10,5"
+                    Text="{Binding Command.ExcludedTypeNames, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                    ToolTip="ExcludedTypeNames" />
+                <StackPanel Visibility="{Binding Command.TypeStyle, ConverterParameter='!Class', Converter={StaticResource EqualityConverter}}">
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        FontWeight="Bold"
+                        Text="The type names which always generate plain TypeScript classes (comma separated) :"
+                        TextWrapping="WrapWithOverflow" />
+                    <TextBox
+                        Margin="0,5,10,5"
+                        Text="{Binding Command.ClassTypes, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                        ToolTip="ClassTypes" />
+                </StackPanel>
+
+                <TextBlock
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Stretch"
+                    TextWrapping="Wrap">
+                    <Bold>Serialization Settings</Bold>
+                    (<Hyperlink
+                        Name="SerializationSettingsHyperlink"
+                        Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                        CommandParameter="{Binding ElementName=SerializationSettingsPanel}">
+                        <TextBlock
+                            Name="SerializationSettingsHyperlinkText"
+                            Text="{Binding ElementName=SerializationSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                            TextWrapping="WrapWithOverflow" />
+                    </Hyperlink>
+                    )</TextBlock>
+                <StackPanel
+                    x:Name="SerializationSettingsPanel"
+                    Margin="20,5,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Visibility="Collapsed">
+                    <CheckBox
+                        Margin="0,5,10,5"
+                        Content="Handle JSON references ($ref, $id, $values) (experimental, generates more code)."
+                        IsChecked="{Binding Command.HandleReferences, Mode=TwoWay}"
+                        ToolTip="HandleReferences" />
+
+                    <CheckBox
+                        Margin="0,5,10,5"
+                        Content="Generate constructor interface which is used to initialize the class."
+                        IsChecked="{Binding Command.GenerateConstructorInterface, Mode=TwoWay}"
+                        ToolTip="GenerateConstructorInterface" />
+
+                    <CheckBox
+                        Margin="0,5,10,5"
+                        Content="Convert POJO objects in the constructor data to DTO instances (generates more code)."
+                        IsChecked="{Binding Command.ConvertConstructorInterfaceData, Mode=TwoWay}"
+                        ToolTip="ConvertConstructorInterfaceData"
+                        Visibility="{Binding Command.GenerateConstructorInterface, Converter={StaticResource VisibilityConverter}}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Class Extensions</Bold>
+            (<Hyperlink
+                Name="ClassExtensionsSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=ClassExtensionsSettingsPanel}">
+                <TextBlock
+                    Name="ClassExtensionsSettingsHyperlinkText"
+                    Text="{Binding ElementName=ClassExtensionsSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="ClassExtensionsSettingsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Extended classes (comma separated) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                Margin="0,5,10,5"
+                Text="{Binding Command.ExtendedClasses, Mode=TwoWay, Converter={StaticResource StringArrayConverter}, ConverterParameter=','}"
+                ToolTip="ExtendedClasses" />
+
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Path to class extension code file (the module import 'generated' is removed and class export keywords are added) :"
+                TextWrapping="WrapWithOverflow" />
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="ExtensionCodeFileTextBox"
+                    Grid.Column="0"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Command.ExtensionCode, Mode=TwoWay}"
+                    ToolTip="ExtensionCode" />
+                <Button
+                    x:Name="OpenExtensionCodeFileButton"
+                    Grid.Column="1"
+                    Height="20"
+                    Margin="5,0,10,0"
+                    HorizontalAlignment="Right"
+                    Click="OpenExtensionCodeFileButton_OnClick">
+                    <TextBlock Text="..." />
+                </Button>
+            </Grid>
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Swagger Information</Bold>
+            (<Hyperlink
+                Name="SwaggerInformationSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=SwaggerInformationSettingsPanel}">
+                <TextBlock
+                    Name="SwaggerInformationSettingsHyperlinkText"
+                    Text="{Binding ElementName=SwaggerInformationSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="SwaggerInformationSettingsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Service host (optional, use '.' to remove the hostname) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                Margin="0,5,10,5"
+                Text="{Binding Command.ServiceHost, Mode=TwoWay}"
+                ToolTip="ServiceHost" />
+
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Service schemes (optional, 'http', 'https', 'ws', 'wss', multiple on separate lines) :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                Height="52"
+                Margin="0,5,10,5"
+                AcceptsReturn="True"
+                Text="{Binding Command.ServiceSchemes, Mode=TwoWay, Converter={StaticResource StringArrayConverter}}"
+                ToolTip="ServiceSchemes"
+                VerticalScrollBarVisibility="Visible" />
+        </StackPanel>
+
+        <TextBlock
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            TextWrapping="Wrap">
+            <Bold>Templating</Bold>
+            (<Hyperlink
+                Name="TemplatingSettingsHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=TemplatingSettingsPanel}">
+                <TextBlock
+                    Name="TemplatingSettingsHyperlinkText"
+                    Text="{Binding ElementName=TemplatingSettingsPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="TemplatingSettingsPanel"
+            Margin="20,5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="Template directory :"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                Margin="0,5,10,5"
+                Text="{Binding Command.TemplateDirectory, Mode=TwoWay}"
+                ToolTip="TemplateDirectory" />
+        </StackPanel>
+
+        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap">
+            <Bold>Output</Bold>
+            (<Hyperlink
+                Name="OutputHyperlink"
+                Command="{StaticResource StackPanelChangeVisibilityCommand}"
+                CommandParameter="{Binding ElementName=OutputPanel}">
+                <TextBlock
+                    Name="OutputHyperlinkText"
+                    Text="{Binding ElementName=OutputPanel, Path=Visibility, Converter={StaticResource VisibilityToHyperlinkTextConverter}}"
+                    TextWrapping="WrapWithOverflow" />
+            </Hyperlink>
+            )</TextBlock>
+        <StackPanel
+            x:Name="OutputPanel"
+            Margin="20,0,0,0"
+            Visibility="Collapsed">
+            <TextBlock
+                Margin="0,5,10,5"
+                FontWeight="Bold"
+                Text="New Line Behavior :"
+                TextWrapping="WrapWithOverflow" />
+            <ComboBox
+                Margin="0,5,10,5"
+                ItemsSource="{Binding NewLineBehaviors}"
+                SelectedItem="{Binding Command.NewLineBehavior, Mode=TwoWay}"
+                ToolTip="NewLineBehavior" />
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4dcbaf47-b1b9-47d5-97cc-d694db4f8d3e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CodeGeneration\BaseCodeGenDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CodeGeneration\NSwagCodeGenDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DiffSpecificationsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommandPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Commands\StackPanelChangeVisibilityCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ExtensionsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\LoggerHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ProjectHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\UserSettingsPersistenceHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NotConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NotNullOrWhiteSpaceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringArrayConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityToHyperlinkTextConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Instance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ServiceConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Provider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfigOpenApiEndpointViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CSharpClientSettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CSharpControllerSettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TypeScriptClientSettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ConfigOpenApiEndpoint.xaml.cs">
+      <DependentUpon>ConfigOpenApiEndpoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CSharpClientExcludedClasses.xaml.cs">
+      <DependentUpon>CSharpClientExcludedClasses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CSharpClientSettings.xaml.cs">
+      <DependentUpon>CSharpClientSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CSharpControllerSettings.xaml.cs">
+      <DependentUpon>CSharpControllerSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TypeScriptClientSettings.xaml.cs">
+      <DependentUpon>TypeScriptClientSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Wizard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Commands\Resources\EULA.txt" />
+    <Content Include="$(MSBuildThisFileDirectory)Commands\Resources\OpenWithNSwagStudioCommand.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Commands\Resources\OpenWithNSwagStudioCommandPackage.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\OpenWithNSwagStudioCommand.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\OpenWithNSwagStudioCommandPackage.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\EULA.txt" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\favicon.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\logo_128x128.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Unchase.OpenAPI.ConnectedService.sln" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)app.config" />
+    <None Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommandPackage.vsct" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Commands\VSPackage.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\NewBug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ConfigOpenApiEndpoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CSharpClientExcludedClasses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CSharpClientSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\CSharpControllerSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\TypeScriptClientSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>
