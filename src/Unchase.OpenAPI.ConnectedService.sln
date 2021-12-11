@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.ConnectedService", "Unchase.OpenAPI.ConnectedService.csproj", "{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}"
 EndProject
@@ -29,7 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-331
 		..\img\UnchaseOpenAPIConnectedServiceCommandsOptions2.png = ..\img\UnchaseOpenAPIConnectedServiceCommandsOptions2.png
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Unchase.OpenAPI.Connectedservice.Shared", "Shared\Unchase.OpenAPI.Connectedservice.Shared.shproj", "{F9C2B492-3068-4F7D-9AA4-D4CD086C4468}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{cfb451de-8645-4125-8254-3c3beb6c6cc7}*SharedItemsImports = 4
+		Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{f9c2b492-3068-4f7d-9aa4-d4cd086c4468}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

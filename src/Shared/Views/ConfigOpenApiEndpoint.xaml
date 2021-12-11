@@ -16,7 +16,7 @@
         <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter" />
         <converters:NotNullOrWhiteSpaceConverter x:Key="NotNullOrWhiteSpaceConverter" />
         <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand" />
-        <Image x:Key="ReportABugButtonImage" Source="../Resources/NewBug.png" />
+        <Image x:Key="ReportABugButtonImage" Source="../Shared/Resources/NewBug.png" />
     </UserControl.Resources>
     <StackPanel
         Margin="0,0,0,0"
@@ -44,7 +44,7 @@
                     HorizontalAlignment="Right"
                     Click="ReportABugButton_Click">
                     <Button.Background>
-                        <ImageBrush ImageSource="../Resources/NewBug.png" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="../Shared/Resources/NewBug.png" Stretch="UniformToFill" />
                     </Button.Background>
                 </Button>
             </DockPanel>

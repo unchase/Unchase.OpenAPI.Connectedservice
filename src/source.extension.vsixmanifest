@@ -5,11 +5,11 @@
         <DisplayName>Unchase OpenAPI (Swagger) Connected Service</DisplayName>
         <Description xml:space="preserve">Connected service for Visual Studio to generate OpenAPI (Swagger) web service reference.</Description>
         <MoreInfo>https://github.com/unchase/Unchase.OpenAPI.Connectedservice</MoreInfo>
-        <License>Resources\EULA.txt</License>
+        <License>Shared\Resources\EULA.txt</License>
         <GettingStartedGuide>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/README.md</GettingStartedGuide>
         <ReleaseNotes>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/CHANGELOG.md</ReleaseNotes>
-        <Icon>Resources\logo_128x128.png</Icon>
-        <PreviewImage>Resources\preview_200x200.png</PreviewImage>
+        <Icon>Shared\Resources\logo_128x128.png</Icon>
+        <PreviewImage>Shared\Resources\preview_200x200.png</PreviewImage>
         <Tags>OpenAPI, Swagger, REST API, OAS, OAI, Web API, .NET Core, HttpClient, Swashbuckle, NSwag, NSwagStudio, Code Generation, Scaffolding, Connected Service</Tags>
     </Metadata>
     <Installation>
