@@ -6,8 +6,32 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.ConnectedService", "Unchase.OpenAPI.ConnectedService\Unchase.OpenAPI.ConnectedService.csproj", "{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E792B87-132B-4E5F-B542-86E96D18FAD8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\appveyor.yml = ..\appveyor.yml
+		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\CNAME = ..\CNAME
+		..\LICENSE.md = ..\LICENSE.md
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{FEC756D6-3315-4914-B04F-B2CEA3F6A7F6}"
+	ProjectSection(SolutionItems) = preProject
+		..\img\buymeacoffe.png = ..\img\buymeacoffe.png
+		..\img\CompareOpenAPISpecificationsCommandResult.png = ..\img\CompareOpenAPISpecificationsCommandResult.png
+		..\img\CompareOpenAPISpecificationsOneFileCommandMenu.png = ..\img\CompareOpenAPISpecificationsOneFileCommandMenu.png
+		..\img\CompareOpenAPISpecificationsTwoFilesCommandMenu.png = ..\img\CompareOpenAPISpecificationsTwoFilesCommandMenu.png
+		..\img\Csharp-Client-Generation-Exclude-Type-Names.png = ..\img\Csharp-Client-Generation-Exclude-Type-Names.png
+		..\img\Csharp-Client-Generation-OData.png = ..\img\Csharp-Client-Generation-OData.png
+		..\img\OpenWithNSwagCommandMenu.png = ..\img\OpenWithNSwagCommandMenu.png
+		..\img\Unchase-OpenAPI-Connected-Service-ReportBug.png = ..\img\Unchase-OpenAPI-Connected-Service-ReportBug.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Customize.gif = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Customize.gif
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Logo.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png = ..\img\Unchase-OpenAPI-Swagger-Connected-Service-Settings-Meaning.png
+		..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif = ..\img\Unchase-OpenAPI-Swagger-Connected-Service.gif
+		..\img\UnchaseOpenAPIConnectedServiceCommandsOptions1.png = ..\img\UnchaseOpenAPIConnectedServiceCommandsOptions1.png
+		..\img\UnchaseOpenAPIConnectedServiceCommandsOptions2.png = ..\img\UnchaseOpenAPIConnectedServiceCommandsOptions2.png
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Unchase.OpenAPI.Connectedservice.Shared", "Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.shproj", "{F9C2B492-3068-4F7D-9AA4-D4CD086C4468}"
 EndProject

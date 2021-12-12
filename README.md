@@ -1,6 +1,6 @@
 ![Logo](img/Unchase-OpenAPI-Swagger-Connected-Service-Logo.png)
 
-[Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio 2017/2019 extension to generate `C#` (`TypeScript`) `HttpClient` (or `C#` `Controllers`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
+[Unchase OpenAPI (Swagger) Connected Service](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseOpenAPIConnectedService) is a Visual Studio 2017/2019/2022 extension to generate `C#` (`TypeScript`) `HttpClient` (or `C#` `Controllers`) code for `OpenAPI` (formerly [`Swagger API`](https://swagger.io/docs/specification/about/)) web service with [NSwag](https://github.com/RSuter/NSwag).
 
 > Starting from Visual Studio Community 2019 v16.1.3 extensions based on `Microsoft Connected Services` now work fine.
 
