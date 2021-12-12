@@ -1,37 +1,37 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="Unchase.OpenAPI.Connectedservice.63199638-6211-4285-ba8f-75b1f0326c2b" Version="1.7.0" Language="en-US" Publisher="Unchase" />
-        <DisplayName>Unchase OpenAPI (Swagger) Connected Service</DisplayName>
-        <Description xml:space="preserve">Connected service for Visual Studio to generate OpenAPI (Swagger) web service reference.</Description>
-        <MoreInfo>https://github.com/unchase/Unchase.OpenAPI.Connectedservice</MoreInfo>
-        <License>EULA.txt</License>
-        <GettingStartedGuide>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/README.md</GettingStartedGuide>
-        <ReleaseNotes>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/CHANGELOG.md</ReleaseNotes>
-        <Icon>Shared\Resources\logo_128x128.png</Icon>
-        <PreviewImage>Shared\Resources\preview_200x200.png</PreviewImage>
-        <Tags>OpenAPI, Swagger, REST API, OAS, OAI, Web API, .NET Core, HttpClient, Swashbuckle, NSwag, NSwagStudio, Code Generation, Scaffolding, Connected Service</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-        <Dependency d:Source="Installed" Id="ConnectedServices.897486C9-63BD-48D3-8A33-CB770FBD0723" DisplayName="Microsoft Connected Services" Version="[2.0,)" />
-    </Dependencies>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
-    </Prerequisites>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="Unchase.OpenAPI.Connectedservice.63199638-6211-4285-ba8f-75b1f0326c2b" Version="1.7.0" Language="en-US" Publisher="Unchase" />
+    <DisplayName>Unchase OpenAPI (Swagger) Connected Service VS2022</DisplayName>
+    <Description xml:space="preserve">Connected service for Visual Studio 2022 to generate OpenAPI (Swagger) web service reference.</Description>
+    <MoreInfo>https://github.com/unchase/Unchase.OpenAPI.Connectedservice</MoreInfo>
+    <License>EULA.txt</License>
+    <GettingStartedGuide>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/README.md</GettingStartedGuide>
+    <ReleaseNotes>https://github.com/unchase/Unchase.OpenAPI.Connectedservice/blob/master/CHANGELOG.md</ReleaseNotes>
+    <Icon>Shared\Resources\logo_128x128.png</Icon>
+    <PreviewImage>Shared\Resources\preview_200x200.png</PreviewImage>
+    <Tags>OpenAPI, Swagger, REST API, OAS, OAI, Web API, .NET Core, HttpClient, Swashbuckle, NSwag, NSwagStudio, Code Generation, Scaffolding, Connected Service</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    <Dependency d:Source="Installed" Id="ConnectedServices.897486C9-63BD-48D3-8A33-CB770FBD0723" DisplayName="Microsoft Connected Services" Version="[2.0,)" />
+  </Dependencies>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+  </Assets>
 </PackageManifest>

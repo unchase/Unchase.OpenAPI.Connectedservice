@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\LoggerHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ProjectHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\UserSettingsPersistenceHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotNullOrWhiteSpaceConverter.cs" />

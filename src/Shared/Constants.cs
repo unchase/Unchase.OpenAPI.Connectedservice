@@ -2,13 +2,18 @@
 {
     public static class Constants
     {
+        public static class Vsix
+        {
+            public const string Version = "1.7.0";
+        }
+
         public const string Author = "Nikolay Chebotov (Unchase)";
         public const string ExtensionCategory = "OpenAPI";
         public const string ExtensionName = "Unchase OpenAPI (Swagger) Connected Service";
         public const string ExtensionDescription = "Generates C# HttpClient code for OpenAPI (Swagger API) web service with NSwag.";
         public const string ProviderId = "Unchase.OpenAPI.ConnectedService";
         public const string Website = "https://github.com/unchase/Unchase.OpenAPI.Connectedservice/";
-        public const string Copyright = "Copyright © 2019";
+        public const string Copyright = "Copyright © 2021";
 
         public const string NuGetOnlineRepository = "https://www.nuget.org/api/v2/";
         public const string DefaultServiceName = "OpenAPIService";
