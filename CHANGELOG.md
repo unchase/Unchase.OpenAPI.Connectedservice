@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.7.0 `(2021-12-12)`
+
+- [x] Update dependencies: add support for NSwag.Commands v13.14.8
+- [x] Fix [issue #56](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/56) - Visual Studio 2022 Support
+
 ## v1.6.8 `(2021-10-22)`
 
 - [x] Fix [issue #61](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/61) for Visual Studio 2017
