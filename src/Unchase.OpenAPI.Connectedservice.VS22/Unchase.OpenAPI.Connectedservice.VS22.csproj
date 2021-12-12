@@ -105,7 +105,6 @@
   <ItemGroup>
     <Content Include="EULA.txt">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\preview_200x200.png" />
   </ItemGroup>

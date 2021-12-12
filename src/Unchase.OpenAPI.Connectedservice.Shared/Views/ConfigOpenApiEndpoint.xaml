@@ -42,7 +42,7 @@
                     Margin="5,5,10,5"
                     HorizontalAlignment="Right"
                     Click="ReportABugButton_Click">
-                    <TextBlock Text="!" />
+                    <TextBox  Text="!" />
                 </Button>
             </DockPanel>
         </DockPanel>

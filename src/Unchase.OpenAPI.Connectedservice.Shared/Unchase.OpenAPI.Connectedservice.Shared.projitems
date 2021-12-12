@@ -68,11 +68,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)Resources\NewBug.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png">
+    <Content Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommandPackage.vsct" />
