@@ -57,9 +57,6 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Commands\Resources\OpenWithNSwagStudioCommand.png" />
     <Content Include="$(MSBuildThisFileDirectory)Commands\Resources\OpenWithNSwagStudioCommandPackage.ico" />
-    <Content Include="$(MSBuildThisFileDirectory)Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="$(MSBuildThisFileDirectory)Resources\EULA.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
