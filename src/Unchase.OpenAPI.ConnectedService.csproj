@@ -624,7 +624,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Shared\Resources\NewBug.png" />
     <Content Include="Unchase.OpenAPI.ConnectedService.sln" />
   </ItemGroup>
   <ItemGroup>

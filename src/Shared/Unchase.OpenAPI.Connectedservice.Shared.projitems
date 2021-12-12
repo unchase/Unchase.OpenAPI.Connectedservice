@@ -63,11 +63,15 @@
     <Content Include="$(MSBuildThisFileDirectory)Resources\EULA.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\favicon.ico" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="$(MSBuildThisFileDirectory)Resources\logo_128x128.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\NewBug.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\NewBug.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
