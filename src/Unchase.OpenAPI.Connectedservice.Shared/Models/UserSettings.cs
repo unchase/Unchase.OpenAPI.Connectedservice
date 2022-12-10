@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.OData;
 using Microsoft.VisualStudio.ConnectedServices;
@@ -80,7 +81,7 @@ namespace Unchase.OpenAPI.ConnectedService.Models
 
         private UserSettings()
         {
-            this.MruEndpoints = new ObservableCollection<string>();
+            MruEndpoints = new ObservableCollection<string>();
         }
 
         #endregion
@@ -93,32 +94,32 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         /// <param name="serviceConfiguration"><see cref="ServiceConfiguration"/>.</param>
         internal void SetFromServiceConfiguration(ServiceConfiguration serviceConfiguration)
         {
-            this.CopySpecification = serviceConfiguration.CopySpecification;
-            this.Endpoint = serviceConfiguration.Endpoint;
-            this.GenerateCSharpClient = serviceConfiguration.GenerateCSharpClient;
-            this.GenerateCSharpController = serviceConfiguration.GenerateCSharpController;
-            this.GenerateTypeScriptClient = serviceConfiguration.GenerateTypeScriptClient;
-            this.OpenGeneratedFilesOnComplete = serviceConfiguration.OpenGeneratedFilesOnComplete;
-            this.Runtime = serviceConfiguration.Runtime;
-            this.ServiceName = serviceConfiguration.ServiceName;
-            this.AcceptAllUntrustedCertificates = serviceConfiguration.AcceptAllUntrustedCertificates;
-            this.GeneratedFileName = serviceConfiguration.GeneratedFileName;
-            this.UseRelativePath = serviceConfiguration.UseRelativePath;
-            this.ConvertFromOdata = serviceConfiguration.ConvertFromOdata;
-            this.OpenApiConvertSettings = serviceConfiguration.OpenApiConvertSettings;
-            this.OpenApiSpecVersion = serviceConfiguration.OpenApiSpecVersion;
-            this.Variables = serviceConfiguration.Variables;
+            CopySpecification = serviceConfiguration.CopySpecification;
+            Endpoint = serviceConfiguration.Endpoint;
+            GenerateCSharpClient = serviceConfiguration.GenerateCSharpClient;
+            GenerateCSharpController = serviceConfiguration.GenerateCSharpController;
+            GenerateTypeScriptClient = serviceConfiguration.GenerateTypeScriptClient;
+            OpenGeneratedFilesOnComplete = serviceConfiguration.OpenGeneratedFilesOnComplete;
+            Runtime = serviceConfiguration.Runtime;
+            ServiceName = serviceConfiguration.ServiceName;
+            AcceptAllUntrustedCertificates = serviceConfiguration.AcceptAllUntrustedCertificates;
+            GeneratedFileName = serviceConfiguration.GeneratedFileName;
+            UseRelativePath = serviceConfiguration.UseRelativePath;
+            ConvertFromOdata = serviceConfiguration.ConvertFromOdata;
+            OpenApiConvertSettings = serviceConfiguration.OpenApiConvertSettings;
+            OpenApiSpecVersion = serviceConfiguration.OpenApiSpecVersion;
+            Variables = serviceConfiguration.Variables;
         }
 
         public void Save()
         {
-            UserSettingsPersistenceHelper.Save(this, Constants.ProviderId, UserSettings.Name, null, this._logger);
+            UserSettingsPersistenceHelper.Save(this, Constants.ProviderId, Name, null, _logger);
         }
 
         public static UserSettings Load(ConnectedServiceLogger logger)
         {
             var userSettings = UserSettingsPersistenceHelper.Load<UserSettings>(
-                Constants.ProviderId, UserSettings.Name, null, logger) ?? new UserSettings();
+                Constants.ProviderId, Name, null, logger) ?? new UserSettings();
             userSettings._logger = logger;
             return userSettings;
         }
@@ -132,7 +133,9 @@ namespace Unchase.OpenAPI.ConnectedService.Models
                 for (var i = mruList.Count - 1; i > index; i--)
                 {
                     if (EqualityComparer<T>.Default.Equals(mruList[i], item))
+                    {
                         mruList.RemoveAt(i);
+                    }
                 }
 
                 if (index > 0)
@@ -144,8 +147,10 @@ namespace Unchase.OpenAPI.ConnectedService.Models
             else
             {
                 // The item is not in the MRU list, make room for it by clearing out the oldest item.
-                while (mruList.Count >= UserSettings.MaxMruEntries)
+                while (mruList.Count >= MaxMruEntries)
+                {
                     mruList.RemoveAt(mruList.Count - 1);
+                }
 
                 mruList.Insert(0, item);
             }

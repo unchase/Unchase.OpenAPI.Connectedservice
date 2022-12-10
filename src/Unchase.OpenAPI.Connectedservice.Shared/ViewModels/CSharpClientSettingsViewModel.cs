@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using Microsoft.VisualStudio.ConnectedServices;
 using NJsonSchema.CodeGeneration.CSharp;
 using NSwag.Commands;
@@ -8,7 +9,8 @@ using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
-    internal class CSharpClientSettingsViewModel : ConnectedServiceWizardPage
+    internal class CSharpClientSettingsViewModel :
+        ConnectedServiceWizardPage
     {
         #region Properties
 
@@ -48,10 +50,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public CSharpClientSettingsViewModel() : base()
         {
-            this.Title = "CSharp Client Settings";
-            this.Description = "Settings for generating CSharp client";
-            this.Legend = "CSharp Client Settings";
-            this.View = new CSharpClientSettings {DataContext = this};
+            Title = "CSharp Client Settings";
+            Description = "Settings for generating CSharp client";
+            Legend = "CSharp Client Settings";
+            View = new CSharpClientSettings {DataContext = this};
         }
 
         #endregion

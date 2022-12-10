@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
 using Microsoft.OData.Edm.Csdl;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
@@ -18,7 +19,8 @@ using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
-    internal class ConfigOpenApiEndpointViewModel : ConnectedServiceWizardPage
+    internal class ConfigOpenApiEndpointViewModel :
+        ConnectedServiceWizardPage
     {
         #region Properties and Fields
 
@@ -28,7 +30,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public string NSwagVersion => Assembly.GetAssembly(typeof(NSwagCommandProcessor)).GetName().Version.ToString();
 
-        public string EndpointDescription => $"{this.Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
+        public string EndpointDescription => $"{Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
 
         public string ServiceName { get; set; }
 
@@ -40,7 +42,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             {
                 _acceptAllUntrustedCertificates = value;
                 UserSettings.AcceptAllUntrustedCertificates = value;
-                OnPropertyChanged(nameof(AcceptAllUntrustedCertificates));
+                OnPropertyChanged();
             }
         }
 
@@ -55,8 +57,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #region Network Credentials
 
         public bool UseNetworkCredentials { get; set; }
+
         public string NetworkCredentialsUserName { get; set; }
+
         public string NetworkCredentialsPassword { get; set; }
+
         public string NetworkCredentialsDomain { get; set; }
 
         #endregion
@@ -64,15 +69,22 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
         #region WebProxy
 
         public bool UseWebProxy { get; set; }
+
         public bool UseWebProxyCredentials { get; set; }
+
         public string WebProxyNetworkCredentialsUserName { get; set; }
+
         public string WebProxyNetworkCredentialsPassword { get; set; }
+
         public string WebProxyNetworkCredentialsDomain { get; set; }
+
         public string WebProxyUri { get; set; }
 
         #endregion
 
-        /// <summary>Gets the available runtimes.</summary>
+        /// <summary>
+        /// Gets the available runtimes.
+        /// </summary>
         public Runtime[] Runtimes
         {
             get
@@ -97,21 +109,21 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         #region Constructors
 
-        public ConfigOpenApiEndpointViewModel(UserSettings userSettings, Wizard wizard) : base()
+        public ConfigOpenApiEndpointViewModel(UserSettings userSettings, Wizard wizard)
         {
-            this.Title = "Configure specification endpoint";
-            this.Description = "Enter or choose an specification endpoint and check generation options to begin";
-            this.Legend = "Specification Endpoint";
-            this.InternalWizard = wizard;
-            this.View = new ConfigOpenApiEndpoint(this.InternalWizard) {DataContext = this};
-            this.UserSettings = userSettings;
-            this.ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
-            this.AcceptAllUntrustedCertificates = userSettings.AcceptAllUntrustedCertificates;
-            this.GeneratedFileName = string.IsNullOrWhiteSpace(userSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : userSettings.GeneratedFileName;
-            this.Endpoint = userSettings.Endpoint;
-            this.UseNetworkCredentials = false;
-            this.UseWebProxy = false;
-            this.UseWebProxyCredentials = false;
+            Title = "Configure specification endpoint";
+            Description = "Enter or choose an specification endpoint and check generation options to begin";
+            Legend = "Specification Endpoint";
+            InternalWizard = wizard;
+            View = new ConfigOpenApiEndpoint(InternalWizard) {DataContext = this};
+            UserSettings = userSettings;
+            ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
+            AcceptAllUntrustedCertificates = userSettings.AcceptAllUntrustedCertificates;
+            GeneratedFileName = string.IsNullOrWhiteSpace(userSettings.GeneratedFileName) ? Constants.DefaultGeneratedFileName : userSettings.GeneratedFileName;
+            Endpoint = userSettings.Endpoint;
+            UseNetworkCredentials = false;
+            UseWebProxy = false;
+            UseWebProxyCredentials = false;
         }
 
         #endregion
@@ -120,34 +132,38 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public override async Task<PageNavigationResult> OnPageLeavingAsync(WizardLeavingArgs args)
         {
-            UserSettings.AddToTopOfMruList(((Wizard)this.Wizard).UserSettings.MruEndpoints, this.Endpoint);
+            UserSettings.AddToTopOfMruList(((Wizard)Wizard).UserSettings.MruEndpoints, Endpoint);
             try
             {
-                if (!UserSettings.GenerateCSharpClient && !UserSettings.GenerateCSharpController && !UserSettings.GenerateTypeScriptClient)
+                if (!UserSettings.GenerateCSharpClient && !UserSettings.GenerateCSharpController &&
+                    !UserSettings.GenerateTypeScriptClient)
+                {
                     throw new Exception("Should check one of the checkboxes for generating!");
+                }
 
-                this.SpecificationTempPath = await GetSpecificationAsync();
+                SpecificationTempPath = await GetSpecificationAsync();
 
                 // convert from OData specification
-                if (this.UserSettings.ConvertFromOdata)
+                if (UserSettings.ConvertFromOdata)
                 {
-                    var csdl = File.ReadAllText(this.SpecificationTempPath);
+                    var csdl = File.ReadAllText(SpecificationTempPath);
                     var model = CsdlReader.Parse(XElement.Parse(csdl).CreateReader());
-                    if ((this.UserSettings.OpenApiConvertSettings.ServiceRoot == null || this.UserSettings.OpenApiConvertSettings.ServiceRoot.Host.Contains("localhost"))
-                        && this.UserSettings.Endpoint.StartsWith("http", StringComparison.Ordinal))
+                    if ((UserSettings.OpenApiConvertSettings.ServiceRoot == null || UserSettings.OpenApiConvertSettings.ServiceRoot.Host.Contains("localhost"))
+                        && UserSettings.Endpoint.StartsWith("http", StringComparison.Ordinal))
                     {
-                        this.UserSettings.OpenApiConvertSettings.ServiceRoot = new Uri(this.UserSettings.Endpoint.TrimEnd("$metadata".ToCharArray()));
+                        UserSettings.OpenApiConvertSettings.ServiceRoot = new Uri(UserSettings.Endpoint.TrimEnd("$metadata".ToCharArray()));
                     }
-                    var document = model.ConvertToOpenApi(this.UserSettings.OpenApiConvertSettings);
-                    var outputJson = document.SerializeAsJson(this.UserSettings.OpenApiSpecVersion);
-                    File.WriteAllText(this.SpecificationTempPath, outputJson);
+
+                    var document = model.ConvertToOpenApi(UserSettings.OpenApiConvertSettings);
+                    var outputJson = document.SerializeAsJson(UserSettings.OpenApiSpecVersion);
+                    File.WriteAllText(SpecificationTempPath, outputJson);
                 }
 
                 return await base.OnPageLeavingAsync(args);
             }
             catch (Exception e)
             {
-                return await Task.FromResult<PageNavigationResult>(
+                return await Task.FromResult(
                     new PageNavigationResult
                     {
                         ErrorMessage = e.Message,
@@ -159,8 +175,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         internal async Task<string> GetSpecificationAsync()
         {
-            if (string.IsNullOrEmpty(this.UserSettings.Endpoint))
+            if (string.IsNullOrEmpty(UserSettings.Endpoint))
+            {
                 throw new ArgumentNullException("Specification Endpoint", "Please input the specification endpoint.");
+            }
 
             //if (!this.UserSettings.Endpoint.EndsWith(".json", StringComparison.Ordinal))
             //    throw new ArgumentException("Please input the OpenAPI (Swagger) specification endpoint ends with \".json\".", "OpenAPI (Swagger) Specification Endpoint");
@@ -170,61 +188,73 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             try
             {
                 // from url
-                if (this.UserSettings.Endpoint.StartsWith("http://", StringComparison.Ordinal) || this.UserSettings.Endpoint.StartsWith("https://", StringComparison.Ordinal))
+                if (UserSettings.Endpoint.StartsWith("http://", StringComparison.Ordinal) || UserSettings.Endpoint.StartsWith("https://", StringComparison.Ordinal))
                 {
                     // add $metadata to OData specification url
-                    if (this.UserSettings.ConvertFromOdata &&
-                        !this.UserSettings.Endpoint.EndsWith("$metadata", StringComparison.Ordinal))
+                    if (UserSettings.ConvertFromOdata &&
+                        !UserSettings.Endpoint.EndsWith("$metadata", StringComparison.Ordinal))
                     {
-                        this.UserSettings.Endpoint = this.UserSettings.Endpoint.TrimEnd('/') + "/$metadata";
+                        UserSettings.Endpoint = UserSettings.Endpoint.TrimEnd('/') + "/$metadata";
                     }
 
-                    var proxy = this.UseWebProxy ? new WebProxy(this.WebProxyUri, true) : WebProxy.GetDefaultProxy();
-                    proxy.Credentials = this.UseWebProxy && this.UseWebProxyCredentials
-                        ? new NetworkCredential(this.WebProxyNetworkCredentialsUserName,
-                            this.WebProxyNetworkCredentialsPassword, this.WebProxyNetworkCredentialsDomain)
+                    var proxy = UseWebProxy
+                        ? new WebProxy(WebProxyUri, true)
+                        : WebProxy.GetDefaultProxy();
+
+                    proxy.Credentials = UseWebProxy && UseWebProxyCredentials
+                        ? new NetworkCredential(WebProxyNetworkCredentialsUserName,
+                            WebProxyNetworkCredentialsPassword, WebProxyNetworkCredentialsDomain)
                         : CredentialCache.DefaultCredentials;
+
                     var httpHandler = new HttpClientHandler();
 
-                    if (this.UseWebProxy)
+                    if (UseWebProxy)
                     {
-                        httpHandler.UseProxy = this.UseWebProxy;
+                        httpHandler.UseProxy = UseWebProxy;
                         httpHandler.Proxy = proxy;
-                        httpHandler.PreAuthenticate = this.UseWebProxy;
+                        httpHandler.PreAuthenticate = UseWebProxy;
                     }
 
-                    if (this.UseNetworkCredentials)
+                    if (UseNetworkCredentials)
                     {
-                        httpHandler.UseDefaultCredentials = this.UseNetworkCredentials;
-                        httpHandler.Credentials = new NetworkCredential(this.NetworkCredentialsUserName,
-                            this.NetworkCredentialsPassword, this.NetworkCredentialsDomain);
+                        httpHandler.UseDefaultCredentials = UseNetworkCredentials;
+                        httpHandler.Credentials = new NetworkCredential(NetworkCredentialsUserName,
+                            NetworkCredentialsPassword, NetworkCredentialsDomain);
                     }
 
-                    if (this.UserSettings.AcceptAllUntrustedCertificates)
+                    if (UserSettings.AcceptAllUntrustedCertificates)
                     {
                         ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                     }
 
                     using (var httpClient = new HttpClient(httpHandler))
                     {
-                        var specificationEndpoint = await httpClient.GetStringAsync(this.UserSettings.Endpoint);
+                        var specificationEndpoint = await httpClient.GetStringAsync(UserSettings.Endpoint);
                         if (string.IsNullOrWhiteSpace(specificationEndpoint))
+                        {
                             throw new InvalidOperationException("The specification endpoint is an empty.");
+                        }
 
-                        if (this.UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                        if (UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                        {
                             throw new InvalidOperationException("Service endpoint ends with \".json\" is not an json.");
+                        }
 
                         File.WriteAllText(workFile, specificationEndpoint);
                     }
                 }
                 else // from local path
                 {
-                    var specificationEndpoint = File.ReadAllText(this.InternalWizard.GetEndpointPath(this.UserSettings.Endpoint, this.UserSettings.UseRelativePath));
+                    var specificationEndpoint = File.ReadAllText(InternalWizard.GetEndpointPath(UserSettings.Endpoint, UserSettings.UseRelativePath));
                     if (string.IsNullOrWhiteSpace(specificationEndpoint))
+                    {
                         throw new InvalidOperationException("The specification endpoint is an empty file.");
+                    }
 
-                    if (this.UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                    if (UserSettings.Endpoint.EndsWith(".json") && !ProjectHelper.IsJson(specificationEndpoint))
+                    {
                         throw new InvalidOperationException("Service endpoint ends with \".json\" is not an json-file.");
+                    }
 
                     File.WriteAllText(workFile, specificationEndpoint);
                 }
@@ -233,11 +263,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             }
             catch (WebException e)
             {
-                throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
+                throw new InvalidOperationException($"Cannot access \"{UserSettings.Endpoint}\". {e.Message}", e);
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException($"Cannot access \"{this.UserSettings.Endpoint}\". {e.Message}", e);
+                throw new InvalidOperationException($"Cannot access \"{UserSettings.Endpoint}\". {e.Message}", e);
             }
         }
 

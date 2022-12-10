@@ -4,7 +4,8 @@ using System.Windows.Input;
 
 namespace Unchase.OpenAPI.ConnectedService.Common.Commands
 {
-    class StackPanelChangeVisibilityCommand : ICommand
+    class StackPanelChangeVisibilityCommand :
+        ICommand
     {
         public bool CanExecute(object parameter)
         {

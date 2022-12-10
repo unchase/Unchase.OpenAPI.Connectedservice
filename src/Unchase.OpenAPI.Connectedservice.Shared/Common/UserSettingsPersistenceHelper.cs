@@ -3,11 +3,12 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Runtime.Serialization;
 using System.Xml;
+
 using Microsoft.VisualStudio.ConnectedServices;
 
 namespace Unchase.OpenAPI.ConnectedService.Common
 {
-    internal class UserSettingsPersistenceHelper
+    internal static class UserSettingsPersistenceHelper
     {
         #region Public methods
 
@@ -17,14 +18,19 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         /// <remarks>
         /// Non-critical exceptions are handled by writing an error message in the output window.
         /// </remarks>
-        public static void Save(object userSettings, string providerId, string name, Action onSaved, ConnectedServiceLogger logger)
+        public static void Save(
+            object userSettings,
+            string providerId,
+            string name,
+            Action onSaved,
+            ConnectedServiceLogger logger)
         {
-            var fileName = UserSettingsPersistenceHelper.GetStorageFileName(providerId, name);
+            var fileName = GetStorageFileName(providerId, name);
 
-            UserSettingsPersistenceHelper.ExecuteNoncriticalOperation(
+            ExecuteNoncriticalOperation(
                 () =>
                 {
-                    using (var file = UserSettingsPersistenceHelper.GetIsolatedStorageFile())
+                    using (var file = GetIsolatedStorageFile())
                     {
                         IsolatedStorageFileStream stream = null;
                         try
@@ -61,15 +67,20 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         /// Non-critical exceptions are handled by writing an error message in the output window and
         /// returning null.
         /// </remarks>
-        public static T Load<T>(string providerId, string name, Action<T> onLoaded, ConnectedServiceLogger logger) where T : class
+        public static T Load<T>(
+            string providerId,
+            string name,
+            Action<T> onLoaded,
+            ConnectedServiceLogger logger)
+            where T : class
         {
-            var fileName = UserSettingsPersistenceHelper.GetStorageFileName(providerId, name);
+            var fileName = GetStorageFileName(providerId, name);
             T result = null;
 
-            UserSettingsPersistenceHelper.ExecuteNoncriticalOperation(
+            ExecuteNoncriticalOperation(
                 () =>
                 {
-                    using (var file = UserSettingsPersistenceHelper.GetIsolatedStorageFile())
+                    using (var file = GetIsolatedStorageFile())
                     {
                         if (file.FileExists(fileName))
                         {
@@ -77,7 +88,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                             try
                             {
                                 stream = file.OpenFile(fileName, FileMode.Open);
-                                var settings = new XmlReaderSettings()
+                                var settings = new XmlReaderSettings
                                 {
                                     XmlResolver = null
                                 };

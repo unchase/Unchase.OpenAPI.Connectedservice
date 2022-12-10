@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.OpenApi.OData;
 using Microsoft.VisualStudio.ConnectedServices;
 using Unchase.OpenAPI.ConnectedService.Common;
@@ -18,7 +19,8 @@ using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService
 {
-    internal class Wizard : ConnectedServiceWizard
+    internal class Wizard :
+        ConnectedServiceWizard
     {
         #region Properties and Fields
 
@@ -36,7 +38,7 @@ namespace Unchase.OpenAPI.ConnectedService
 
         public ConnectedServiceProviderContext Context { get; set; }
 
-        public Instance ServiceInstance => this._serviceInstance ?? (this._serviceInstance = new Instance());
+        public Instance ServiceInstance => _serviceInstance ?? (_serviceInstance = new Instance());
 
         public UserSettings UserSettings { get; }
 
@@ -47,22 +49,24 @@ namespace Unchase.OpenAPI.ConnectedService
         public Wizard(ConnectedServiceProviderContext context)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            this.Context = context;
-            this.ProjectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-            this.UserSettings = UserSettings.Load(context.Logger);
-            this.UserSettings.ProjectPath = this.ProjectPath;
+            Context = context;
+            ProjectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
+            UserSettings = UserSettings.Load(context.Logger);
+            UserSettings.ProjectPath = ProjectPath;
 
-            if (this.Context.IsUpdating)
-                this.UserSettings.SetFromServiceConfiguration(context.GetExtendedDesignerData<ServiceConfiguration>());
+            if (Context.IsUpdating)
+            {
+                UserSettings.SetFromServiceConfiguration(context.GetExtendedDesignerData<ServiceConfiguration>());
+            }
 
-            ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(this.UserSettings, this);
+            ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(UserSettings, this);
             CSharpClientSettingsViewModel = new CSharpClientSettingsViewModel();
             TypeScriptClientSettingsViewModel = new TypeScriptClientSettingsViewModel();
             CSharpControllerSettingsViewModel = new CSharpControllerSettingsViewModel();
 
-            if (this.Context.IsUpdating)
+            if (Context.IsUpdating)
             {
-                var serviceConfig = this.Context.GetExtendedDesignerData<ServiceConfiguration>();
+                var serviceConfig = Context.GetExtendedDesignerData<ServiceConfiguration>();
                 ConfigOpenApiEndpointViewModel.Endpoint = serviceConfig.Endpoint;
                 ConfigOpenApiEndpointViewModel.ServiceName = serviceConfig.ServiceName;
                 ConfigOpenApiEndpointViewModel.AcceptAllUntrustedCertificates = serviceConfig.AcceptAllUntrustedCertificates;
@@ -116,8 +120,8 @@ namespace Unchase.OpenAPI.ConnectedService
                 }
             }
 
-            this.Pages.Add(ConfigOpenApiEndpointViewModel);
-            this.IsFinishEnabled = true;
+            Pages.Add(ConfigOpenApiEndpointViewModel);
+            IsFinishEnabled = true;
         }
 
         #endregion
@@ -126,79 +130,91 @@ namespace Unchase.OpenAPI.ConnectedService
 
         public void AddCSharpClientSettingsPage()
         {
-            if (!this.Pages.Contains(CSharpClientSettingsViewModel))
-                this.Pages.Add(CSharpClientSettingsViewModel);
+            if (!Pages.Contains(CSharpClientSettingsViewModel))
+            {
+                Pages.Add(CSharpClientSettingsViewModel);
+            }
         }
 
         public void RemoveCSharpClientSettingsPage()
         {
-            if (this.Pages.Contains(CSharpClientSettingsViewModel))
-                this.Pages.Remove(CSharpClientSettingsViewModel);
+            if (Pages.Contains(CSharpClientSettingsViewModel))
+            {
+                Pages.Remove(CSharpClientSettingsViewModel);
+            }
         }
 
         public void AddTypeScriptClientSettingsPage()
         {
-            if (!this.Pages.Contains(TypeScriptClientSettingsViewModel))
-                this.Pages.Add(TypeScriptClientSettingsViewModel);
+            if (!Pages.Contains(TypeScriptClientSettingsViewModel))
+            {
+                Pages.Add(TypeScriptClientSettingsViewModel);
+            }
         }
 
         public void RemoveTypeScriptClientSettingsPage()
         {
-            if (this.Pages.Contains(TypeScriptClientSettingsViewModel))
-                this.Pages.Remove(TypeScriptClientSettingsViewModel);
+            if (Pages.Contains(TypeScriptClientSettingsViewModel))
+            {
+                Pages.Remove(TypeScriptClientSettingsViewModel);
+            }
         }
 
         public void AddCSharpControllerSettingsPage()
         {
-            if (!this.Pages.Contains(CSharpControllerSettingsViewModel))
-                this.Pages.Add(CSharpControllerSettingsViewModel);
+            if (!Pages.Contains(CSharpControllerSettingsViewModel))
+            {
+                Pages.Add(CSharpControllerSettingsViewModel);
+            }
         }
 
         public void RemoveCSharpControllerSettingsPage()
         {
-            if (this.Pages.Contains(CSharpControllerSettingsViewModel))
-                this.Pages.Remove(CSharpControllerSettingsViewModel);
+            if (Pages.Contains(CSharpControllerSettingsViewModel))
+            {
+                Pages.Remove(CSharpControllerSettingsViewModel);
+            }
         }
 
         public override Task<ConnectedServiceInstance> GetFinishedServiceInstanceAsync()
         {
-            this.UserSettings.Save();
+            UserSettings.Save();
 
-            this.ServiceInstance.Name = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName;
-            this.ServiceInstance.SpecificationTempPath = ConfigOpenApiEndpointViewModel.SpecificationTempPath;
-            this.ServiceInstance.ServiceConfig = this.CreateServiceConfiguration();
+            ServiceInstance.Name = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName;
+            ServiceInstance.SpecificationTempPath = ConfigOpenApiEndpointViewModel.SpecificationTempPath;
+            ServiceInstance.ServiceConfig = CreateServiceConfiguration();
 
             #region Network Credentials
 
-            this.ServiceInstance.ServiceConfig.UseNetworkCredentials =
+            ServiceInstance.ServiceConfig.UseNetworkCredentials =
                 ConfigOpenApiEndpointViewModel.UseNetworkCredentials;
-            this.ServiceInstance.ServiceConfig.NetworkCredentialsUserName =
+            ServiceInstance.ServiceConfig.NetworkCredentialsUserName =
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsUserName;
-            this.ServiceInstance.ServiceConfig.NetworkCredentialsPassword =
+            ServiceInstance.ServiceConfig.NetworkCredentialsPassword =
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsPassword;
-            this.ServiceInstance.ServiceConfig.NetworkCredentialsDomain =
+            ServiceInstance.ServiceConfig.NetworkCredentialsDomain =
                 ConfigOpenApiEndpointViewModel.NetworkCredentialsDomain;
 
             #endregion
 
             #region Web-proxy
 
-            this.ServiceInstance.ServiceConfig.UseWebProxy =
+            ServiceInstance.ServiceConfig.UseWebProxy =
                 ConfigOpenApiEndpointViewModel.UseWebProxy;
-            this.ServiceInstance.ServiceConfig.UseWebProxyCredentials =
+            ServiceInstance.ServiceConfig.UseWebProxyCredentials =
                 ConfigOpenApiEndpointViewModel.UseWebProxyCredentials;
-            this.ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsUserName =
+            ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsUserName =
                 ConfigOpenApiEndpointViewModel.WebProxyNetworkCredentialsUserName;
-            this.ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsPassword =
+            ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsPassword =
                 ConfigOpenApiEndpointViewModel.WebProxyNetworkCredentialsPassword;
-            this.ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsDomain =
+            ServiceInstance.ServiceConfig.WebProxyNetworkCredentialsDomain =
                 ConfigOpenApiEndpointViewModel.WebProxyNetworkCredentialsDomain;
-            this.ServiceInstance.ServiceConfig.WebProxyUri =
+            ServiceInstance.ServiceConfig.WebProxyUri =
                 ConfigOpenApiEndpointViewModel.WebProxyUri;
 
             #endregion
 
-            return Task.FromResult<ConnectedServiceInstance>(this.ServiceInstance);
+            return Task.FromResult<ConnectedServiceInstance>(ServiceInstance);
         }
 
         /// <summary>
@@ -226,6 +242,7 @@ namespace Unchase.OpenAPI.ConnectedService
                     ? ConfigOpenApiEndpointViewModel.UserSettings.OpenApiConvertSettings : new OpenApiConvertSettings(),
                 OpenApiSpecVersion = ConfigOpenApiEndpointViewModel.UserSettings.OpenApiSpecVersion
             };
+
             if (serviceConfiguration.GenerateCSharpClient && CSharpClientSettingsViewModel.Command != null)
             {
                 serviceConfiguration.OpenApiToCSharpClientCommand = CSharpClientSettingsViewModel.Command;
@@ -233,10 +250,14 @@ namespace Unchase.OpenAPI.ConnectedService
             }
 
             if (serviceConfiguration.GenerateTypeScriptClient && TypeScriptClientSettingsViewModel.Command != null)
+            {
                 serviceConfiguration.OpenApiToTypeScriptClientCommand = TypeScriptClientSettingsViewModel.Command;
+            }
 
             if (serviceConfiguration.GenerateCSharpController && CSharpControllerSettingsViewModel.Command != null)
+            {
                 serviceConfiguration.OpenApiToCSharpControllerCommand = CSharpControllerSettingsViewModel.Command;
+            }
 
             if (string.IsNullOrWhiteSpace(serviceConfiguration.OpenApiConvertSettings?.PathPrefix))
             {
@@ -260,13 +281,13 @@ namespace Unchase.OpenAPI.ConnectedService
             {
                 return endpoint;
             }
-            else
+
+            if (!File.Exists(Path.Combine(ProjectPath, endpoint)))
             {
-                if (!File.Exists(Path.Combine(this.ProjectPath, endpoint)))
-                    throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
-                else
-                    return Path.Combine(this.ProjectPath, endpoint);
+                throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
             }
+
+            return Path.Combine(ProjectPath, endpoint);
         }
 
         /// <summary>
@@ -279,34 +300,34 @@ namespace Unchase.OpenAPI.ConnectedService
             {
                 if (disposing)
                 {
-                    if (this.CSharpClientSettingsViewModel != null)
+                    if (CSharpClientSettingsViewModel != null)
                     {
-                        this.CSharpClientSettingsViewModel.Dispose();
-                        this.CSharpClientSettingsViewModel = null;
+                        CSharpClientSettingsViewModel.Dispose();
+                        CSharpClientSettingsViewModel = null;
                     }
 
-                    if (this.TypeScriptClientSettingsViewModel != null)
+                    if (TypeScriptClientSettingsViewModel != null)
                     {
-                        this.TypeScriptClientSettingsViewModel.Dispose();
-                        this.TypeScriptClientSettingsViewModel = null;
+                        TypeScriptClientSettingsViewModel.Dispose();
+                        TypeScriptClientSettingsViewModel = null;
                     }
 
-                    if (this.CSharpControllerSettingsViewModel != null)
+                    if (CSharpControllerSettingsViewModel != null)
                     {
-                        this.CSharpControllerSettingsViewModel.Dispose();
-                        this.CSharpControllerSettingsViewModel = null;
+                        CSharpControllerSettingsViewModel.Dispose();
+                        CSharpControllerSettingsViewModel = null;
                     }
 
-                    if (this.ConfigOpenApiEndpointViewModel != null)
+                    if (ConfigOpenApiEndpointViewModel != null)
                     {
-                        this.ConfigOpenApiEndpointViewModel.Dispose();
-                        this.ConfigOpenApiEndpointViewModel = null;
+                        ConfigOpenApiEndpointViewModel.Dispose();
+                        ConfigOpenApiEndpointViewModel = null;
                     }
 
-                    if (this._serviceInstance != null)
+                    if (_serviceInstance != null)
                     {
-                        this._serviceInstance.Dispose();
-                        this._serviceInstance = null;
+                        _serviceInstance.Dispose();
+                        _serviceInstance = null;
                     }
                 }
             }

@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.IO;
 using System.Windows;
+
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -12,7 +13,7 @@ using Task = System.Threading.Tasks.Task;
 namespace Unchase.OpenAPI.ConnectedService.Commands
 {
     /// <summary>
-    /// Command handler
+    /// Command handler.
     /// </summary>
     internal sealed class OpenWithNSwagStudioCommand
     {
@@ -55,14 +56,18 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <param name="commandService">Command service to add command to, not null.</param>
         /// <param name="options">Options.</param>
         /// <param name="dte"><see cref="DTE2"/>.</param>
-        private OpenWithNSwagStudioCommand(AsyncPackage package, OleMenuCommandService commandService, Options options, DTE2 dte)
+        private OpenWithNSwagStudioCommand(
+            AsyncPackage package,
+            OleMenuCommandService commandService,
+            Options options,
+            DTE2 dte)
         {
-            this._options = options;
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
+            _options = options;
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             _dte = dte;
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             var menuCommandId = new CommandID(OpenInNSwagStudioCommandSet, OpenInNSwagStudioCommandId);
-            var menuItem = new OleMenuCommand(this.OpenFolderInVs, menuCommandId);
+            var menuItem = new OleMenuCommand(OpenFolderInVs, menuCommandId);
             menuItem.BeforeQueryStatus += BeforeQueryStatusCallback;
             commandService.AddCommand(menuItem);
         }
@@ -79,7 +84,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <summary>
         /// Gets the service provider from the owner package.
         /// </summary>
-        private IAsyncServiceProvider ServiceProvider => this._package;
+        private IAsyncServiceProvider ServiceProvider => _package;
 
         /// <summary>
         /// Initializes the singleton instance of the command.
@@ -91,7 +96,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             // Switch to the main thread - the call to AddCommand in OpenWithNSwagStudioCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-            var commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
             Instance = new OpenWithNSwagStudioCommand(package, commandService, options, dte);
         }
@@ -123,9 +128,13 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             {
                 var path = ProjectHelper.GetSelectedPath(_dte);
                 if (!string.IsNullOrEmpty(path))
+                {
                     OpenNSwagStudio(path);
+                }
                 else
+                {
                     MessageBox.Show("Couldn't resolve the file path.", Constants.ExtensionName, MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -142,7 +151,9 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             EnsureNSwagStudioPathExist();
             var isDirectory = Directory.Exists(path.Trim('"'));
             if (isDirectory)
+            {
                 return;
+            }
 
             var fileInfo = new FileInfo(path.Trim('"'));
             if (!fileInfo.Extension.Equals(".nswag") && !fileInfo.Extension.Equals(".json"))
@@ -154,7 +165,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
 
             var args = $"{path}";
 
-            var start = new System.Diagnostics.ProcessStartInfo()
+            var start = new System.Diagnostics.ProcessStartInfo
             {
                 FileName = $"\"{_options.PathToNSwagStudioExe}\"",
                 Arguments = args,
@@ -165,7 +176,6 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
 
             using (System.Diagnostics.Process.Start(start))
             {
-
             }
         }
 
@@ -175,12 +185,16 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         private void EnsureNSwagStudioPathExist()
         {
             if (File.Exists(_options.PathToNSwagStudioExe))
+            {
                 return;
+            }
 
             var box = MessageBox.Show("Can't find NSwagStudio (NSwagStudio.exe). Would you like to help me find it?", Constants.ExtensionName, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (box == MessageBoxResult.No)
+            {
                 return;
+            }
 
             var dialog = new OpenFileDialog
             {

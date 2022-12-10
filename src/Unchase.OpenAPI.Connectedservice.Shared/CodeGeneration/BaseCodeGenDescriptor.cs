@@ -9,6 +9,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using EnvDTE;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.ConnectedServices;
@@ -25,13 +26,13 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public IVsPackageInstallerServices PackageInstallerServices { get; private set; }
 
-        public ConnectedServiceHandlerContext Context { get; private set; }
+        public ConnectedServiceHandlerContext Context { get; }
 
-        public Project Project { get; private set; }
+        public Project Project { get; }
 
-        public string ServiceUri { get; private set; }
+        public string ServiceUri { get; }
 
-        public Instance Instance { get; private set; }
+        public Instance Instance { get; }
 
         #endregion
 
@@ -39,35 +40,34 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         protected BaseCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
         {
-            this.InitNuGetInstaller();
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            InitNuGetInstaller();
 
-            this.Instance = serviceInstance;
+            Instance = serviceInstance;
 
             if (serviceInstance.ServiceConfig.UseRelativePath)
             {
                 var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-                if (!File.Exists(Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint)))
+                if (projectPath == null || !File.Exists(Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint)))
                 {
                     throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
                 }
-                else
-                {
-                    this.ServiceUri = Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint);
-                }
+
+                ServiceUri = Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint);
             }
             else
             {
-                this.ServiceUri = serviceInstance.ServiceConfig.Endpoint;
+                ServiceUri = serviceInstance.ServiceConfig.Endpoint;
             }
 
-            this.Context = context;
-            this.Project = context.ProjectHierarchy.GetProject();
+            Context = context;
+            Project = context.ProjectHierarchy.GetProject();
         }
         private void InitNuGetInstaller()
         {
             var componentModel = (IComponentModel)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SComponentModel));
-            this.PackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
-            this.PackageInstaller = componentModel.GetService<IVsPackageInstaller>();
+            PackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
+            PackageInstaller = componentModel.GetService<IVsPackageInstaller>();
         }
 
         #endregion
@@ -78,12 +78,12 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public abstract Task<string> AddGeneratedCodeAsync();
 
-        public abstract Task<string> AddGeneratedNswagFileAsync();
+        public abstract Task<string> AddGeneratedNSwagFileAsync();
 
         protected string GetReferenceFileFolder()
         {
-            var serviceReferenceFolderName = this.Context.HandlerHelper.GetServiceArtifactsRootFolder();
-            return Path.Combine(ProjectHelper.GetServiceFolderPath(this.Project, serviceReferenceFolderName, this.Context.ServiceInstance.Name));
+            var serviceReferenceFolderName = Context.HandlerHelper.GetServiceArtifactsRootFolder();
+            return Path.Combine(Project.GetServiceFolderPath(serviceReferenceFolderName, Context.ServiceInstance.Name));
         }
 
         #endregion

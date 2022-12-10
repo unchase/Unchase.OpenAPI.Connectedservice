@@ -54,8 +54,11 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         #region Network Credentials
 
         public bool UseNetworkCredentials { get; set; }
+
         public string NetworkCredentialsUserName { get; set; }
+
         public string NetworkCredentialsPassword { get; set; }
+
         public string NetworkCredentialsDomain { get; set; }
 
         #endregion
@@ -63,10 +66,15 @@ namespace Unchase.OpenAPI.ConnectedService.Models
         #region WebProxy
 
         public string WebProxyUri { get; set; }
+
         public bool UseWebProxy { get; set; }
+
         public bool UseWebProxyCredentials { get; set; }
+
         public string WebProxyNetworkCredentialsUserName { get; set; }
+
         public string WebProxyNetworkCredentialsPassword { get; set; }
+
         public string WebProxyNetworkCredentialsDomain { get; set; }
 
         #endregion

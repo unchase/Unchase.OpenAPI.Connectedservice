@@ -1,41 +1,50 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 
 namespace Unchase.OpenAPI.ConnectedService.Converters
 {
-    public class VisibilityConverter : IValueConverter
+    public class VisibilityConverter :
+        IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture)
         {
-            bool flag = value != null;
-            if (value is bool)
-                flag = (bool)value;
-            if (value is string)
-                flag = !string.IsNullOrEmpty((string)value);
-            if (value is IList)
+            var flag = value != null;
+
+            if (value is bool b)
             {
-                IList list = (IList)value;
+                flag = b;
+            }
+
+            if (value is string s)
+            {
+                flag = !string.IsNullOrEmpty(s);
+            }
+
+            if (value is IList list)
+            {
                 if (list.Count == 0)
                 {
                     flag = false;
                 }
                 else
                 {
-                    flag = true;
                     if (parameter is string)
                     {
-                        string str = parameter.ToString();
+                        var str = parameter.ToString();
                         if (str.StartsWith("CheckAll:"))
                         {
-                            string name = str.Substring(9);
-                            foreach (object obj in (IEnumerable)list)
+                            var name = str.Substring(9);
+                            foreach (var obj in list)
                             {
-                                PropertyInfo property = obj.GetType().GetProperty(name);
-                                if (property != (PropertyInfo)null && !(bool)this.Convert(property.GetValue(obj, (object[])null), typeof(bool), (object)null, (CultureInfo)null))
+                                var property = obj.GetType().GetProperty(name);
+                                if (property != null && !(bool)Convert(property.GetValue(obj, null), typeof(bool), null, null))
                                 {
                                     flag = false;
                                     break;
@@ -45,13 +54,23 @@ namespace Unchase.OpenAPI.ConnectedService.Converters
                     }
                 }
             }
-            if (value is int)
-                flag = (int)value > 0;
-            if (value is Visibility)
-                flag = (Visibility)value == Visibility.Visible;
+
+            if (value is int i)
+            {
+                flag = i > 0;
+            }
+
+            if (value is Visibility visibility)
+            {
+                flag = visibility == Visibility.Visible;
+            }
+
             if (targetType == typeof(Visibility))
-                return (object)(Visibility)(flag ? 0 : 2);
-            return (object)flag;
+            {
+                return (Visibility)(flag ? 0 : 2);
+            }
+
+            return flag;
         }
 
         public object ConvertBack(

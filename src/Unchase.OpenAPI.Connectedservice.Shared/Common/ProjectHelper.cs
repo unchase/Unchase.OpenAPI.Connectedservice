@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -13,14 +14,14 @@ namespace Unchase.OpenAPI.ConnectedService.Common
     /// </summary>
     internal static class ProjectHelper
     {
-        public const int VshpropidVshpropidExtObject = -2027;
+        public const int VshpropIdVshpropIdExtObject = -2027;
 
         public static Project GetProject(this IVsHierarchy projectHierarchy)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var result = projectHierarchy.GetProperty(
                 VSConstants.VSITEMID_ROOT,
-                VshpropidVshpropidExtObject, //(int)__VSHPROPID.VSHPROPID_ExtObject,
+                VshpropIdVshpropIdExtObject, //(int)__VSHPROPID.VSHPROPID_ExtObject,
                 out object projectObject);
             ErrorHandler.ThrowOnFailure(result);
             return (Project)projectObject;
@@ -48,17 +49,23 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var items = (Array)dte.ToolWindows.SolutionExplorer?.SelectedItems;
             if (items == null)
+            {
                 return null;
+            }
 
             var files = new List<string>();
 
             foreach (UIHierarchyItem selItem in items)
             {
                 if (selItem?.Object is ProjectItem item)
+                {
                     files.Add(item.GetFilePath());
+                }
             }
 
-            return files.Count > 0 ? string.Join(" ", files) : null;
+            return files.Count > 0
+                ? string.Join(" ", files)
+                : null;
         }
 
         public static string GetFilePath(this ProjectItem item)
@@ -70,7 +77,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         {
             input = input.Trim();
             JToken.Parse(input);
-            return input.StartsWith("{") && input.EndsWith("}") 
+            return input.StartsWith("{") && input.EndsWith("}")
                    || input.StartsWith("[") && input.EndsWith("]");
         }
     }

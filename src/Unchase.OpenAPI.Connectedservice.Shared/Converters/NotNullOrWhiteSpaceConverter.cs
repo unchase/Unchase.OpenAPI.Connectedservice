@@ -4,9 +4,14 @@ using System.Windows.Data;
 
 namespace Unchase.OpenAPI.ConnectedService.Converters
 {
-    class NotNullOrWhiteSpaceConverter : IValueConverter
+    class NotNullOrWhiteSpaceConverter :
+        IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture)
         {
             if (targetType == typeof(string))
             {
@@ -14,16 +19,18 @@ namespace Unchase.OpenAPI.ConnectedService.Converters
                 {
                     return defaultValue;
                 }
-                else
-                {
-                    return value;
-                }
+
+                return value;
             }
 
             throw new NotImplementedException();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture)
         {
             if (targetType == typeof(string))
             {
@@ -31,10 +38,8 @@ namespace Unchase.OpenAPI.ConnectedService.Converters
                 {
                     return defaultValue;
                 }
-                else
-                {
-                    return value;
-                }
+
+                return value;
             }
 
             throw new NotImplementedException();

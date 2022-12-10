@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -7,9 +7,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
 {
     public static class LoggerHelper
     {
-        private static IVsOutputWindowPane pane;
-
-        private static readonly object _syncRoot = new object();
+        private static IVsOutputWindowPane _pane;
 
         private static IServiceProvider _provider;
 
@@ -21,18 +19,19 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             _name = name;
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Microsoft.VisualStudio.Shell.Interop.IVsOutputWindowPane.OutputString(System.String)")]
         public static void Log(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             if (string.IsNullOrEmpty(message))
+            {
                 return;
+            }
 
             try
             {
                 if (EnsurePane())
                 {
-                    pane.OutputString(DateTime.Now.ToString() + ": " + message + Environment.NewLine);
+                    _pane.OutputString(DateTime.Now + ": " + message + Environment.NewLine);
                 }
             }
             catch (Exception ex)
@@ -52,15 +51,15 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         private static bool EnsurePane()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            if (pane == null)
+            if (_pane == null)
             {
                 var guid = Guid.NewGuid();
                 var output = (IVsOutputWindow)_provider.GetService(typeof(SVsOutputWindow));
                 output?.CreatePane(ref guid, _name, 1, 1);
-                output?.GetPane(ref guid, out pane);
+                output?.GetPane(ref guid, out _pane);
             }
 
-            return pane != null;
+            return _pane != null;
         }
     }
 }

@@ -1,21 +1,23 @@
-﻿using Microsoft.VisualStudio.Shell;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+
+using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Unchase.OpenAPI.ConnectedService;
 
-public class Options : DialogPage
+public class Options :
+    DialogPage
 {
     [Category("General")]
     [DisplayName("Path to NSwagStudio.exe")]
     [Description("Specify the path to NSwagStudio.exe.")]
-    public string PathToNSwagStudioExe { get; set; } = NswagStudioExePath();
+    public string PathToNSwagStudioExe { get; set; } = NSwagStudioExePath();
 
     [Category("General")]
-    [DisplayName("OpenAPI (Swagger) specification enpoint")]
+    [DisplayName("OpenAPI (Swagger) specification endpoint")]
     [Description("Specify the OpenAPI (Swagger) specification enpoint to diff.")]
     public string OpenApiSpecificationEndpoint { get; set; }
 
@@ -33,12 +35,12 @@ public class Options : DialogPage
             MessageBox.Show($"The OpenAPI (Swagger) specification endpoint \"{OpenApiSpecificationEndpoint}\" should ends with \".json\".", Constants.ExtensionName, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        //todo: тут проверять доступность endpoint'а, если недоступен, то все плохо
+        // TODO - check if endpoint not exists
 
         base.OnApply(e);
     }
 
-    internal static string NswagStudioExePath()
+    internal static string NSwagStudioExePath()
     {
         var path = string.Empty;
         using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\NSwagFile\shell\open\command"))
@@ -53,17 +55,25 @@ public class Options : DialogPage
                     .ToArray();
 
                 if (commandParts.Length == 2)
+                {
                     path = commandParts.First();
+                }
             }
 
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
                 path = Environment.ExpandEnvironmentVariables("%ProgramFiles(x86)%\\Rico Suter\\NSwagStudio\\NSwagStudio.exe");
+            }
 
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
                 path = Environment.ExpandEnvironmentVariables("%ProgramW6432%\\Rico Suter\\NSwagStudio\\NSwagStudio.exe");
+            }
 
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
                 path = string.Empty;
+            }
 
             return path;
         }

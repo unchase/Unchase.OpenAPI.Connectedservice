@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
+
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -20,7 +21,7 @@ using Task = System.Threading.Tasks.Task;
 namespace Unchase.OpenAPI.ConnectedService.Commands
 {
     /// <summary>
-    /// Command handler
+    /// Command handler.
     /// </summary>
     internal sealed class DiffSpecificationsCommand
     {
@@ -63,7 +64,11 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <param name="commandService">Command service to add command to, not null.</param>
         /// <param name="options">Options.</param>
         /// <param name="dte"><see cref="DTE2"/>.</param>
-        private DiffSpecificationsCommand(AsyncPackage package, OleMenuCommandService commandService, Options options, DTE2 dte)
+        private DiffSpecificationsCommand(
+            AsyncPackage package,
+            OleMenuCommandService commandService,
+            Options options,
+            DTE2 dte)
         {
             _options = options;
             _package = package ?? throw new ArgumentNullException(nameof(package));
@@ -112,7 +117,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             // Switch to the main thread - the call to AddCommand in DiffSpecificationsCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-            var commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
             Instance = new DiffSpecificationsCommand(package, commandService, options, dte);
         }
@@ -132,9 +137,14 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 if (CanSpecificationFileAndSourceBeCompared(out var file1, out var file2))
                 {
                     if (!DiffFileUsingCustomTool(file1, file2))
+                    {
                         DiffFilesUsingDefaultTool(file1, file2);
+                    }
+
                     if (File.Exists(file2) && file2.EndsWith(".tmp"))
+                    {
                         File.Delete(file2);
+                    }
                 }
             }
             catch (Exception exception)
@@ -164,7 +174,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 return false;
             }
 
-            if (items.Count() == 1 && string.IsNullOrWhiteSpace(file2))
+            if (items.Count == 1 && string.IsNullOrWhiteSpace(file2))
             {
                 var dialog = new OpenFileDialog
                 {
@@ -208,10 +218,14 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                         var specificationJson = httpClient.GetStringAsync(endpoint).GetAwaiter().GetResult();
 
                         if (string.IsNullOrWhiteSpace(specificationJson))
+                        {
                             throw new InvalidOperationException("The json-file is an empty file.");
+                        }
 
                         if (!ProjectHelper.IsJson(specificationJson))
+                        {
                             throw new InvalidOperationException("Service endpoint is not an json-file.");
+                        }
 
                         specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(workFile, specificationJson, Encoding.UTF8);
@@ -220,15 +234,21 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 else // from local path
                 {
                     if (!File.Exists(endpoint))
+                    {
                         throw new ArgumentException("Please input the service endpoint with exists file path.", "OpenAPI Service Endpoint");
+                    }
 
                     var specificationJson = File.ReadAllText(endpoint);
 
                     if (string.IsNullOrWhiteSpace(specificationJson))
+                    {
                         throw new InvalidOperationException("The json-file is an empty file.");
+                    }
 
                     if (!ProjectHelper.IsJson(specificationJson))
+                    {
                         throw new InvalidOperationException("Service endpoint is not an json-file.");
+                    }
 
                     specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions {WriteIndented = true});
                     File.WriteAllText(workFile, specificationJson, Encoding.UTF8);
@@ -253,8 +273,8 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             // This is the guid and id for the Tools.DiffFiles command
-            var diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
-            var diffFilesId = 256;
+            const string diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
+            const int diffFilesId = 256;
             object args = $"\"{file1}\" \"{file2}\"";
             _dte.Commands.Raise(diffFilesCmd, diffFilesId, ref args, ref args);
         }
@@ -274,10 +294,16 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 using (var key = Registry.CurrentUser.OpenSubKey(registryFolder))
                 {
                     var command = key?.GetValue("Command") as string;
-                    if (string.IsNullOrEmpty(command)) return false;
+                    if (string.IsNullOrEmpty(command))
+                    {
+                        return false;
+                    }
 
                     var args = key.GetValue("Arguments") as string;
-                    if (string.IsNullOrEmpty(args)) return false;
+                    if (string.IsNullOrEmpty(args))
+                    {
+                        return false;
+                    }
 
                     //Understanding the arguments: https://msdn.microsoft.com/en-us/library/ms181446(v=vs.100).aspx
                     args =

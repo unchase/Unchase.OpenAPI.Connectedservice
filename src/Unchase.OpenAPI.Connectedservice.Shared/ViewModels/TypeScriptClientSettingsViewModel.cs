@@ -9,7 +9,8 @@ using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService.ViewModels
 {
-    internal class TypeScriptClientSettingsViewModel : ConnectedServiceWizardPage
+    internal class TypeScriptClientSettingsViewModel :
+        ConnectedServiceWizardPage
     {
         #region Properties
 
@@ -77,10 +78,10 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public TypeScriptClientSettingsViewModel() : base()
         {
-            this.Title = "TypeScript Client Settings";
-            this.Description = "Settings for generating TypeScript client";
-            this.Legend = "TypeScript Client Settings";
-            this.View = new TypeScriptClientSettings {DataContext = this};
+            Title = "TypeScript Client Settings";
+            Description = "Settings for generating TypeScript client";
+            Legend = "TypeScript Client Settings";
+            View = new TypeScriptClientSettings {DataContext = this};
         }
 
         #endregion

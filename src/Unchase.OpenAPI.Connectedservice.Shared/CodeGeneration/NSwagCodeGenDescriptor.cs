@@ -10,9 +10,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.ConnectedServices;
+using Microsoft.VisualStudio.Shell;
 using NSwag.Commands;
 using NSwag.Commands.Generation;
 using Unchase.OpenAPI.ConnectedService.Common;
@@ -20,11 +22,13 @@ using Unchase.OpenAPI.ConnectedService.Views;
 
 namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
-    internal class NSwagCodeGenDescriptor : BaseCodeGenDescriptor
+    internal class NSwagCodeGenDescriptor :
+        BaseCodeGenDescriptor
     {
         #region Constructors
 
-        public NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance) : base(context, serviceInstance) { }
+        public NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
+            : base(context, serviceInstance) { }
 
         #endregion
 
@@ -34,18 +38,24 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public override async Task AddNugetPackagesAsync()
         {
-            if (this.Instance.ServiceConfig.GenerateCSharpClient)
+            if (Instance.ServiceConfig.GenerateCSharpClient)
+            {
                 await AddCSharpClientNugetPackagesAsync();
-            if (this.Instance.ServiceConfig.GenerateCSharpController)
+            }
+
+            if (Instance.ServiceConfig.GenerateCSharpController)
+            {
                 await AddCSharpControllerNugetPackagesAsync();
+            }
         }
 
         internal async Task AddCSharpClientNugetPackagesAsync()
         {
-            await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Client...");
+            await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Client...");
             const string packageSource = Constants.NuGetOnlineRepository;
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var projectTargetFrameworkMonikerFullName =
-                this.Project.Properties.Item("TargetFrameworkMoniker").Value.ToString();
+                Project.Properties.Item("TargetFrameworkMoniker").Value.ToString();
             var projectTargetFrameworkDescriptions = projectTargetFrameworkMonikerFullName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             if (projectTargetFrameworkDescriptions.Length == 2)
             {
@@ -55,7 +65,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                     case ".NETStandard":
                     case ".NETCoreApp":
                         nugetPackages = Constants.NetStandardUnsupportedVersions.Contains(projectTargetFrameworkDescriptions[1])
-                            ? new string[0]
+                            ? Array.Empty<string>()
                             : Constants.NetStandardNuGetPackages;
                         break;
                     case ".NETFramework":
@@ -65,7 +75,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                         nugetPackages = Constants.PortableClassLibraryNuGetPackages;
                         break;
                     default:
-                        nugetPackages = new string[0];
+                        nugetPackages = Array.Empty<string>();
                         break;
                 }
 
@@ -76,22 +86,22 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
                 if (nugetPackages.Any())
                 {
-                    await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Client were installed.");
+                    await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Client were installed.");
                 }
                 else
                 {
-                    await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Packages for OpenAPI (Swagger) CSharp Client was not installed for unsupported \"{projectTargetFrameworkMonikerFullName}\".");
+                    await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Packages for OpenAPI (Swagger) CSharp Client was not installed for unsupported \"{projectTargetFrameworkMonikerFullName}\".");
                 }
             }
             else
             {
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Packages for OpenAPI (Swagger) CSharp Client was not installed for unsupported \"{projectTargetFrameworkMonikerFullName}\".");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Packages for OpenAPI (Swagger) CSharp Client was not installed for unsupported \"{projectTargetFrameworkMonikerFullName}\".");
             }
         }
 
         internal async Task AddCSharpControllerNugetPackagesAsync()
         {
-            await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Controller...");
+            await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Controller...");
             const string packageSource = Constants.NuGetOnlineRepository;
 
             foreach (var nugetPackage in Constants.ControllerNuGetPackages)
@@ -99,26 +109,26 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 await CheckAndInstallNuGetPackageAsync(packageSource, nugetPackage);
             }
 
-            await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Controller were installed.");
+            await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Controller were installed.");
         }
 
         internal async Task CheckAndInstallNuGetPackageAsync(string packageSource, string nugetPackage)
         {
             try
             {
-                if (!PackageInstallerServices.IsPackageInstalled(this.Project, nugetPackage))
+                if (!PackageInstallerServices.IsPackageInstalled(Project, nugetPackage))
                 {
-                    PackageInstaller.InstallPackage(packageSource, this.Project, nugetPackage, (Version)null, false);
-                    await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" forOpenAPI (Swagger) was added.");
+                    PackageInstaller.InstallPackage(packageSource, Project, nugetPackage, (Version)null, false);
+                    await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" forOpenAPI (Swagger) was added.");
                 }
                 else
                 {
-                    await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) already installed.");
+                    await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) already installed.");
                 }
             }
             catch (Exception ex)
             {
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) not installed. Error: {ex.Message}.");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) not installed. Error: {ex.Message}.");
             }
         }
 
@@ -128,32 +138,32 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public override async Task<string> AddGeneratedCodeAsync()
         {
-            await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating Client Proxy for OpenAPI (Swagger) Client...");
+            await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating Client Proxy for OpenAPI (Swagger) Client...");
             try
             {
                 var result = await GenerateCodeAsync(Context, Instance);
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Client Proxy for OpenAPI (Swagger) Client was generated.");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Client Proxy for OpenAPI (Swagger) Client was generated.");
                 return result;
             }
             catch (Exception e)
             {
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Client Proxy for OpenAPI (Swagger) Client was not generated. Error: {e.Message}.");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Client Proxy for OpenAPI (Swagger) Client was not generated. Error: {e.Message}.");
                 return string.Empty;
             }
         }
 
-        public override async Task<string> AddGeneratedNswagFileAsync()
+        public override async Task<string> AddGeneratedNSwagFileAsync()
         {
-            await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating NSwag-file for OpenAPI (Swagger)...");
+            await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating NSwag-file for OpenAPI (Swagger)...");
             try
             {
-                var result = await GenerateNswagFileAsync(Context, Instance);
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"NSwag-file \"{Path.GetFileName(result)}\" for OpenAPI (Swagger) was generated.");
+                var result = await GenerateNSwagFileAsync(Context, Instance);
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"NSwag-file \"{Path.GetFileName(result)}\" for OpenAPI (Swagger) was generated.");
                 return result;
             }
             catch (Exception e)
             {
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"NSwag-file for OpenAPI (Swagger) was not generated. Error: {e.Message}.");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"NSwag-file for OpenAPI (Swagger) was not generated. Error: {e.Message}.");
                 return string.Empty;
             }
         }
@@ -164,32 +174,40 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
 
-            var nswagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var document = await NSwagDocument.LoadWithTransformationsAsync(nswagFilePath, instance.ServiceConfig.Variables);
+            var nSwagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
+            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, instance.ServiceConfig.Variables);
             document.Runtime = instance.ServiceConfig.Runtime;
 
-            var nswagJsonTempFileName = Path.GetTempFileName();
+            var nSwagJsonTempFileName = Path.GetTempFileName();
             var csharpClientTempFileName = Path.GetTempFileName();
             var typeScriptClientTempFileName = Path.GetTempFileName();
             var controllerTempFileName = Path.GetTempFileName();
-            var nswagJsonOutputPath = document.SelectedSwaggerGenerator.OutputFilePath;
+            var nSwagJsonOutputPath = document.SelectedSwaggerGenerator.OutputFilePath;
             try
             {
                 var csharpClientOutputPath = document.CodeGenerators?.OpenApiToCSharpClientCommand?.OutputFilePath;
                 var typeScriptClientOutputPath = document.CodeGenerators?.OpenApiToTypeScriptClientCommand?.OutputFilePath;
                 var controllerOutputPath = document.CodeGenerators?.OpenApiToCSharpControllerCommand?.OutputFilePath;
 
-                document.SelectedSwaggerGenerator.OutputFilePath = nswagJsonTempFileName;
+                document.SelectedSwaggerGenerator.OutputFilePath = nSwagJsonTempFileName;
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
+                {
                     document.CodeGenerators.OpenApiToCSharpClientCommand.OutputFilePath = csharpClientTempFileName;
+                }
+
                 if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
+                {
                     document.CodeGenerators.OpenApiToTypeScriptClientCommand.OutputFilePath = typeScriptClientTempFileName;
+                }
+
                 if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
+                {
                     document.CodeGenerators.OpenApiToCSharpControllerCommand.OutputFilePath = controllerTempFileName;
+                }
 
                 await document.ExecuteAsync();
 
-                nswagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nswagJsonTempFileName, nswagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                nSwagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nSwagJsonTempFileName, nSwagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
                 {
                     if (instance.ServiceConfig.ExcludeTypeNamesLater)
@@ -207,10 +225,10 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                             var excludedClassNames = excludedClasses.Classes.Where(c => c.Excluded).Select(c => c.Name).ToArray();
                             if (excludedClassNames.Any())
                             {
-                                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Regenerating client code with excluded classes...");
+                                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Regenerating client code with excluded classes...");
                                 document.CodeGenerators.OpenApiToCSharpClientCommand.ExcludedTypeNames = excludedClassNames;
                                 await document.ExecuteAsync();
-                                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating client code with excluded classes is completed.");
+                                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating client code with excluded classes is completed.");
                             }
                         }
                     }
@@ -232,39 +250,49 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             }
             catch (Exception ex)
             {
-                await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Error: {ex.Message}.");
+                await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Error: {ex.Message}.");
             }
             finally
             {
-                if (File.Exists(nswagJsonTempFileName))
-                    File.Delete(nswagJsonTempFileName);
+                if (File.Exists(nSwagJsonTempFileName))
+                {
+                    File.Delete(nSwagJsonTempFileName);
+                }
+
                 if (File.Exists(csharpClientTempFileName))
+                {
                     File.Delete(csharpClientTempFileName);
+                }
+
                 if (File.Exists(typeScriptClientTempFileName))
+                {
                     File.Delete(typeScriptClientTempFileName);
+                }
+
                 if (File.Exists(controllerTempFileName))
+                {
                     File.Delete(controllerTempFileName);
+                }
             }
 
-            return nswagJsonOutputPath;
+            return nSwagJsonOutputPath;
         }
 
-        internal async Task<string> GenerateNswagFileAsync(ConnectedServiceHandlerContext context, Instance instance)
+        internal async Task<string> GenerateNSwagFileAsync(ConnectedServiceHandlerContext context, Instance instance)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var nameSpace = context.ProjectHierarchy.GetProject().GetNameSpace();
 
             string serviceUrl;
             if (instance.ServiceConfig.UseRelativePath)
             {
                 var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-                if (!File.Exists(Path.Combine(projectPath, instance.ServiceConfig.Endpoint)))
+                if (projectPath == null || !File.Exists(Path.Combine(projectPath, instance.ServiceConfig.Endpoint)))
                 {
                     throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
                 }
-                else
-                {
-                    serviceUrl = Path.Combine(projectPath, instance.ServiceConfig.Endpoint);
-                }
+
+                serviceUrl = Path.Combine(projectPath, instance.ServiceConfig.Endpoint);
             }
             else
             {
@@ -275,6 +303,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             {
                 instance.Name = Constants.DefaultServiceName;
             }
+
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var serviceFolder = instance.Name;
             var document = NSwagDocument.Create();
@@ -285,13 +314,16 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                 {
                     instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
                 }
+
                 document.CodeGenerators.OpenApiToCSharpClientCommand = instance.ServiceConfig.OpenApiToCSharpClientCommand;
             }
+
             if (instance.ServiceConfig.GenerateTypeScriptClient)
             {
                 instance.ServiceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.ts";
                 document.CodeGenerators.OpenApiToTypeScriptClientCommand = instance.ServiceConfig.OpenApiToTypeScriptClientCommand;
             }
+
             if (instance.ServiceConfig.GenerateCSharpController)
             {
                 instance.ServiceConfig.OpenApiToCSharpControllerCommand.OutputFilePath =
@@ -300,7 +332,10 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                         : $"{instance.ServiceConfig.GeneratedFileName}.cs";
 
                 if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace))
+                {
                     instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                }
+
                 document.CodeGenerators.OpenApiToCSharpControllerCommand = instance.ServiceConfig.OpenApiToCSharpControllerCommand;
             }
 
@@ -308,19 +343,27 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             {
                 OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.nswag.json",
                 Url = instance.ServiceConfig.ConvertFromOdata ? null : serviceUrl,
-                Json = instance.ServiceConfig.CopySpecification || instance.ServiceConfig.ConvertFromOdata ? File.ReadAllText(instance.SpecificationTempPath) : null
+                Json = instance.ServiceConfig.CopySpecification || instance.ServiceConfig.ConvertFromOdata
+                    ? File.ReadAllText(instance.SpecificationTempPath)
+                    : null
             };
 
             var json = document.ToJson();
             var tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, json);
             var targetPath = Path.Combine(rootFolder, serviceFolder, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var nswagFilePath = await context.HandlerHelper.AddFileAsync(tempFileName, targetPath);
+            var nSwagFilePath = await context.HandlerHelper.AddFileAsync(tempFileName, targetPath);
             if (File.Exists(tempFileName))
+            {
                 File.Delete(tempFileName);
+            }
+
             if (File.Exists(instance.SpecificationTempPath))
+            {
                 File.Delete(instance.SpecificationTempPath);
-            return nswagFilePath;
+            }
+
+            return nSwagFilePath;
         }
 
         internal async Task<string> ReGenerateCSharpFileAsync(ConnectedServiceHandlerContext context, Instance instance)
@@ -329,8 +372,8 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
             var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
 
-            var nswagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var document = await NSwagDocument.LoadWithTransformationsAsync(nswagFilePath, instance.ServiceConfig.Variables);
+            var nSwagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
+            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, instance.ServiceConfig.Variables);
             document.Runtime = instance.ServiceConfig.Runtime;
             await document.ExecuteAsync();
             return document.SelectedSwaggerGenerator.OutputFilePath;

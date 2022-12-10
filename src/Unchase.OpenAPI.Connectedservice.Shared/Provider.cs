@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+
 using Microsoft.VisualStudio.ConnectedServices;
 #if VS17
 using Unchase.OpenAPI.Connectedservice.VS22.Properties;
@@ -14,9 +15,10 @@ using Unchase.OpenAPI.ConnectedService.Properties;
 namespace Unchase.OpenAPI.ConnectedService
 {
     [ConnectedServiceProviderExport(Constants.ProviderId, SupportsUpdate = true)]
-    internal class Provider : ConnectedServiceProvider
+    internal class Provider :
+        ConnectedServiceProvider
     {
-#region Constructors
+        #region Constructors
 
         public Provider()
         {
@@ -34,9 +36,9 @@ namespace Unchase.OpenAPI.ConnectedService
             MoreInfoUri = new Uri(Constants.Website);
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         public override Task<ConnectedServiceConfigurator> CreateConfiguratorAsync(ConnectedServiceProviderContext context)
         {
@@ -49,6 +51,6 @@ namespace Unchase.OpenAPI.ConnectedService
             yield return Tuple.Create("NSwag", new Uri("https://github.com/RSuter/NSwag"));
         }
 
-#endregion
+        #endregion
     }
 }
