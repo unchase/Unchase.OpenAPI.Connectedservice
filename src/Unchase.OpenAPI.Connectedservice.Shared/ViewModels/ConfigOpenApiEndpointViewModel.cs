@@ -26,6 +26,8 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
 
         public string CurrentVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
+        public string NSwagVersion => Assembly.GetAssembly(typeof(NSwagCommandProcessor)).GetName().Version.ToString();
+
         public string EndpointDescription => $"{this.Endpoint} (GenerateCSharpClient: {UserSettings.GenerateCSharpClient}, GenerateCSharpController: {UserSettings.GenerateCSharpController}, GenerateTypeScriptClient: {UserSettings.GenerateTypeScriptClient}).";
 
         public string ServiceName { get; set; }
@@ -171,8 +173,11 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                 if (this.UserSettings.Endpoint.StartsWith("http://", StringComparison.Ordinal) || this.UserSettings.Endpoint.StartsWith("https://", StringComparison.Ordinal))
                 {
                     // add $metadata to OData specification url
-                    if (this.UserSettings.ConvertFromOdata && !this.UserSettings.Endpoint.EndsWith("$metadata", StringComparison.Ordinal))
+                    if (this.UserSettings.ConvertFromOdata &&
+                        !this.UserSettings.Endpoint.EndsWith("$metadata", StringComparison.Ordinal))
+                    {
                         this.UserSettings.Endpoint = this.UserSettings.Endpoint.TrimEnd('/') + "/$metadata";
+                    }
 
                     var proxy = this.UseWebProxy ? new WebProxy(this.WebProxyUri, true) : WebProxy.GetDefaultProxy();
                     proxy.Credentials = this.UseWebProxy && this.UseWebProxyCredentials
@@ -196,7 +201,9 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                     }
 
                     if (this.UserSettings.AcceptAllUntrustedCertificates)
+                    {
                         ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                    }
 
                     using (var httpClient = new HttpClient(httpHandler))
                     {

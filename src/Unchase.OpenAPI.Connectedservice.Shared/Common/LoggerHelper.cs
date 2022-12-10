@@ -56,8 +56,8 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             {
                 var guid = Guid.NewGuid();
                 var output = (IVsOutputWindow)_provider.GetService(typeof(SVsOutputWindow));
-                output.CreatePane(ref guid, _name, 1, 1);
-                output.GetPane(ref guid, out pane);
+                output?.CreatePane(ref guid, _name, 1, 1);
+                output?.GetPane(ref guid, out pane);
             }
 
             return pane != null;

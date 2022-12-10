@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using Unchase.OpenAPI.ConnectedService.ViewModels;
 
 namespace Unchase.OpenAPI.ConnectedService.Views
@@ -87,6 +88,11 @@ namespace Unchase.OpenAPI.ConnectedService.Views
         {
             var regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
         }
 
         #endregion

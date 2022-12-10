@@ -515,6 +515,12 @@
                         ToolTip="ClassTypes" />
                 </StackPanel>
 
+                <CheckBox
+                    Margin="0,5,10,5"
+                    Content="Generate type check functions"
+                    IsChecked="{Binding Command.GenerateTypeCheckFunctions, Mode=TwoWay}"
+                    ToolTip="GenerateTypeCheckFunctions" />
+
                 <TextBlock
                     Margin="0,10,0,0"
                     HorizontalAlignment="Stretch"

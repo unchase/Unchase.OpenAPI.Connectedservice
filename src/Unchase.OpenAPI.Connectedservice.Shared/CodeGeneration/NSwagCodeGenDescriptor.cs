@@ -43,7 +43,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         internal async Task AddCSharpClientNugetPackagesAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Client...");
-            var packageSource = Constants.NuGetOnlineRepository;
+            const string packageSource = Constants.NuGetOnlineRepository;
             var projectTargetFrameworkMonikerFullName =
                 this.Project.Properties.Item("TargetFrameworkMoniker").Value.ToString();
             var projectTargetFrameworkDescriptions = projectTargetFrameworkMonikerFullName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -68,10 +68,16 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                         nugetPackages = new string[0];
                         break;
                 }
+
                 foreach (var nugetPackage in nugetPackages)
+                {
                     await CheckAndInstallNuGetPackageAsync(packageSource, nugetPackage);
+                }
+
                 if (nugetPackages.Any())
+                {
                     await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Client were installed.");
+                }
                 else
                 {
                     await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Warning, $"Nuget Packages for OpenAPI (Swagger) CSharp Client was not installed for unsupported \"{projectTargetFrameworkMonikerFullName}\".");
@@ -86,10 +92,13 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
         internal async Task AddCSharpControllerNugetPackagesAsync()
         {
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Adding Nuget Packages for OpenAPI (Swagger) CSharp Controller...");
-            var packageSource = Constants.NuGetOnlineRepository;
+            const string packageSource = Constants.NuGetOnlineRepository;
 
             foreach (var nugetPackage in Constants.ControllerNuGetPackages)
+            {
                 await CheckAndInstallNuGetPackageAsync(packageSource, nugetPackage);
+            }
+
             await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Nuget Packages for OpenAPI (Swagger) CSharp Controller were installed.");
         }
 
@@ -103,7 +112,9 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                     await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" forOpenAPI (Swagger) was added.");
                 }
                 else
+                {
                     await this.Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"Nuget Package \"{nugetPackage}\" for OpenAPI (Swagger) already installed.");
+                }
             }
             catch (Exception ex)
             {

@@ -23,10 +23,11 @@
         VerticalAlignment="Top">
         <DockPanel>
             <DockPanel HorizontalAlignment="Left">
-                <TextBlock
-                    Margin="0,8,5,5"
-                    HorizontalAlignment="Left"
-                    Text="Connected Service version: v" />
+                <TextBlock Margin="0,8,5,5" HorizontalAlignment="Left">
+                    <Hyperlink NavigateUri="https://marketplace.visualstudio.com/items?itemName=unchase.unchaseOpenAPIConnectedService" RequestNavigate="Hyperlink_OnRequestNavigate">
+                        <TextBlock Text="Connected Service" TextWrapping="WrapWithOverflow" />
+                    </Hyperlink>
+                    version: v</TextBlock>
                 <TextBlock Margin="0,8,15,5" Text="{Binding CurrentVersion}" />
             </DockPanel>
             <DockPanel HorizontalAlignment="Right">
@@ -42,8 +43,21 @@
                     Margin="5,5,10,5"
                     HorizontalAlignment="Right"
                     Click="ReportABugButton_Click">
-                    <TextBox  Text="!" />
+                    <TextBox Text="!" />
                 </Button>
+            </DockPanel>
+        </DockPanel>
+        <DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <TextBlock
+                    Margin="0,8,5,5"
+                    HorizontalAlignment="Stretch"
+                    TextWrapping="Wrap">
+                    <Hyperlink NavigateUri="http://nswag.org/" RequestNavigate="Hyperlink_OnRequestNavigate">
+                        <TextBlock Text="NSwag" TextWrapping="WrapWithOverflow" />
+                    </Hyperlink>
+                    commands version: v</TextBlock>
+                <TextBlock Margin="0,8,15,5" Text="{Binding NSwagVersion}" />
             </DockPanel>
         </DockPanel>
         <TextBlock

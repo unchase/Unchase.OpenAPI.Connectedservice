@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.ConnectedService", "Unchase.OpenAPI.ConnectedService\Unchase.OpenAPI.ConnectedService.csproj", "{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E792B87-132B-4E5F-B542-86E96D18FAD8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{2E792B87-132B-4E5F-B542-86E96D18FAD8}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
 		..\appveyor.yml = ..\appveyor.yml
@@ -37,33 +37,40 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Unchase.OpenAPI.Connectedse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unchase.OpenAPI.Connectedservice.VS22", "Unchase.OpenAPI.Connectedservice.VS22\Unchase.OpenAPI.Connectedservice.VS22.csproj", "{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9C6788D1-D100-4405-9736-D838FF304ADD}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{cd7b2a0b-df06-4b0d-ba4a-d996caaae8e9}*SharedItemsImports = 4
-		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{cfb451de-8645-4125-8254-3c3beb6c6cc7}*SharedItemsImports = 4
-		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{f9c2b492-3068-4f7d-9aa4-d4cd086c4468}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|arm64 = Debug|arm64
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|arm64 = Release|arm64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|arm64.ActiveCfg = Debug|arm64
+		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|arm64.Build.0 = Debug|arm64
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Debug|x86.Build.0 = Debug|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|arm64.ActiveCfg = Release|arm64
+		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|arm64.Build.0 = Release|arm64
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|x86.ActiveCfg = Release|Any CPU
 		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7}.Release|x86.Build.0 = Release|Any CPU
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|arm64.ActiveCfg = Debug|arm64
+		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|arm64.Build.0 = Debug|arm64
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|x86.ActiveCfg = Debug|x86
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Debug|x86.Build.0 = Debug|x86
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|arm64.ActiveCfg = Release|arm64
+		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|arm64.Build.0 = Release|arm64
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|x86.ActiveCfg = Release|x86
 		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
@@ -71,9 +78,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{CFB451DE-8645-4125-8254-3C3BEB6C6CC7} = {9C6788D1-D100-4405-9736-D838FF304ADD}
 		{FEC756D6-3315-4914-B04F-B2CEA3F6A7F6} = {2E792B87-132B-4E5F-B542-86E96D18FAD8}
+		{F9C2B492-3068-4F7D-9AA4-D4CD086C4468} = {9C6788D1-D100-4405-9736-D838FF304ADD}
+		{CD7B2A0B-DF06-4B0D-BA4A-D996CAAAE8E9} = {9C6788D1-D100-4405-9736-D838FF304ADD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B99E5F0C-212D-446A-AC93-89C7351C326D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{cd7b2a0b-df06-4b0d-ba4a-d996caaae8e9}*SharedItemsImports = 4
+		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{cfb451de-8645-4125-8254-3c3beb6c6cc7}*SharedItemsImports = 4
+		Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems*{f9c2b492-3068-4f7d-9aa4-d4cd086c4468}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
