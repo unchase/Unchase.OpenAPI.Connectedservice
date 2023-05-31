@@ -110,10 +110,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="Resources\logo_128x128.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -194,4 +190,16 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="ForceVSIXIncludes" BeforeTargets="GetVsixSourceItems" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <_ForceIncludeInVSIX Include="@(ReferenceCopyLocalPaths)" Condition=" '%(ReferenceCopyLocalPaths.NuGetSourceType)' == 'Package' and
+                           '%(ReferenceCopyLocalPaths.FileName)' == 'Newtonsoft.Json' ">
+        <ForceIncludeInVSIX>true</ForceIncludeInVSIX>
+      </_ForceIncludeInVSIX>
+    </ItemGroup>
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(_ForceIncludeInVSIX)" />
+      <ReferenceCopyLocalPaths Include="@(_ForceIncludeInVSIX)" />
+    </ItemGroup>
+  </Target>
 </Project>
