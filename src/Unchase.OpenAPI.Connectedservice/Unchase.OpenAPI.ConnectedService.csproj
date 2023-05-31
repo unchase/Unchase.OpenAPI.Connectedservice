@@ -46,6 +46,7 @@
     <RootNamespace>Unchase.OpenAPI.ConnectedService</RootNamespace>
     <AssemblyName>Unchase.OpenAPI.ConnectedService</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
