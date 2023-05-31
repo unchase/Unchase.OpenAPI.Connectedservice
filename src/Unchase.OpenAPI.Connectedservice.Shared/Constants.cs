@@ -20,10 +20,13 @@
         public const string DefaultGeneratedFileName = "OpenAPI";
 
         public const string NewtonsoftJsonNuGetPackage = "Newtonsoft.Json";
+        public const string NewtonsoftJsonAssemblyName = "Newtonsoft.Json";
         public const string SystemNetHttpNuGetPackage = "System.Net.Http";
         public const string SystemComponentModelAnnotationsNuGetPackage = "System.ComponentModel.Annotations";
         public const string PortableDataAnnotationsNuGetPackage = "Portable.DataAnnotations";
         public const string MicrosoftAspNetCoreMvcNuGetPackage = "Microsoft.AspNetCore.Mvc";
+        public const string MicrosoftExtensionsFileProvidersAbstractionsAssemblyName = "Microsoft.Extensions.FileProviders.Abstractions";
+        public const string SystemRuntimeCompilerServicesUnsafeAssemblyName = "System.Runtime.CompilerServices.Unsafe";
 
         public const string OpenApiConvertSettingsPathPrefix = "OData";
 

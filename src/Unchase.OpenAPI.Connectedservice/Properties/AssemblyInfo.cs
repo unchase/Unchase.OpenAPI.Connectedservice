@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Unchase.OpenAPI.ConnectedService;
+using Microsoft.VisualStudio.Shell;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -34,3 +35,8 @@ using Unchase.OpenAPI.ConnectedService;
 [assembly: AssemblyFileVersion(Constants.Vsix.Version)]
 [assembly: NeutralResourcesLanguage("en-US")]
 
+[assembly: ProvideCodeBase(AssemblyName = Constants.NewtonsoftJsonAssemblyName)]
+//[assembly: ProvideBindingRedirection(AssemblyName = Constants.NewtonsoftJsonAssemblyName, OldVersionLowerBound = "10.0.0.0")]
+[assembly: ProvideBindingRedirection(AssemblyName = Constants.NewtonsoftJsonAssemblyName, OldVersionLowerBound = "1.0.0.0")]
+[assembly: ProvideBindingRedirection(AssemblyName = Constants.MicrosoftExtensionsFileProvidersAbstractionsAssemblyName, OldVersionLowerBound = "1.1.1.0")]
+[assembly: ProvideBindingRedirection(AssemblyName = Constants.SystemRuntimeCompilerServicesUnsafeAssemblyName, OldVersionLowerBound = "0.0.0.0")]
