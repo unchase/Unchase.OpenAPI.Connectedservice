@@ -8,13 +8,16 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using EnvDTE;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.ConnectedServices;
+using Microsoft.VisualStudio.Shell;
 using NuGet.VisualStudio;
 using Unchase.OpenAPI.ConnectedService.Common;
+using Task = System.Threading.Tasks.Task;
 
 namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
@@ -28,9 +31,9 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public ConnectedServiceHandlerContext Context { get; }
 
-        public Project Project { get; }
+        public Project Project { get; private set; }
 
-        public string ServiceUri { get; }
+        public string ServiceUri { get; private set; }
 
         public Instance Instance { get; }
 
@@ -40,34 +43,47 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         protected BaseCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            InitNuGetInstaller();
-
             Instance = serviceInstance;
+            Context = context;
+        }
 
-            if (serviceInstance.ServiceConfig.UseRelativePath)
+        protected virtual async Task InitializeAsync()
+        {
+            await InitNuGetInstallerAsync();
+
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            Project = Context.ProjectHierarchy?.GetProject();
+
+            var serviceConfig = Instance.ServiceConfig;
+            if (serviceConfig.UseRelativePath)
             {
-                var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-                if (projectPath == null || !File.Exists(Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint)))
+                var projectPath = Project?.Properties.Item("FullPath").Value.ToString();
+                if (projectPath == null || !File.Exists(Path.Combine(projectPath, serviceConfig.Endpoint)))
                 {
                     throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
                 }
 
-                ServiceUri = Path.Combine(projectPath, serviceInstance.ServiceConfig.Endpoint);
+                ServiceUri = Path.Combine(projectPath, serviceConfig.Endpoint);
             }
             else
             {
-                ServiceUri = serviceInstance.ServiceConfig.Endpoint;
+                ServiceUri = serviceConfig.Endpoint;
             }
-
-            Context = context;
-            Project = context.ProjectHierarchy.GetProject();
         }
-        private void InitNuGetInstaller()
+
+        private async Task InitNuGetInstallerAsync()
         {
-            var componentModel = (IComponentModel)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SComponentModel));
+            var componentModel = await ServiceProvider.GetGlobalServiceAsync<SComponentModel, IComponentModel>();
+            //TODO: use new interfaces?
             PackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
             PackageInstaller = componentModel.GetService<IVsPackageInstaller>();
+        }
+
+        public static async Task<T> CreateAsync<T>(ConnectedServiceHandlerContext context, Instance serviceInstance) where T : BaseCodeGenDescriptor
+        {
+            var instance = (T)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.CreateInstance, null, new object[] { context, serviceInstance }, null, null);
+            await instance.InitializeAsync();
+            return instance;
         }
 
         #endregion
@@ -80,10 +96,11 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
         public abstract Task<string> AddGeneratedNSwagFileAsync();
 
-        protected string GetReferenceFileFolder()
+        protected async Task<string> GetReferenceFileFolderAsync()
         {
             var serviceReferenceFolderName = Context.HandlerHelper.GetServiceArtifactsRootFolder();
-            return Path.Combine(Project.GetServiceFolderPath(serviceReferenceFolderName, Context.ServiceInstance.Name));
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+            return Project.GetServiceFolderPath(serviceReferenceFolderName, Instance.Name);
         }
 
         #endregion

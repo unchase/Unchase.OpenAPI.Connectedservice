@@ -297,6 +297,12 @@
       <Version>5.0.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <!-- Some analyzers needs up to date configuration files to fix some bugs. See here: https://github.com/Microsoft/VSSDK-Analyzers/issues/82 -->
+    <AdditionalFiles Include="vs-threading.MembersRequiringMainThread.txt">
+      <Visible>true</Visible>
+    </AdditionalFiles>
+  </ItemGroup>
   <Import Project="..\Unchase.OpenAPI.Connectedservice.Shared\Unchase.OpenAPI.Connectedservice.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -317,6 +323,15 @@
     <ItemGroup>
       <ReferenceCopyLocalPaths Remove="@(_ForceIncludeInVSIX)" />
       <ReferenceCopyLocalPaths Include="@(_ForceIncludeInVSIX)" />
+    </ItemGroup>
+  </Target>
+  <Target Name="RemoveOutdatedAnalyzerConfigFile" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <AdditionalFilesToRemove Include="@(AdditionalFiles)" Condition="'%(AdditionalFiles.FileName)%(AdditionalFiles.Extension)' == 'vs-threading.MembersRequiringMainThread.txt' and $([System.String]::Copy(%(AdditionalFiles.FullPath)).Contains('microsoft.visualstudio.sdk.analyzers'))" />
+    </ItemGroup>
+    <Message Text="The following files will be removed from AdditionalFiles: %(AdditionalFilesToRemove.FullPath)" />
+    <ItemGroup>
+      <AdditionalFiles Remove="@(AdditionalFilesToRemove)" />
     </ItemGroup>
   </Target>
 </Project>

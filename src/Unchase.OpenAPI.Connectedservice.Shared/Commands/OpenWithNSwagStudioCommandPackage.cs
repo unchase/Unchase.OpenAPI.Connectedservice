@@ -81,7 +81,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             var options = (Options)GetDialogPage(typeof(Options));
-            LoggerHelper.Initialize(this, Constants.ExtensionName);
+            await LoggerHelper.InitializeAsync(this, Constants.ExtensionName);
 
             await OpenWithNSwagStudioCommand.InitializeAsync(this, options);
             await DiffSpecificationsCommand.InitializeAsync(this, options);

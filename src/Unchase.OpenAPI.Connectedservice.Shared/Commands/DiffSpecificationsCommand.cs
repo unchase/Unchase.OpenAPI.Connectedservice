@@ -91,10 +91,14 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <param name="e">Event args.</param>
         private void BeforeQueryStatusCallback(object sender, EventArgs e)
         {
-            var cmd = (OleMenuCommand)sender;
-            var path = ProjectHelper.GetSelectedPath(_dte);
-            cmd.Visible = !string.IsNullOrWhiteSpace(path) && !Directory.Exists(path.Trim('"')) && path.Trim('"').EndsWith(".nswag.json");
-            cmd.Enabled = cmd.Visible;
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
+                var cmd = (OleMenuCommand)sender;
+                var path = ProjectHelper.GetSelectedPath(_dte);
+                cmd.Visible = !string.IsNullOrWhiteSpace(path) && !Directory.Exists(path.Trim('"')) && path.Trim('"').EndsWith(".nswag.json");
+                cmd.Enabled = cmd.Visible;
+            });
         }
 
         /// <summary>
@@ -155,6 +159,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
 
         private bool CanSpecificationFileAndSourceBeCompared(out string file1, out string file2)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var items = GetSelectedFiles().ToList();
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1) ?? GetSpecificationFromSource();
@@ -194,8 +199,8 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
             var items = (Array)_dte.ToolWindows.SolutionExplorer?.SelectedItems;
 
             return from item in items?.Cast<UIHierarchyItem>()
-                let pi = item.Object as ProjectItem
-                select pi.FileNames[1];
+                   let pi = item.Object as ProjectItem
+                   select pi.FileNames[1];
         }
 
         private string GetSpecificationFromSource()
@@ -215,7 +220,8 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                 {
                     using (var httpClient = new HttpClient())
                     {
-                        var specificationJson = httpClient.GetStringAsync(endpoint).GetAwaiter().GetResult();
+                        //TODO: make the whole method async?
+                        var specificationJson = ThreadHelper.JoinableTaskFactory.Run(async () => await httpClient.GetStringAsync(endpoint));
 
                         if (string.IsNullOrWhiteSpace(specificationJson))
                         {
@@ -250,7 +256,7 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
                         throw new InvalidOperationException("Service endpoint is not an json-file.");
                     }
 
-                    specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions {WriteIndented = true});
+                    specificationJson = JsonSerializer.Serialize(JsonSerializer.Deserialize<object>(specificationJson), new JsonSerializerOptions { WriteIndented = true });
                     File.WriteAllText(workFile, specificationJson, Encoding.UTF8);
                 }
                 return workFile;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-
+using System.Threading.Tasks;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.OData;
 using Microsoft.VisualStudio.ConnectedServices;
@@ -111,15 +111,15 @@ namespace Unchase.OpenAPI.ConnectedService.Models
             Variables = serviceConfiguration.Variables;
         }
 
-        public void Save()
+        public Task SaveAsync()
         {
-            UserSettingsPersistenceHelper.Save(this, Constants.ProviderId, Name, null, _logger);
+            return UserSettingsPersistenceHelper.SaveAsync(this, Constants.ProviderId, Name, null, _logger);
         }
 
-        public static UserSettings Load(ConnectedServiceLogger logger)
+        public static async Task<UserSettings> LoadAsync(ConnectedServiceLogger logger)
         {
-            var userSettings = UserSettingsPersistenceHelper.Load<UserSettings>(
-                Constants.ProviderId, Name, null, logger) ?? new UserSettings();
+            var userSettings = (await UserSettingsPersistenceHelper.LoadAsync<UserSettings>(
+                Constants.ProviderId, Name, null, logger)) ?? new UserSettings();
             userSettings._logger = logger;
             return userSettings;
         }

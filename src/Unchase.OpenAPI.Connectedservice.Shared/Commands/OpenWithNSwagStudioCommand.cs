@@ -108,10 +108,14 @@ namespace Unchase.OpenAPI.ConnectedService.Commands
         /// <param name="e">Event args.</param>
         private void BeforeQueryStatusCallback(object sender, EventArgs e)
         {
-            var cmd = (OleMenuCommand)sender;
-            var path = ProjectHelper.GetSelectedPath(_dte);
-            cmd.Visible = !string.IsNullOrWhiteSpace(path) && !Directory.Exists(path.Trim('"')) && (path.Trim('"').EndsWith(".nswag") || path.Trim('"').EndsWith(".nswag.json"));
-            cmd.Enabled = cmd.Visible;
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
+                var cmd = (OleMenuCommand)sender;
+                var path = ProjectHelper.GetSelectedPath(_dte);
+                cmd.Visible = !string.IsNullOrWhiteSpace(path) && !Directory.Exists(path.Trim('"')) && (path.Trim('"').EndsWith(".nswag") || path.Trim('"').EndsWith(".nswag.json"));
+                cmd.Enabled = cmd.Visible;
+            });
         }
 
         /// <summary>

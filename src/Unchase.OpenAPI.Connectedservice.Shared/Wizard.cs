@@ -40,23 +40,28 @@ namespace Unchase.OpenAPI.ConnectedService
 
         public Instance ServiceInstance => _serviceInstance ?? (_serviceInstance = new Instance());
 
-        public UserSettings UserSettings { get; }
+        public UserSettings UserSettings { get; private set; }
 
         #endregion
 
         #region Constructors
 
-        public Wizard(ConnectedServiceProviderContext context)
+        private Wizard(ConnectedServiceProviderContext context)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             Context = context;
             ProjectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-            UserSettings = UserSettings.Load(context.Logger);
+            IsFinishEnabled = true;
+        }
+
+        protected virtual async Task<Wizard> InitializeAsync()
+        {
+            UserSettings = await UserSettings.LoadAsync(Context.Logger);
             UserSettings.ProjectPath = ProjectPath;
 
             if (Context.IsUpdating)
             {
-                UserSettings.SetFromServiceConfiguration(context.GetExtendedDesignerData<ServiceConfiguration>());
+                UserSettings.SetFromServiceConfiguration(Context.GetExtendedDesignerData<ServiceConfiguration>());
             }
 
             ConfigOpenApiEndpointViewModel = new ConfigOpenApiEndpointViewModel(UserSettings, this);
@@ -121,7 +126,13 @@ namespace Unchase.OpenAPI.ConnectedService
             }
 
             Pages.Add(ConfigOpenApiEndpointViewModel);
-            IsFinishEnabled = true;
+            return this;
+        }
+
+        public static Task<Wizard> CreateAsync(ConnectedServiceProviderContext context)
+        {
+            var wizard = new Wizard(context);
+            return wizard.InitializeAsync();
         }
 
         #endregion
@@ -176,9 +187,9 @@ namespace Unchase.OpenAPI.ConnectedService
             }
         }
 
-        public override Task<ConnectedServiceInstance> GetFinishedServiceInstanceAsync()
+        public override async Task<ConnectedServiceInstance> GetFinishedServiceInstanceAsync()
         {
-            UserSettings.Save();
+            await UserSettings.SaveAsync();
 
             ServiceInstance.Name = ConfigOpenApiEndpointViewModel.UserSettings.ServiceName;
             ServiceInstance.SpecificationTempPath = ConfigOpenApiEndpointViewModel.SpecificationTempPath;
@@ -214,7 +225,7 @@ namespace Unchase.OpenAPI.ConnectedService
 
             #endregion
 
-            return Task.FromResult<ConnectedServiceInstance>(ServiceInstance);
+            return ServiceInstance;
         }
 
         /// <summary>
