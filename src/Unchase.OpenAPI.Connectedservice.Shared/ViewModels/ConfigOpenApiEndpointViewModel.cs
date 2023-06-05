@@ -115,7 +115,7 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
             Description = "Enter or choose an specification endpoint and check generation options to begin";
             Legend = "Specification Endpoint";
             InternalWizard = wizard;
-            View = new ConfigOpenApiEndpoint(InternalWizard) {DataContext = this};
+            View = new ConfigOpenApiEndpoint(InternalWizard) { DataContext = this };
             UserSettings = userSettings;
             ServiceName = string.IsNullOrWhiteSpace(userSettings.ServiceName) ? Constants.DefaultServiceName : userSettings.ServiceName;
             AcceptAllUntrustedCertificates = userSettings.AcceptAllUntrustedCertificates;
@@ -197,19 +197,17 @@ namespace Unchase.OpenAPI.ConnectedService.ViewModels
                         UserSettings.Endpoint = UserSettings.Endpoint.TrimEnd('/') + "/$metadata";
                     }
 
-                    var proxy = UseWebProxy
-                        ? new WebProxy(WebProxyUri, true)
-                        : WebProxy.GetDefaultProxy();
-
-                    proxy.Credentials = UseWebProxy && UseWebProxyCredentials
-                        ? new NetworkCredential(WebProxyNetworkCredentialsUserName,
-                            WebProxyNetworkCredentialsPassword, WebProxyNetworkCredentialsDomain)
-                        : CredentialCache.DefaultCredentials;
 
                     var httpHandler = new HttpClientHandler();
 
                     if (UseWebProxy)
                     {
+                        var proxy = new WebProxy(WebProxyUri, true); /*WebRequest.DefaultWebProxy*/
+
+                        proxy.Credentials = UseWebProxyCredentials
+                            ? new NetworkCredential(WebProxyNetworkCredentialsUserName,
+                                WebProxyNetworkCredentialsPassword, WebProxyNetworkCredentialsDomain)
+                            : CredentialCache.DefaultCredentials;
                         httpHandler.UseProxy = UseWebProxy;
                         httpHandler.Proxy = proxy;
                         httpHandler.PreAuthenticate = UseWebProxy;

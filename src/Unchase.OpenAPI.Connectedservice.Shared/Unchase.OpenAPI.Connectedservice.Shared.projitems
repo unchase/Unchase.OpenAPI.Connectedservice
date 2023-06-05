@@ -67,10 +67,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Resources\logo_128x128.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\NewBug.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png" />
     <Resource Include="$(MSBuildThisFileDirectory)Resources\preview_200x200.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -84,7 +80,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\NewBug.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\NewBug.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\ConfigOpenApiEndpoint.xaml">
