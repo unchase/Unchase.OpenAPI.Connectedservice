@@ -1,4 +1,4 @@
-# Road map
+﻿# Road map
 
 - [ ] Fix open [issues](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/)
 - [ ] Gather [feedback](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/new) on [`Unchase OpenAPI (Swagger API) Connected Service`](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService) extension for [`Visual Studio`](https://visualstudio.microsoft.com/vs/) and plan further features to implement
@@ -6,6 +6,14 @@
 # Change log
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
+
+## v1.9.0 `(2023-06-05)` provided by [Andreas Böhm](https://github.com/matherm-aboehm)
+
+- Some fixes to restore compatibility with Visual Studio 2017 and 2019 ([issue #78](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/78), [issue #80](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/80))
+- Fixes to warnings about threading problems, which can potentially lead to deadlocks
+- Restore the image for the "Report a bug" button
+- Code cleanup
+- Code sample for processing of Json-OneOf inheritance (for reference, when someone finds a way to extend the NSwag code generators)
 
 ## v1.8.0 `(2022-12-10)`
 
