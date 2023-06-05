@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CodeGeneration\BaseCodeGenDescriptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CodeGeneration\NSwagCodeGenDescriptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CodeGeneration\OneOfOperationProcessor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\DiffSpecificationsCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\OpenWithNSwagStudioCommandPackage.cs" />
