@@ -330,6 +330,19 @@
       <ReferenceCopyLocalPaths Include="@(_ForceIncludeInVSIX)" />
     </ItemGroup>
   </Target>
+  <Target Name="AssignLinkMetadataForResource" BeforeTargets="AssignLinkMetadata" Condition=" '$(SynthesizeLinkMetadata)' == 'true' ">
+    <!-- RESOURCE ITEMS -->
+    <AssignLinkMetadata Items="@(Resource)"
+                        Condition="'@(Resource)' != '' and '%(Resource.DefiningProjectFullPath)' != '$(MSBuildProjectFullPath)'">
+      <Output TaskParameter="OutputItems" ItemName="_Temp" />
+    </AssignLinkMetadata>
+
+    <ItemGroup>
+      <Resource Remove="@(_Temp)" />
+      <Resource Include="@(_Temp)" />
+      <_Temp Remove="@(_Temp)" />
+    </ItemGroup>
+  </Target>
   <Target Name="RemoveOutdatedAnalyzerConfigFile" BeforeTargets="BeforeBuild">
     <ItemGroup>
       <AdditionalFilesToRemove Include="@(AdditionalFiles)" Condition="'%(AdditionalFiles.FileName)%(AdditionalFiles.Extension)' == 'vs-threading.MembersRequiringMainThread.txt' and $([System.String]::Copy(%(AdditionalFiles.FullPath)).Contains('microsoft.visualstudio.sdk.analyzers'))" />

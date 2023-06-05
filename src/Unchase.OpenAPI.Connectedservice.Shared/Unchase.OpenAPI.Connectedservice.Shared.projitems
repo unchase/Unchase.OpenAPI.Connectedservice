@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotNullOrWhiteSpaceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\SharedImageSourceExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringArrayConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibilityToHyperlinkTextConverter.cs" />

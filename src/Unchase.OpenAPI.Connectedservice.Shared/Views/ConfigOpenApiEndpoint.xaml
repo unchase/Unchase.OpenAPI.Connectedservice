@@ -16,6 +16,7 @@
         <converters:VisibilityToHyperlinkTextConverter x:Key="VisibilityToHyperlinkTextConverter" />
         <converters:NotNullOrWhiteSpaceConverter x:Key="NotNullOrWhiteSpaceConverter" />
         <commands:StackPanelChangeVisibilityCommand x:Key="StackPanelChangeVisibilityCommand" />
+        <BitmapImage x:Key="ReportABugButtonImage" UriSource="{converters:SharedImageSource /Unchase.OpenAPI.ConnectedService;component/Unchase.OpenAPI.Connectedservice.Shared/Resources/NewBug.png}" />
     </UserControl.Resources>
     <StackPanel
         Margin="0,0,0,0"
@@ -43,7 +44,9 @@
                     Margin="5,5,10,5"
                     HorizontalAlignment="Right"
                     Click="ReportABugButton_Click">
-                    <TextBox Text="!" />
+                    <Button.Background>
+                        <ImageBrush ImageSource="{StaticResource ReportABugButtonImage}" Stretch="UniformToFill" />
+                    </Button.Background>
                 </Button>
             </DockPanel>
         </DockPanel>
