@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using System.Xml;
 
 using Microsoft.VisualStudio.ConnectedServices;
@@ -18,7 +19,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         /// <remarks>
         /// Non-critical exceptions are handled by writing an error message in the output window.
         /// </remarks>
-        public static void Save(
+        public static async Task SaveAsync(
             object userSettings,
             string providerId,
             string name,
@@ -27,8 +28,8 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         {
             var fileName = GetStorageFileName(providerId, name);
 
-            ExecuteNoncriticalOperation(
-                () =>
+            await ExecuteNoncriticalOperationAsync(
+                async () =>
                 {
                     using (var file = GetIsolatedStorageFile())
                     {
@@ -37,14 +38,15 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                         {
                             // note: this overwrites existing settings file if it exists
                             stream = file.OpenFile(fileName, FileMode.Create);
-                            using (var writer = XmlWriter.Create(stream))
+                            using (var writer = XmlWriter.Create(stream, new XmlWriterSettings { Async = true }))
                             {
                                 stream = null;
 
                                 var dcs = new DataContractSerializer(userSettings.GetType());
+                                //TODO: use async serializer
                                 dcs.WriteObject(writer, userSettings);
 
-                                writer.Flush();
+                                await writer.FlushAsync();
                             }
                         }
                         finally
@@ -67,7 +69,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
         /// Non-critical exceptions are handled by writing an error message in the output window and
         /// returning null.
         /// </remarks>
-        public static T Load<T>(
+        public static async Task<T> LoadAsync<T>(
             string providerId,
             string name,
             Action<T> onLoaded,
@@ -77,8 +79,8 @@ namespace Unchase.OpenAPI.ConnectedService.Common
             var fileName = GetStorageFileName(providerId, name);
             T result = null;
 
-            ExecuteNoncriticalOperation(
-                () =>
+            await ExecuteNoncriticalOperationAsync(
+                async () =>
                 {
                     using (var file = GetIsolatedStorageFile())
                     {
@@ -90,6 +92,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                                 stream = file.OpenFile(fileName, FileMode.Open);
                                 var settings = new XmlReaderSettings
                                 {
+                                    Async = true,
                                     XmlResolver = null
                                 };
 
@@ -98,6 +101,7 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                                     stream = null;
 
                                     var dcs = new DataContractSerializer(typeof(T));
+                                    //TODO: use async serializer
                                     result = dcs.ReadObject(reader) as T;
                                 }
                             }
@@ -135,19 +139,19 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                 IsolatedStorageScope.Assembly | IsolatedStorageScope.User | IsolatedStorageScope.Roaming, null, null);
         }
 
-        private static void ExecuteNoncriticalOperation(
-            Action operation,
+        private static async Task ExecuteNoncriticalOperationAsync(
+            Func<Task> operation,
             ConnectedServiceLogger logger,
             string failureMessage,
             string failureMessageArg)
         {
             try
             {
-                operation();
+                await operation();
             }
             catch (Exception ex)
             {
-                logger.WriteMessageAsync(LoggerMessageCategory.Warning, failureMessage, failureMessageArg, ex).GetAwaiter().GetResult();
+                await logger.WriteMessageAsync(LoggerMessageCategory.Warning, failureMessage, failureMessageArg, ex);
             }
         }
 

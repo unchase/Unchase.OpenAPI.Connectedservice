@@ -40,9 +40,9 @@ namespace Unchase.OpenAPI.ConnectedService
 
         #region Methods
 
-        public override Task<ConnectedServiceConfigurator> CreateConfiguratorAsync(ConnectedServiceProviderContext context)
+        public override async Task<ConnectedServiceConfigurator> CreateConfiguratorAsync(ConnectedServiceProviderContext context)
         {
-            return Task.FromResult<ConnectedServiceConfigurator>(new Wizard(context));
+            return await Wizard.CreateAsync(context);
         }
 
         public override IEnumerable<Tuple<string, Uri>> GetSupportedTechnologyLinks()

@@ -19,6 +19,7 @@ using NSwag.Commands;
 using NSwag.Commands.Generation;
 using Unchase.OpenAPI.ConnectedService.Common;
 using Unchase.OpenAPI.ConnectedService.Views;
+using Task = System.Threading.Tasks.Task;
 
 namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 {
@@ -27,7 +28,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
     {
         #region Constructors
 
-        public NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
+        private NSwagCodeGenDescriptor(ConnectedServiceHandlerContext context, Instance serviceInstance)
             : base(context, serviceInstance) { }
 
         #endregion
@@ -141,7 +142,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating Client Proxy for OpenAPI (Swagger) Client...");
             try
             {
-                var result = await GenerateCodeAsync(Context, Instance);
+                var result = await GenerateCodeAsync();
                 await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Client Proxy for OpenAPI (Swagger) Client was generated.");
                 return result;
             }
@@ -157,7 +158,7 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, "Generating NSwag-file for OpenAPI (Swagger)...");
             try
             {
-                var result = await GenerateNSwagFileAsync(Context, Instance);
+                var result = await GenerateNSwagFileAsync();
                 await Context.Logger.WriteMessageAsync(LoggerMessageCategory.Information, $"NSwag-file \"{Path.GetFileName(result)}\" for OpenAPI (Swagger) was generated.");
                 return result;
             }
@@ -168,15 +169,14 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             }
         }
 
-        internal async Task<string> GenerateCodeAsync(ConnectedServiceHandlerContext context, Instance instance)
+        internal async Task<string> GenerateCodeAsync()
         {
-            var serviceFolder = instance.Name;
-            var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
-            var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
+            var folderPath = await GetReferenceFileFolderAsync();
 
-            var nSwagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, instance.ServiceConfig.Variables);
-            document.Runtime = instance.ServiceConfig.Runtime;
+            var serviceConfig = Instance.ServiceConfig;
+            var nSwagFilePath = Path.Combine(folderPath, $"{serviceConfig.GeneratedFileName}.nswag");
+            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, serviceConfig.Variables);
+            document.Runtime = serviceConfig.Runtime;
 
             var nSwagJsonTempFileName = Path.GetTempFileName();
             var csharpClientTempFileName = Path.GetTempFileName();
@@ -207,10 +207,10 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
 
                 await document.ExecuteAsync();
 
-                nSwagJsonOutputPath = await context.HandlerHelper.AddFileAsync(nSwagJsonTempFileName, nSwagJsonOutputPath, new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                nSwagJsonOutputPath = await Context.HandlerHelper.AddFileAsync(nSwagJsonTempFileName, nSwagJsonOutputPath, new AddFileOptions { OpenOnComplete = serviceConfig.OpenGeneratedFilesOnComplete });
                 if (document.CodeGenerators?.OpenApiToCSharpClientCommand != null)
                 {
-                    if (instance.ServiceConfig.ExcludeTypeNamesLater)
+                    if (serviceConfig.ExcludeTypeNamesLater)
                     {
                         var parsedSyntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(csharpClientTempFileName), CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.Latest));
                         var root = await parsedSyntaxTree.GetRootAsync();
@@ -233,19 +233,19 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
                         }
                     }
 
-                    await context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath,
-                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                    await Context.HandlerHelper.AddFileAsync(csharpClientTempFileName, csharpClientOutputPath,
+                        new AddFileOptions { OpenOnComplete = serviceConfig.OpenGeneratedFilesOnComplete });
                 }
                 if (document.CodeGenerators?.OpenApiToTypeScriptClientCommand != null)
                 {
-                    await context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath,
-                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                    await Context.HandlerHelper.AddFileAsync(typeScriptClientTempFileName, typeScriptClientOutputPath,
+                        new AddFileOptions { OpenOnComplete = serviceConfig.OpenGeneratedFilesOnComplete });
                 }
 
                 if (document.CodeGenerators?.OpenApiToCSharpControllerCommand != null)
                 {
-                    await context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath,
-                        new AddFileOptions { OpenOnComplete = instance.ServiceConfig.OpenGeneratedFilesOnComplete });
+                    await Context.HandlerHelper.AddFileAsync(controllerTempFileName, controllerOutputPath,
+                        new AddFileOptions { OpenOnComplete = serviceConfig.OpenGeneratedFilesOnComplete });
                 }
             }
             catch (Exception ex)
@@ -278,103 +278,87 @@ namespace Unchase.OpenAPI.ConnectedService.CodeGeneration
             return nSwagJsonOutputPath;
         }
 
-        internal async Task<string> GenerateNSwagFileAsync(ConnectedServiceHandlerContext context, Instance instance)
+        internal async Task<string> GenerateNSwagFileAsync()
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            var nameSpace = context.ProjectHierarchy.GetProject().GetNameSpace();
+            var nameSpace = Project.GetNameSpace();
 
-            string serviceUrl;
-            if (instance.ServiceConfig.UseRelativePath)
-            {
-                var projectPath = context.ProjectHierarchy?.GetProject().Properties.Item("FullPath").Value.ToString();
-                if (projectPath == null || !File.Exists(Path.Combine(projectPath, instance.ServiceConfig.Endpoint)))
-                {
-                    throw new ArgumentException("Please input the service endpoint with exists file path.", "Service Endpoint");
-                }
+            var serviceConfig = Instance.ServiceConfig;
 
-                serviceUrl = Path.Combine(projectPath, instance.ServiceConfig.Endpoint);
-            }
-            else
+            if (string.IsNullOrWhiteSpace(Instance.Name))
             {
-                serviceUrl = instance.ServiceConfig.Endpoint;
+                Instance.Name = Constants.DefaultServiceName;
             }
 
-            if (string.IsNullOrWhiteSpace(instance.Name))
-            {
-                instance.Name = Constants.DefaultServiceName;
-            }
-
-            var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
-            var serviceFolder = instance.Name;
+            var rootFolder = Context.HandlerHelper.GetServiceArtifactsRootFolder();
+            var serviceFolder = Instance.Name;
             var document = NSwagDocument.Create();
-            if (instance.ServiceConfig.GenerateCSharpClient)
+            if (serviceConfig.GenerateCSharpClient)
             {
-                instance.ServiceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.cs";
-                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace))
+                serviceConfig.OpenApiToCSharpClientCommand.OutputFilePath = $"{serviceConfig.GeneratedFileName}.cs";
+                if (string.IsNullOrWhiteSpace(serviceConfig.OpenApiToCSharpClientCommand.Namespace))
                 {
-                    instance.ServiceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                    serviceConfig.OpenApiToCSharpClientCommand.Namespace = $"{nameSpace}.{serviceFolder}";
                 }
 
-                document.CodeGenerators.OpenApiToCSharpClientCommand = instance.ServiceConfig.OpenApiToCSharpClientCommand;
+                document.CodeGenerators.OpenApiToCSharpClientCommand = serviceConfig.OpenApiToCSharpClientCommand;
             }
 
-            if (instance.ServiceConfig.GenerateTypeScriptClient)
+            if (serviceConfig.GenerateTypeScriptClient)
             {
-                instance.ServiceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.ts";
-                document.CodeGenerators.OpenApiToTypeScriptClientCommand = instance.ServiceConfig.OpenApiToTypeScriptClientCommand;
+                serviceConfig.OpenApiToTypeScriptClientCommand.OutputFilePath = $"{serviceConfig.GeneratedFileName}.ts";
+                document.CodeGenerators.OpenApiToTypeScriptClientCommand = serviceConfig.OpenApiToTypeScriptClientCommand;
             }
 
-            if (instance.ServiceConfig.GenerateCSharpController)
+            if (serviceConfig.GenerateCSharpController)
             {
-                instance.ServiceConfig.OpenApiToCSharpControllerCommand.OutputFilePath =
-                    instance.ServiceConfig.GenerateCSharpClient
-                        ? $"{instance.ServiceConfig.GeneratedFileName}Controller.cs"
-                        : $"{instance.ServiceConfig.GeneratedFileName}.cs";
+                serviceConfig.OpenApiToCSharpControllerCommand.OutputFilePath =
+                    serviceConfig.GenerateCSharpClient
+                        ? $"{serviceConfig.GeneratedFileName}Controller.cs"
+                        : $"{serviceConfig.GeneratedFileName}.cs";
 
-                if (string.IsNullOrWhiteSpace(instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace))
+                if (string.IsNullOrWhiteSpace(serviceConfig.OpenApiToCSharpControllerCommand.Namespace))
                 {
-                    instance.ServiceConfig.OpenApiToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
+                    serviceConfig.OpenApiToCSharpControllerCommand.Namespace = $"{nameSpace}.{serviceFolder}";
                 }
 
-                document.CodeGenerators.OpenApiToCSharpControllerCommand = instance.ServiceConfig.OpenApiToCSharpControllerCommand;
+                document.CodeGenerators.OpenApiToCSharpControllerCommand = serviceConfig.OpenApiToCSharpControllerCommand;
             }
 
             document.SelectedSwaggerGenerator = new FromDocumentCommand
             {
-                OutputFilePath = $"{instance.ServiceConfig.GeneratedFileName}.nswag.json",
-                Url = instance.ServiceConfig.ConvertFromOdata ? null : serviceUrl,
-                Json = instance.ServiceConfig.CopySpecification || instance.ServiceConfig.ConvertFromOdata
-                    ? File.ReadAllText(instance.SpecificationTempPath)
+                OutputFilePath = $"{serviceConfig.GeneratedFileName}.nswag.json",
+                Url = serviceConfig.ConvertFromOdata ? null : ServiceUri,
+                Json = serviceConfig.CopySpecification || serviceConfig.ConvertFromOdata
+                    ? File.ReadAllText(Instance.SpecificationTempPath)
                     : null
             };
 
             var json = document.ToJson();
             var tempFileName = Path.GetTempFileName();
             File.WriteAllText(tempFileName, json);
-            var targetPath = Path.Combine(rootFolder, serviceFolder, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var nSwagFilePath = await context.HandlerHelper.AddFileAsync(tempFileName, targetPath);
+            var targetPath = Path.Combine(rootFolder, serviceFolder, $"{serviceConfig.GeneratedFileName}.nswag");
+            var nSwagFilePath = await Context.HandlerHelper.AddFileAsync(tempFileName, targetPath);
             if (File.Exists(tempFileName))
             {
                 File.Delete(tempFileName);
             }
 
-            if (File.Exists(instance.SpecificationTempPath))
+            if (File.Exists(Instance.SpecificationTempPath))
             {
-                File.Delete(instance.SpecificationTempPath);
+                File.Delete(Instance.SpecificationTempPath);
             }
 
             return nSwagFilePath;
         }
 
-        internal async Task<string> ReGenerateCSharpFileAsync(ConnectedServiceHandlerContext context, Instance instance)
+        internal async Task<string> ReGenerateCSharpFileAsync()
         {
-            var serviceFolder = instance.Name;
-            var rootFolder = context.HandlerHelper.GetServiceArtifactsRootFolder();
-            var folderPath = context.ProjectHierarchy.GetProject().GetServiceFolderPath(rootFolder, serviceFolder);
+            var folderPath = await GetReferenceFileFolderAsync();
 
-            var nSwagFilePath = Path.Combine(folderPath, $"{instance.ServiceConfig.GeneratedFileName}.nswag");
-            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, instance.ServiceConfig.Variables);
-            document.Runtime = instance.ServiceConfig.Runtime;
+            var nSwagFilePath = Path.Combine(folderPath, $"{Instance.ServiceConfig.GeneratedFileName}.nswag");
+            var document = await NSwagDocument.LoadWithTransformationsAsync(nSwagFilePath, Instance.ServiceConfig.Variables);
+            document.Runtime = Instance.ServiceConfig.Runtime;
             await document.ExecuteAsync();
             return document.SelectedSwaggerGenerator.OutputFilePath;
         }

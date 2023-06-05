@@ -49,7 +49,7 @@ namespace Unchase.OpenAPI.ConnectedService
             ConnectedServiceHandlerContext context,
             Instance instance)
         {
-            var codeGenDescriptor = new NSwagCodeGenDescriptor(context, instance);
+            var codeGenDescriptor = await BaseCodeGenDescriptor.CreateAsync<NSwagCodeGenDescriptor>(context, instance);
             await codeGenDescriptor.AddNugetPackagesAsync();
             var nSwagFilePath = await codeGenDescriptor.AddGeneratedNSwagFileAsync();
             var clientFilePath = await codeGenDescriptor.AddGeneratedCodeAsync();
@@ -60,7 +60,7 @@ namespace Unchase.OpenAPI.ConnectedService
             ConnectedServiceHandlerContext context,
             Instance instance)
         {
-            var codeGenDescriptor = new NSwagCodeGenDescriptor(context, instance);
+            var codeGenDescriptor = await BaseCodeGenDescriptor.CreateAsync<NSwagCodeGenDescriptor>(context, instance);
             var nSwagFilePath = await codeGenDescriptor.AddGeneratedNSwagFileAsync();
             var clientFilePath = await codeGenDescriptor.AddGeneratedCodeAsync();
             return codeGenDescriptor;

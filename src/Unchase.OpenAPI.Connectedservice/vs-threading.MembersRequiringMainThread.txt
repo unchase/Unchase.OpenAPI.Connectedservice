@@ -1,0 +1,8 @@
+![Microsoft.VisualStudio.Shell.ServiceProvider]::GetGlobalServiceAsync
+[Microsoft.VisualStudio.Shell.ServiceProvider]
+[Microsoft.VisualStudio.Shell.Interop.*]
+[Microsoft.VisualStudio.OLE.Interop.*]
+[Microsoft.Internal.VisualStudio.Shell.Interop.*]
+![Microsoft.VisualStudio.Shell.Interop.IAsyncServiceProvider]
+[Microsoft.VisualStudio.Shell.Package]::GetService
+[EnvDTE.*]
