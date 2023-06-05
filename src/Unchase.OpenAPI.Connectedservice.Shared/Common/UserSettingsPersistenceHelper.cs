@@ -42,8 +42,12 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                             {
                                 stream = null;
 
-                                var dcs = new DataContractSerializer(userSettings.GetType());
                                 //TODO: use async serializer
+                                Type[] knownTypes = new[]
+                                {
+                                    typeof(Microsoft.OpenApi.OData.Extensions.ODataRoutePathPrefixProvider)
+                                };
+                                var dcs = new DataContractSerializer(userSettings.GetType(), knownTypes);
                                 dcs.WriteObject(writer, userSettings);
 
                                 await writer.FlushAsync();
@@ -100,8 +104,12 @@ namespace Unchase.OpenAPI.ConnectedService.Common
                                 {
                                     stream = null;
 
-                                    var dcs = new DataContractSerializer(typeof(T));
                                     //TODO: use async serializer
+                                    Type[] knownTypes = new[]
+                                    {
+                                        typeof(Microsoft.OpenApi.OData.Extensions.ODataRoutePathPrefixProvider)
+                                    };
+                                    var dcs = new DataContractSerializer(typeof(T), knownTypes);
                                     result = dcs.ReadObject(reader) as T;
                                 }
                             }
