@@ -7,6 +7,11 @@
 
 These are the changes to each version that has been released on the official [Visual Studio extension gallery](https://marketplace.visualstudio.com/items?itemName=unchase.UnchaseOpenAPIConnectedService).
 
+## v1.9.1 `(2022-06-05)`
+
+- [x] Update dependencies: add support for NSwag.Commands v13.19.0
+- [x] Fix [issue #86](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/86) with `LiquidTemplate`
+
 ## v1.9.0 `(2023-06-05)` provided by [Andreas Böhm](https://github.com/matherm-aboehm)
 
 - Some fixes to restore compatibility with Visual Studio 2017 and 2019 ([issue #78](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/78), [issue #80](https://github.com/unchase/Unchase.OpenAPI.Connectedservice/issues/80))

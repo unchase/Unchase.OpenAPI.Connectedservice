@@ -4,7 +4,7 @@
     {
         public static class Vsix
         {
-            public const string Version = "1.9.0";
+            public const string Version = "1.9.1";
         }
 
         public const string Author = "Nikolay Chebotov (Unchase)";

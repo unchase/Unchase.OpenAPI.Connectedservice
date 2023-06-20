@@ -219,7 +219,7 @@
       <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions">
-      <Version>3.0.0</Version>
+      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions">
       <Version>3.0.0</Version>
@@ -276,7 +276,7 @@
       <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="NSwag.Commands">
-      <Version>13.18.0</Version>
+      <Version>13.19.0</Version>
     </PackageReference>
     <PackageReference Include="NuGet.VisualStudio">
       <Version>5.11.3</Version>
@@ -320,8 +320,7 @@
   -->
   <Target Name="ForceVSIXIncludes" BeforeTargets="GetVsixSourceItems" AfterTargets="ResolveAssemblyReferences">
     <ItemGroup>
-      <_ForceIncludeInVSIX Include="@(ReferenceCopyLocalPaths)" Condition=" '%(ReferenceCopyLocalPaths.NuGetSourceType)' == 'Package' and
-                           '%(ReferenceCopyLocalPaths.FileName)' == 'Newtonsoft.Json' ">
+      <_ForceIncludeInVSIX Include="@(ReferenceCopyLocalPaths)" Condition=" '%(ReferenceCopyLocalPaths.NuGetSourceType)' == 'Package' and&#xD;&#xA;                           '%(ReferenceCopyLocalPaths.FileName)' == 'Newtonsoft.Json' ">
         <ForceIncludeInVSIX>true</ForceIncludeInVSIX>
       </_ForceIncludeInVSIX>
     </ItemGroup>
@@ -332,11 +331,9 @@
   </Target>
   <Target Name="AssignLinkMetadataForResource" BeforeTargets="AssignLinkMetadata" Condition=" '$(SynthesizeLinkMetadata)' == 'true' ">
     <!-- RESOURCE ITEMS -->
-    <AssignLinkMetadata Items="@(Resource)"
-                        Condition="'@(Resource)' != '' and '%(Resource.DefiningProjectFullPath)' != '$(MSBuildProjectFullPath)'">
+    <AssignLinkMetadata Items="@(Resource)" Condition="'@(Resource)' != '' and '%(Resource.DefiningProjectFullPath)' != '$(MSBuildProjectFullPath)'">
       <Output TaskParameter="OutputItems" ItemName="_Temp" />
     </AssignLinkMetadata>
-
     <ItemGroup>
       <Resource Remove="@(_Temp)" />
       <Resource Include="@(_Temp)" />
